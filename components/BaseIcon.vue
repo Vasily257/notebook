@@ -15,7 +15,7 @@ interface Props {
   isRotated?: boolean;
 }
 
-/** Типы пропсов */
+/** Пропсы со значениями по умолчанию */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = withDefaults(defineProps<Props>(), {
   width: 16,
