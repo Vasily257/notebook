@@ -1,8 +1,9 @@
 {
 	"printWidth": 100,
 	"singleQuote": true,
-	"bracketSpacing": true,
+	"quoteProps": "consistent",
 	"trailingComma": "all",
+	"bracketSpacing": true,
 	"arrowParens": "always",
 	"endOfLine": "auto"
 }
