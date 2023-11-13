@@ -1,23 +1,20 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import useHeader from '@/composable/header';
 
-/** Настройки основной иконки */
-const mainIcon = computed(() => {
-  const mainIcon = {
-    name: 'contacts',
-    width: 31,
-    height: 24,
-  };
-
-  return mainIcon;
-});
+const { isCloseShown, mainIcon } = useHeader();
 </script>
 
 <template>
   <header class="header">
     <BaseIcon :icon-name="mainIcon.name" :width="mainIcon.width" :height="mainIcon.height" />
     <span class="header__text header__text--uppercase">Книга контактов</span>
-    <BaseIcon v-if="true" class="header__close-icon" icon-name="close" :width="24" :height="24" />
+    <BaseIcon
+      v-if="isCloseShown"
+      class="header__close-icon"
+      icon-name="close"
+      :width="24"
+      :height="24"
+    />
   </header>
 </template>
 
