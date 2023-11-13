@@ -50,15 +50,14 @@ const mainButtonClassObject = computed(() => {
   position: relative;
   display: flex;
   align-items: center;
-  width: 100%;
-  min-width: 245px;
-  max-width: 408px;
-  text-transform: uppercase;
+  text-transform: inherit;
 
   &__main-button {
     column-gap: 8px;
     width: 100%;
-    padding: 12px 8px;
+    height: 100%;
+    padding: 0 8px;
+    text-transform: inherit;
     border: 1px solid #dddddd;
     border-radius: 4px;
     background-color: #ffffff;
@@ -94,6 +93,7 @@ const mainButtonClassObject = computed(() => {
 
   &__item-button {
     width: 100%;
+    text-transform: inherit;
     border: none;
     background-color: #ffffff;
 
