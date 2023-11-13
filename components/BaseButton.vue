@@ -27,10 +27,11 @@ const props = withDefaults(defineProps<Props>(), {
 <style lang="scss" scoped>
 .base-button {
   display: inline-flex;
+  justify-content: space-between;
   align-items: center;
   gap: 4px;
   box-sizing: border-box;
-  max-width: 136px;
+  width: fit-content;
   height: 40px;
   padding: 12px 16px;
   cursor: pointer;
