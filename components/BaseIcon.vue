@@ -28,8 +28,8 @@ const props = withDefaults(defineProps<Props>(), {
 /** CSS-классы для иконки */
 const iconClassObject = computed(() => {
   return {
-    'base-icon': true,
-    'base-icon--is-rotated': props.isRotated,
+    'icon': true,
+    'icon--is-rotated': props.isRotated,
   };
 });
 </script>
@@ -56,7 +56,7 @@ const iconClassObject = computed(() => {
   }
 }
 
-.base-icon {
+.icon {
   display: flex;
   align-items: center;
 

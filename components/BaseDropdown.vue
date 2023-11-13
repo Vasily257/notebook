@@ -17,14 +17,14 @@ const { isMenuOpened, currentOption, toggleMenu, chooseOption } = useDropdown(pr
 /** CSS-классы для основной кнопки меню */
 const mainButtonClassObject = computed(() => {
   return {
-    'base-dropdown__main-button': true,
-    'base-dropdown__main-button--opened': isMenuOpened.value,
+    'dropdown__main-button': true,
+    'dropdown__main-button--opened': isMenuOpened.value,
   };
 });
 </script>
 
 <template>
-  <div class="base-dropdown">
+  <div class="dropdown">
     <BaseButton
       :class="mainButtonClassObject"
       :aria-haspopup="true"
@@ -34,9 +34,9 @@ const mainButtonClassObject = computed(() => {
       {{ currentOption }}
       <BaseIcon icon-name="triangle-down" />
     </BaseButton>
-    <ul v-if="isMenuOpened" class="base-dropdown__menu" role="menu">
-      <li v-for="(option, index) in options" :key="index" class="base-dropdown__menu-item">
-        <BaseButton class="base-dropdown__item-button" role="menuitem" @click="chooseOption">
+    <ul v-if="isMenuOpened" class="dropdown__menu" role="menu">
+      <li v-for="(option, index) in options" :key="index" class="dropdown__menu-item">
+        <BaseButton class="dropdown__item-button" role="menuitem" @click="chooseOption">
           {{ option }}
           <BaseIcon v-if="option === currentOption" icon-name="check-mark" />
         </BaseButton>
@@ -46,7 +46,7 @@ const mainButtonClassObject = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-.base-dropdown {
+.dropdown {
   position: relative;
   display: flex;
   align-items: center;

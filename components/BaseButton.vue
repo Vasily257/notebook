@@ -19,13 +19,13 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <button class="base-button">
+  <button class="button">
     <slot>Нажать</slot>
   </button>
 </template>
 
 <style lang="scss" scoped>
-.base-button {
+.button {
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
