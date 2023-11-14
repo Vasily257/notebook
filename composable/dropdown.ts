@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 
-import toggleBoolean from '~/utils/toggle-boolean';
+import not from '@/utils/not';
 
 /**
  * Хук для управления выпадающим меню
@@ -14,7 +14,7 @@ export default function useDropdown(options: string[]) {
   const currentOption = ref(options.length > 0 ? options[0] : '');
 
   /** Переключить видимость выпадающего меню */
-  const toggleMenu = () => (isMenuOpened.value = toggleBoolean(isMenuOpened.value));
+  const toggleMenu = () => (isMenuOpened.value = not(isMenuOpened.value));
 
   /** Закрыть выпадающее меню */
   const closeMenu = () => (isMenuOpened.value = false);
