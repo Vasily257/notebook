@@ -24,7 +24,7 @@ export default function useHeader() {
   }
 
   if (route.path === '/edit') {
-    headerText.value = 'Двери' || 'Без имени';
+    headerText.value = 'Двери Вадим' || 'Без имени';
     mainIcon.value.isVisible = false;
   }
 
