@@ -50,6 +50,8 @@ const mainButtonClassObject = computed(() => {
   position: relative;
   display: flex;
   align-items: center;
+  flex-grow: 1;
+  height: 100%;
   text-transform: inherit;
 
   &__main-button {
@@ -70,6 +72,7 @@ const mainButtonClassObject = computed(() => {
 
   &__menu {
     position: absolute;
+    z-index: 1;
     top: calc(100% + 8px);
     left: 0;
     display: flex;
