@@ -57,18 +57,14 @@ const mainButtonClassObject = computed(() => {
     width: 100%;
     height: 100%;
     padding: 0 8px;
-    text-transform: inherit;
-    border: 1px solid #dddddd;
-    border-radius: 4px;
-    background-color: #ffffff;
+    border-color: #dddddd;
 
     &:hover {
-      border: 1px solid #2f80ed;
-      background-color: #ffffff;
+      border-color: #2f80ed;
     }
 
     &--opened {
-      border: 1px solid #2f80ed;
+      border-color: #2f80ed;
     }
   }
 
@@ -93,9 +89,7 @@ const mainButtonClassObject = computed(() => {
 
   &__item-button {
     width: 100%;
-    text-transform: inherit;
     border: none;
-    background-color: #ffffff;
 
     &:hover {
       background-color: #eaf2fd;

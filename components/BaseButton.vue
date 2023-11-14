@@ -32,22 +32,29 @@ const props = withDefaults(defineProps<Props>(), {
   gap: 4px;
   box-sizing: border-box;
   width: fit-content;
-  height: 40px;
-  padding: 12px 16px;
+  height: 32px;
+  padding: 0 16px;
   cursor: pointer;
   text-align: center;
+  text-transform: inherit;
   color: #545454;
-  border: 1px solid transparent;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
   border-radius: 4px;
-  background-color: #ffc700;
+  background-color: #ffffff;
   font: inherit;
-  font-family: 'Proxima Nova';
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 1;
 
   &:hover {
-    background-color: #ffd84c;
+    background-color: #ffffff;
+  }
+
+  @media screen and (min-width: 900px) {
+    height: 40px;
+    font-size: 14px;
   }
 }
 </style>

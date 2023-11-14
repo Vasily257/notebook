@@ -20,24 +20,24 @@ const filterOptions = ['все', 'родственники', 'коллеги'];
   flex-flow: row nowrap;
   height: 48px;
   padding: 0 12px;
+  text-transform: uppercase;
   border: 1px solid #eaf2fd;
   background: #f9fcff;
 
   &__dropdown {
     width: 219px;
     height: 32px;
-    text-transform: uppercase;
+    text-transform: inherit;
   }
 
   &__button {
-    height: 32px;
-    padding: 0 16px;
-    text-transform: uppercase;
     color: #2f80ed;
-    border: 1px solid #2f80ed;
+    border-color: #2f80ed;
     border-radius: 16px;
-    background-color: #ffffff;
-    font-size: 12px;
+
+    @media screen and (min-width: 900px) {
+      border-radius: 20px;
+    }
 
     &:hover {
       background-color: #eaf2fd;
