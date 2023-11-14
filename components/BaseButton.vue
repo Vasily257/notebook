@@ -33,7 +33,7 @@ const props = withDefaults(defineProps<Props>(), {
   box-sizing: border-box;
   width: fit-content;
   height: 32px;
-  padding: 0 16px;
+  padding: 0 15px;
   cursor: pointer;
   text-align: center;
   text-transform: inherit;

@@ -19,7 +19,7 @@ const filterOptions = ['все', 'родственники', 'коллеги'];
   align-items: center;
   flex-flow: row nowrap;
   height: 48px;
-  padding: 0 12px;
+  padding: 0 11px;
   text-transform: uppercase;
   border: 1px solid #eaf2fd;
   background: #f9fcff;
