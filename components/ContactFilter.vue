@@ -1,10 +1,10 @@
 <script setup lang="ts">
-const filterOptions = ['все', 'родственники', 'коллеги'];
+import { categoryOptions } from '@/constants/index';
 </script>
 
 <template>
   <div class="contact-filter">
-    <BaseDropdown class="contact-filter__dropdown" :options="filterOptions" />
+    <BaseDropdown class="contact-filter__dropdown" :options="categoryOptions" />
     <BaseButton class="contact-filter__button">
       <BaseIcon icon-name="plus" />
       Добавить
