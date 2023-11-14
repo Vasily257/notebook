@@ -217,6 +217,7 @@
 			"box-decoration-break",
 			"box-shadow",
 			"text-shadow",
+			"caret-color",
 			"font",
 			"font-family",
 			"font-size",
