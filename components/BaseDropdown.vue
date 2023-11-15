@@ -21,6 +21,20 @@ const mainButtonClassObject = computed(() => {
     'dropdown__main-button--opened': isMenuOpened.value,
   };
 });
+
+/** Получить класс кнопки меню */
+const getItemButtonClassObject = (index: number) => {
+  return {
+    'dropdown__item-button': true,
+    'dropdown__item-button--first': index === 0,
+    'dropdown__item-button--last': index === props.options.length - 1,
+  };
+};
+
+/** Является ли перебирамая опция выбранной */
+const isCurrentOption = (option: string) => {
+  return option === currentOption.value;
+};
 </script>
 
 <template>
@@ -36,9 +50,9 @@ const mainButtonClassObject = computed(() => {
     </BaseButton>
     <ul v-if="isMenuOpened" class="dropdown__menu" role="menu">
       <li v-for="(option, index) in options" :key="index" class="dropdown__menu-item">
-        <BaseButton class="dropdown__item-button" role="menuitem" @click="chooseOption">
+        <BaseButton :class="getItemButtonClassObject(index)" role="menuitem" @click="chooseOption">
           {{ option }}
-          <BaseIcon v-if="option === currentOption" icon-name="check-mark" />
+          <BaseIcon v-if="isCurrentOption(option)" icon-name="check-mark" />
         </BaseButton>
       </li>
     </ul>
@@ -83,6 +97,7 @@ const mainButtonClassObject = computed(() => {
     padding: 0;
     list-style-type: none;
     border-radius: 4px;
+    background-color: #ffffff;
     box-shadow: 0 0 6px 0 rgba(148, 181, 225, 0.35);
   }
 
@@ -93,9 +108,20 @@ const mainButtonClassObject = computed(() => {
   &__item-button {
     width: 100%;
     border: none;
+    border-radius: 0;
 
     &:hover {
       background-color: #eaf2fd;
+    }
+
+    &--first {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+    }
+
+    &--last {
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
     }
   }
 }
