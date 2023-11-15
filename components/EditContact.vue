@@ -3,7 +3,7 @@ const inputLabels = [
   { id: 'name', text: 'Имя' },
   { id: 'tel', text: 'Телефон' },
   { id: 'email', text: 'E-mail' },
-  { id: 'categoty', text: 'Категория' },
+  { id: 'category', text: 'Категория' },
   { id: 'created', text: 'Создан' },
 ];
 </script>
