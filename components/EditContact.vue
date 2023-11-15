@@ -1,6 +1,6 @@
 <script setup lang="ts">
-/** Варианты категорий */
-const inputLabels = [
+/** Лейблы контролов (инпутов) */
+const controlLabels = [
   { id: 'name', text: 'Имя' },
   { id: 'tel', text: 'Телефон' },
   { id: 'email', text: 'E-mail' },
@@ -16,7 +16,11 @@ const categoryOptions = ['Не выбрано', 'Родственники', 'К�
   <div class="edit-contact">
     <h2 class="edit-contact__title">Контакт</h2>
     <ul class="edit-contact__control-list">
-      <li v-for="(label, index) in inputLabels" :key="label.id" class="edit-contact__control-item">
+      <li
+        v-for="(label, index) in controlLabels"
+        :key="label.id"
+        class="edit-contact__control-item"
+      >
         <ContactControl :label="label" :index="index" :category-options="categoryOptions" />
       </li>
     </ul>
