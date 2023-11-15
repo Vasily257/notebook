@@ -26,7 +26,7 @@
 .edit-contact-buttons {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 23px;
   flex-flow: row nowrap;
   margin: 0;
   padding: 0;
@@ -41,6 +41,7 @@
   }
 
   &__remove-button {
+    column-gap: 2px;
     padding: 0;
     color: #2f80ed;
     font-weight: 400;
@@ -58,4 +59,5 @@
     fill: #2f80ed;
   }
 }
+
 </style>
