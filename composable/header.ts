@@ -18,14 +18,21 @@ export default function useHeader() {
 
   if (isEditContactPage.value) {
     headerText.value = 'Двери Вадим' || 'Без имени';
-    mainIcon.value.isVisible = false;
+    mainIcon.value = {
+      ...mainIcon.value,
+      isVisible: false,
+    };
   }
 
   if (isNewContact.value) {
     headerText.value = 'Добавить контакт';
-    mainIcon.value.name = 'new-user';
-    mainIcon.value.width = 16;
-    mainIcon.value.height = 16;
+
+    mainIcon.value = {
+      ...mainIcon.value,
+      name: 'new-user',
+      width: 16,
+      height: 16,
+    };
   }
 
   return {
