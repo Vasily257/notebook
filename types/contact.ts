@@ -1,5 +1,5 @@
 /** Лейбл на странице добавления нового контакта */
-export interface EditContactLabel {
+export interface ContactLabel {
   id: string;
   text: string;
 }
