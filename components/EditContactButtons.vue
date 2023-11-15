@@ -3,7 +3,7 @@
 <template>
   <ul class="edit-contact-buttons">
     <li>
-      <BaseButton class="edit-contact-buttons__save-button">
+      <BaseButton type="submit" class="edit-contact-buttons__save-button">
         <BaseIcon icon-name="save" />
         СОХРАНИТЬ
       </BaseButton>

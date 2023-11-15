@@ -3,23 +3,17 @@
 interface Props {
   /** Тип кнопки */
   type?: 'submit' | 'button' | 'reset';
-  /** Отображается ли лоадер */
-  isLoading?: boolean;
-  /** Отключена ли кнопка */
-  isDisabled?: boolean;
 }
 
 /** Пропсы со значениями по умолчанию */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = withDefaults(defineProps<Props>(), {
   type: 'button',
-  isLoading: false,
-  isDisabled: false,
 });
 </script>
 
 <template>
-  <button class="button">
+  <button :type="type" class="button">
     <slot>Нажать</slot>
   </button>
 </template>
