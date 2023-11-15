@@ -17,10 +17,10 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <p class="control">
+  <div class="control">
     <label :for="controlId" class="control__label">{{ labelText }}</label>
     <slot></slot>
-  </p>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -41,9 +41,10 @@ const props = withDefaults(defineProps<Props>(), {
     line-height: 1;
 
     @media screen and (min-width: 450px) {
-      width: 136px;
+      &__label {
+        width: 136px;
+      }
     }
   }
 }
-
 </style>

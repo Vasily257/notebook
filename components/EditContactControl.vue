@@ -20,7 +20,7 @@ const props = defineProps<Props>();
   <BaseControl :control-id="label.id" :label-text="label.text">
     <BaseInput v-if="index < 3" :id="label.id" :name="label.id" />
     <BaseDropdown v-if="index === 3" :options="categoryOptions" />
-    <p v-if="index === 5"></p>
+    <span v-if="index === 4"></span>
   </BaseControl>
 </template>
 
