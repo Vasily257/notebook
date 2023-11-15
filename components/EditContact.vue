@@ -1,4 +1,5 @@
 <script setup lang="ts">
+/** Варианты категорий */
 const inputLabels = [
   { id: 'name', text: 'Имя' },
   { id: 'tel', text: 'Телефон' },
@@ -6,6 +7,9 @@ const inputLabels = [
   { id: 'category', text: 'Категория' },
   { id: 'created', text: 'Создан' },
 ];
+
+/** Варианты категорий */
+const categoryOptions = ['Не выбрано', 'Родственники', 'Коллеги'];
 </script>
 
 <template>
@@ -13,7 +17,7 @@ const inputLabels = [
     <h2 class="edit-contact__title">Контакт</h2>
     <ul class="edit-contact__control-list">
       <li v-for="(label, index) in inputLabels" :key="label.id" class="edit-contact__control-item">
-        <EditContactControl :label="label" :index="index" />
+        <ContactControl :label="label" :index="index" :category-options="categoryOptions" />
       </li>
     </ul>
     <EditContactButtons class="edit-contact__button-list" />

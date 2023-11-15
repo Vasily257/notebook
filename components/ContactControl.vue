@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import type { ContactLabel } from '@/types/contact.js';
 
-/** Варианты категорий */
-const categoryOptions = ['Не выбрано', 'Родственники', 'Коллеги'];
-
 interface Props {
   /** Лейбл */
   label: ContactLabel;
   /** Порядковый номер контрола */
   index: number;
+  /** Опции для выпадающего меню */
+  categoryOptions: string[];
 }
 
 /** Пропсы */
