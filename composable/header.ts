@@ -22,7 +22,7 @@ export default function useHeader() {
   }
 
   if (isNewContact.value) {
-    headerText.value = 'Новый контакт';
+    headerText.value = 'Добавить контакт';
     mainIcon.value.name = 'new-user';
     mainIcon.value.width = 16;
     mainIcon.value.height = 16;
