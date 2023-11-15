@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { categoryOptions } from '@/constants/index';
-import type { EditContactLabel } from '@/types/edit-contact.js';
+import type { EditContactLabel } from '@/types/edit-contact';
+
+/** Варианты категорий */
+const categoryOptions = ['Не выбрано', 'Родственники', 'Коллеги'];
 
 interface Props {
   /** Лейбл */

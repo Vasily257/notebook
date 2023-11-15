@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { categoryOptions } from '@/constants/index';
+/** Варианты категорий */
+const categoryOptions = ['Все', 'Родственники', 'Коллеги'];
 </script>
 
 <template>
