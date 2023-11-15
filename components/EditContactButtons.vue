@@ -2,13 +2,13 @@
 
 <template>
   <ul class="edit-contact-buttons">
-    <li class="edit-contact-buttons__item">
+    <li>
       <BaseButton class="edit-contact-buttons__save-button">
         <BaseIcon icon-name="save" />
         СОХРАНИТЬ
       </BaseButton>
     </li>
-    <li class="edit-contact-buttons__item">
+    <li>
       <BaseButton class="edit-contact-buttons__remove-button">
         <BaseIcon
           class="edit-contact-buttons__remove-icon"
@@ -59,5 +59,4 @@
     fill: #2f80ed;
   }
 }
-
 </style>
