@@ -9,19 +9,19 @@ const inputLabels = [
 </script>
 
 <template>
-  <div class="new-contact">
-    <h2 class="new-contact__title">Контакт</h2>
-    <ul class="new-contact__control-list">
-      <li v-for="(label, index) in inputLabels" :key="label.id" class="new-contact__control-item">
+  <div class="edit-contact">
+    <h2 class="edit-contact__title">Контакт</h2>
+    <ul class="edit-contact__control-list">
+      <li v-for="(label, index) in inputLabels" :key="label.id" class="edit-contact__control-item">
         <EditContactControl :label="label" :index="index" />
       </li>
     </ul>
-    <EditContactButtons class="new-contact__button-list" />
+    <EditContactButtons class="edit-contact__button-list" />
   </div>
 </template>
 
 <style lang="scss" scoped>
-.new-contact {
+.edit-contact {
   width: 100%;
   padding: 35px 20px 48px;
   background-color: #ffffff;
@@ -54,5 +54,4 @@ const inputLabels = [
     margin-top: 32px;
   }
 }
-
 </style>
