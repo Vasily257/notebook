@@ -43,7 +43,6 @@ const iconClassObject = computed(() => {
       :aria-label="ariaLabel"
       :aria-hidden="ariaHidden"
       role="img"
-      :focusable="0"
     >
       <use :xlink:href="`sprite.svg#${iconName}`" />
     </svg>
