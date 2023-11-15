@@ -1,9 +1,9 @@
 import { ref } from 'vue';
+import usePage from './page';
 
 /** Хук для управления шапкой сайта */
 export default function useHeader() {
-  /** Открыта ли домашняя страница */
-  const isHomePage = ref(true);
+  const { isHomePage, isEditContactPage, isNewContact } = usePage();
 
   /** Текст внутри шапки сайта */
   const headerText = ref('Книга контактов');
@@ -16,19 +16,12 @@ export default function useHeader() {
     height: 24,
   });
 
-  /** Настройки роутинга */
-  const route = useRoute();
-
-  if (route.path !== '/') {
-    isHomePage.value = false;
-  }
-
-  if (route.path === '/edit') {
+  if (isEditContactPage.value) {
     headerText.value = 'Двери Вадим' || 'Без имени';
     mainIcon.value.isVisible = false;
   }
 
-  if (route.path === '/new') {
+  if (isNewContact.value) {
     headerText.value = 'Новый контакт';
     mainIcon.value.name = 'new-user';
     mainIcon.value.width = 16;
