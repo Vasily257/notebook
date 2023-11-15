@@ -26,7 +26,7 @@
 .edit-contact-buttons {
   display: flex;
   justify-content: center;
-  gap: 23px;
+  column-gap: 23px;
   flex-flow: row nowrap;
   margin: 0;
   padding: 0;
