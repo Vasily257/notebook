@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import useForm from '@/composable/form';
+import not from '@/utils/not';
+
 const inputLabels = [
   { name: 'name', text: 'Имя' },
   { name: 'tel', text: 'Телефон' },
@@ -6,7 +9,45 @@ const inputLabels = [
   { name: 'category', text: 'Категория' },
 ];
 
+/** Начальные значения и правила валидации для полей формы */
+const fieldOptions = [
+  {
+    name: 'name',
+    value: '',
+    rules: {
+      minLength: 3,
+      required: true,
+    },
+  },
+  {
+    name: 'tel',
+    value: '',
+    rules: {
+      equalLength: 10,
+      required: true,
+    },
+  },
+  {
+    name: 'email',
+    value: '',
+    rules: {
+      required: true,
+    },
+  },
+  {
+    name: 'category',
+    value: '',
+    rules: {
+      required: true,
+    },
+  },
+];
+
+/** Варианты категорий */
 const categoryOptions = ['Не выбрано', 'Родственники', 'Коллеги'];
+
+/** Информация полей формы */
+const form = reactive(useForm(fieldOptions));
 </script>
 
 <template>
@@ -14,14 +55,23 @@ const categoryOptions = ['Не выбрано', 'Родственники', 'К�
     <h2 class="new-contact__title">Новый контакт</h2>
     <ul class="new-contact__control-list">
       <li v-for="(label, index) in inputLabels" :key="label.name" class="new-contact__control-item">
-        <ContactControl
-          :label="label"
-          :index="index"
-          :category-options="label.name === 'category' ? categoryOptions : []"
-        />
+        <BaseControl :control-id="label.name" :label-text="label.text">
+          <BaseInput
+            v-if="index < 3"
+            :id="label.name"
+            :name="label.name"
+            v-model="form.values[label.name]"
+          />
+          <BaseDropdown
+            v-if="index === 3"
+            :id="label.name"
+            :name="label.name"
+            :options="categoryOptions"
+          />
+        </BaseControl>
       </li>
     </ul>
-    <BaseButton class="new-contact__save-button">
+    <BaseButton class="new-contact__save-button" :disabled="not(form.isValid)">
       <BaseIcon icon-name="save" />
       СОХРАНИТЬ
     </BaseButton>
