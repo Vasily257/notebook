@@ -13,7 +13,7 @@ const categoryOptions = ['Не выбрано', 'Родственники', 'К�
 </script>
 
 <template>
-  <div class="edit-contact">
+  <form class="edit-contact" method="post" autocomplete="on" novalidate>
     <h2 class="edit-contact__title">Контакт</h2>
     <ul class="edit-contact__control-list">
       <li
@@ -25,7 +25,7 @@ const categoryOptions = ['Не выбрано', 'Родственники', 'К�
       </li>
     </ul>
     <EditContactButtons class="edit-contact__button-list" />
-  </div>
+  </form>
 </template>
 
 <style lang="scss" scoped>
