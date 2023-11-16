@@ -40,7 +40,7 @@ const emits = defineEmits(['update:modelValue']);
     :pattern="pattern"
     :required="isRequired"
     class="input"
-    @input="$emit('update:modelValue', $event.target.value)"
+    @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
   />
 </template>
 
