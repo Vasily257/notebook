@@ -1,11 +1,11 @@
 <script setup lang="ts">
 /** Лейблы контролов (инпутов) */
 const controlLabels = [
-  { id: 'name', text: 'Имя' },
-  { id: 'tel', text: 'Телефон' },
-  { id: 'email', text: 'E-mail' },
-  { id: 'category', text: 'Категория' },
-  { id: 'created', text: 'Создан' },
+  { name: 'name', text: 'Имя' },
+  { name: 'tel', text: 'Телефон' },
+  { name: 'email', text: 'E-mail' },
+  { name: 'category', text: 'Категория' },
+  { name: 'created', text: 'Создан' },
 ];
 
 /** Варианты категорий */
@@ -18,7 +18,7 @@ const categoryOptions = ['Не выбрано', 'Родственники', 'К�
     <ul class="edit-contact__control-list">
       <li
         v-for="(label, index) in controlLabels"
-        :key="label.id"
+        :key="label.name"
         class="edit-contact__control-item"
       >
         <ContactControl :label="label" :index="index" :category-options="categoryOptions" />

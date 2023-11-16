@@ -16,8 +16,8 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-  <BaseControl :control-id="label.id" :label-text="label.text">
-    <BaseInput v-if="index < 3" :id="label.id" :name="label.id" />
+  <BaseControl :control-id="label.name" :label-text="label.text">
+    <BaseInput v-if="index < 3" :id="label.name" :name="label.name" />
     <BaseDropdown v-if="index === 3" :options="categoryOptions" />
     <span v-if="index === 4"></span>
   </BaseControl>

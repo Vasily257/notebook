@@ -1,9 +1,9 @@
 <script setup lang="ts">
 const inputLabels = [
-  { id: 'name', text: 'Имя' },
-  { id: 'tel', text: 'Телефон' },
-  { id: 'email', text: 'E-mail' },
-  { id: 'category', text: 'Категория' },
+  { name: 'name', text: 'Имя' },
+  { name: 'tel', text: 'Телефон' },
+  { name: 'email', text: 'E-mail' },
+  { name: 'category', text: 'Категория' },
 ];
 
 const categoryOptions = ['Не выбрано', 'Родственники', 'Коллеги'];
@@ -13,11 +13,11 @@ const categoryOptions = ['Не выбрано', 'Родственники', 'К�
   <div class="new-contact">
     <h2 class="new-contact__title">Новый контакт</h2>
     <ul class="new-contact__control-list">
-      <li v-for="(label, index) in inputLabels" :key="label.id" class="new-contact__control-item">
+      <li v-for="(label, index) in inputLabels" :key="label.name" class="new-contact__control-item">
         <ContactControl
           :label="label"
           :index="index"
-          :category-options="label.id === 'category' ? categoryOptions : []"
+          :category-options="label.name === 'category' ? categoryOptions : []"
         />
       </li>
     </ul>
