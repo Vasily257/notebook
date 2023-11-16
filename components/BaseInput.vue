@@ -5,6 +5,8 @@ interface Props {
   id: string;
   /** Имя поля */
   name: string;
+  /** Значение поля */
+  modelValue: string;
   /** Тип поля */
   type?: string;
   /** Замещающий текст */
@@ -22,18 +24,23 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   type: 'text',
 });
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const emits = defineEmits(['update:modelValue']);
 </script>
 
 <template>
   <input
     :id="id"
     :name="name"
+    :value="modelValue"
     :type="type"
     :placeholder="placeholder"
     :autocomplete="autocomplete"
     :pattern="pattern"
     :required="isRequired"
     class="input"
+    @input="$emit('update:modelValue', $event.target.value)"
   />
 </template>
 
@@ -64,5 +71,4 @@ const props = withDefaults(defineProps<Props>(), {
     caret-color: #2f80ed;
   }
 }
-
 </style>
