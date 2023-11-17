@@ -1,6 +1,12 @@
 <script setup lang="ts">
+import { ContactCategory } from '~/types/contact';
+
 /** Варианты категорий */
-const categoryOptions = ['Все', 'Родственники', 'Коллеги'];
+const categoryOptions = [
+  ContactCategory.All,
+  ContactCategory.Relatives,
+  ContactCategory.Colleagues,
+];
 </script>
 
 <template>
