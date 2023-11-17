@@ -8,7 +8,6 @@ export enum ContactCategory {
 
 /** Контакт */
 export interface Contact {
-  id: symbol;
   name: string;
   tel: string;
   email: string;

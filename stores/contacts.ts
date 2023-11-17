@@ -1,39 +1,33 @@
 import { defineStore } from 'pinia';
+import { nanoid } from 'nanoid';
 import { ContactCategory } from '~/types/contact';
 import type { Contact } from '~/types/contact';
-
-/**
- * Имя символа для нового контакта.
- * Используется число, чтобы имя
- * можно было легко обновлять.
- */
-let newContactSymbolName = 4;
 
 export const useContactsStore = defineStore('contacts', () => {
   /** Список контактов, индексированные по id */
   const contacts = ref({
-    [Symbol(0)]: {
+    [nanoid()]: {
       name: 'Айтишник Данила',
       tel: '9876547809',
       email: 'nelfeelingood@gmail.com',
       category: ContactCategory.Colleagues,
       created: '22.09.23',
     },
-    [Symbol(1)]: {
+    [nanoid()]: {
       name: 'Арендодатель Виктория',
       tel: '9876547810',
       email: 'nelfeelingood1@gmail.com',
       category: ContactCategory.Colleagues,
       created: '22.09.23',
     },
-    [Symbol(2)]: {
+    [nanoid()]: {
       name: 'Двери Вадим',
       tel: '9876547811',
       email: 'nelfeelingood2@gmail.com',
       category: ContactCategory.Colleagues,
       created: '23.09.23',
     },
-    [Symbol(3)]: {
+    [nanoid()]: {
       name: 'Доставка Андрей Стоянов',
       tel: '9876547812',
       email: 'nelfeelingood3@gmail.com',
@@ -47,27 +41,24 @@ export const useContactsStore = defineStore('contacts', () => {
    * @param addedContact добавляемый контакт
    */
   const addContact = (addedContact: Contact) => {
-    const newContactID = Symbol(newContactSymbolName);
-
+    const newContactID = nanoid();
     contacts.value[newContactID] = addedContact;
-
-    // Обновить имя символа для нового контакта
-    newContactSymbolName += 1;
   };
 
   /**
    * Обновить контакт
-   * @param updatedContact обновляемый контакт
+   * @param id идентификатор обновляемого контакта
+   * @param updatedContact контакт с обновленными данными
    */
-  const updateContact = (updatedContact: Contact) => {
-    contacts.value[updatedContact.id] = updatedContact;
+  const updateContact = (id: string, updatedContact: Contact) => {
+    contacts.value[id] = updatedContact;
   };
 
   /**
    * Удалить контакт
    * @param removedContactID идентификатор удаляемоего контакта
    */
-  const removeContact = (removedContactID: symbol) => {
+  const removeContact = (removedContactID: string) => {
     delete contacts.value[removedContactID];
   };
 
