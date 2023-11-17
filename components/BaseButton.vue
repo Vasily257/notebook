@@ -38,7 +38,7 @@ const props = withDefaults(defineProps<Props>(), {
   border-radius: 4px;
   background-color: #ffffff;
   font: inherit;
-  font-size: 12px;
+  font-size: inherit;
   font-weight: 700;
   line-height: inherit;
 
@@ -46,7 +46,7 @@ const props = withDefaults(defineProps<Props>(), {
     background-color: #ffffff;
   }
 
-  @media screen and (min-width: 900px) {
+  @media screen and (min-width: 992px) {
     height: 40px;
     font-size: 14px;
   }
