@@ -22,7 +22,7 @@ const mainClassObject = computed(() => ({
 .main {
   min-height: calc(100vh - 40px);
 
-  @media screen and (min-width: 900px) {
+  @media screen and (min-width: 992px) {
     min-height: calc(100vh - 48px);
   }
 

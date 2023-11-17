@@ -40,7 +40,7 @@ const props = withDefaults(defineProps<Props>(), {
     font-weight: 700;
     line-height: 1;
 
-    @media screen and (min-width: 450px) {
+    @media screen and (min-width: 576px) {
       &__label {
         width: 136px;
       }
