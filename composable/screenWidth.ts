@@ -15,19 +15,19 @@ export default function useScreenWidth() {
   let throttledHandleResize = () => {};
 
   const isExtraSmall = ref(true);
-  const isSmall = ref(false);
-  const isMedium = ref(false);
-  const isLarge = ref(false);
-  const isExtraLarge = ref(false);
+  const isSmallAndWider = ref(false);
+  const isMediumAndWider = ref(false);
+  const isLargeAndWider = ref(false);
+  const isExtraLargeAndWider = ref(false);
 
   /** Обработать изменение экрана */
   const handleResize = () => {
     const width = window.innerWidth;
 
-    isSmall.value = width >= breakpoints.small;
-    isMedium.value = width >= breakpoints.medium;
-    isLarge.value = width >= breakpoints.large;
-    isExtraLarge.value = width >= breakpoints.extraLarge;
+    isSmallAndWider.value = width >= breakpoints.small;
+    isMediumAndWider.value = width >= breakpoints.medium;
+    isLargeAndWider.value = width >= breakpoints.large;
+    isExtraLargeAndWider.value = width >= breakpoints.extraLarge;
   };
 
   throttledHandleResize = throttle(handleResize, 150);
@@ -43,10 +43,15 @@ export default function useScreenWidth() {
   });
 
   return {
+    /** Меньше Small ширины */
     isExtraSmall,
-    isSmall,
-    isMedium,
-    isLarge,
-    isExtraLarge,
+    /** Small ширина и шире */
+    isSmallAndWider,
+    /** Medium ширина и шире */
+    isMediumAndWider,
+    /** Large ширина и шире */
+    isLargeAndWider,
+    /** Extra Large ширина и шире */
+    isExtraLargeAndWider,
   };
 }
