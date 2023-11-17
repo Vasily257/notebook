@@ -34,14 +34,14 @@ const contacts = [
 <template>
   <div class="contacts">
     <div class="contacts__title-box">
-      <span class="contacts__title contacts__title--contact">Контакт</span>
+      <span class="contacts__title contacts__title--name">Контакт</span>
       <span class="contacts__title contacts__title--phone-email">Телефон / e-mail</span>
       <span class="contacts__title contacts__title--created">Создан</span>
     </div>
     <ul class="contacts__list">
       <li v-for="contact in contacts" :key="contact.id" class="contacts__list-item">
-        <span class="contacts__item-text contacts__item-text--contact">{{ contact.name }}</span>
-        <span class="contacts__item-text contacts__item-text--phone">{{ contact.phone }}</span>
+        <span class="contacts__item-text contacts__item-text--name">{{ contact.name }}</span>
+        <span class="contacts__item-text contacts__item-text--tel">{{ contact.tel }}</span>
         <span class="contacts__item-text contacts__item-text--email">{{ contact.email }}</span>
         <span class="contacts__item-text contacts__item-text--created">{{ contact.created }}</span>
       </li>
@@ -69,7 +69,7 @@ const contacts = [
     font-weight: 400;
     line-height: 24px;
 
-    &--contact {
+    &--name {
       grid-column: 1 / 2;
     }
 
@@ -112,12 +112,12 @@ const contacts = [
     font-weight: 400;
     line-height: 1;
 
-    &--contact {
+    &--name {
       grid-column: 1 / 2;
       grid-row: 1 / 3;
     }
 
-    &--phone {
+    &--tel {
       grid-column: 2 / 3;
       grid-row: 1 / 2;
     }
