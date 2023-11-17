@@ -1,34 +1,8 @@
 <script setup lang="ts">
-const contacts = [
-  {
-    id: 0,
-    name: 'Айтишник Данила',
-    phone: '+7(987)654-78-09',
-    email: 'nelfeelingood@gmail.com',
-    created: '22.09.23',
-  },
-  {
-    id: 1,
-    name: 'Арендодатель Виктория',
-    phone: '+7(987)654-78-10',
-    email: 'nelfeelingood1@gmail.com',
-    created: '22.09.23',
-  },
-  {
-    id: 2,
-    name: 'Двери Вадим',
-    phone: '+7(987)654-78-11',
-    email: 'nelfeelingood2@gmail.com',
-    created: '23.09.23',
-  },
-  {
-    id: 3,
-    name: 'Доставка Андрей Стоянов',
-    phone: '+7(987)654-78-12',
-    email: 'nelfeelingood3@gmail.com',
-    created: '24.09.23',
-  },
-];
+import { useContactsStore } from '@/stores/contacts';
+
+const contactsStore = useContactsStore();
+const { contacts } = contactsStore;
 </script>
 
 <template>
@@ -39,7 +13,7 @@ const contacts = [
       <span class="contacts__title contacts__title--created">Создан</span>
     </div>
     <ul class="contacts__list">
-      <li v-for="contact in contacts" :key="contact.id" class="contacts__list-item">
+      <li v-for="(contact, contactId) in contacts" :key="contactId" class="contacts__list-item">
         <span class="contacts__item-text contacts__item-text--name">{{ contact.name }}</span>
         <span class="contacts__item-text contacts__item-text--tel">{{ contact.tel }}</span>
         <span class="contacts__item-text contacts__item-text--email">{{ contact.email }}</span>
