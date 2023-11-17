@@ -33,7 +33,7 @@ export default function useForm(fieldOptions: FormFieldOptions[] = []) {
     () => {
       isValid.value = Object.values(errors).every((error) => error === '');
     },
-    { immediate: true },
+    { deep: true, immediate: true },
   );
 
   return {
