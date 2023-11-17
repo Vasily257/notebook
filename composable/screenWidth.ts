@@ -33,6 +33,8 @@ export default function useScreenWidth() {
   throttledHandleResize = throttle(handleResize, 150);
 
   onMounted(() => {
+    handleResize();
+
     window.addEventListener('resize', throttledHandleResize);
   });
 
