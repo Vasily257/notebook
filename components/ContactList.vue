@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useContactsStore } from '@/stores/contacts';
-
+/** Хранилище «Контакты» */
 const contactsStore = useContactsStore();
+
+/** Список контактов */
 const { contacts } = contactsStore;
 </script>
 
