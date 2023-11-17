@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useContactsStore } from '@/stores/contacts';
+import formatTel from '~/utils/formatTel';
+
 /** Хранилище «Контакты» */
 const contactsStore = useContactsStore();
 
@@ -17,7 +19,9 @@ const { contacts } = contactsStore;
     <ul class="contacts__list">
       <li v-for="(contact, contactId) in contacts" :key="contactId" class="contacts__list-item">
         <span class="contacts__item-text contacts__item-text--name">{{ contact.name }}</span>
-        <span class="contacts__item-text contacts__item-text--tel">{{ contact.tel }}</span>
+        <span class="contacts__item-text contacts__item-text--tel">{{
+          formatTel(contact.tel)
+        }}</span>
         <span class="contacts__item-text contacts__item-text--email">{{ contact.email }}</span>
         <span class="contacts__item-text contacts__item-text--created">{{ contact.created }}</span>
       </li>
