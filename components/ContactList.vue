@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import useScreenWidth from '~/composables/screenWidth.js';
 import { useContactsStore } from '@/stores/contacts';
 import formatTel from '~/utils/formatTel';
 

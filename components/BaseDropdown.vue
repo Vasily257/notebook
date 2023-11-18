@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import useDropdown from '@/composable/dropdown';
+import useDropdown from '~/composables/dropdown';
 
 /** Пропсы компонента */
 interface Props {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import useHeader from '@/composable/header';
+import useHeader from '@/composables/header';
 
 import not from '~/utils/not.jsx';
 

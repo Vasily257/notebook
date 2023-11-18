@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import useForm from '@/composable/form';
+import useForm from '~/composables/form';
 import not from '@/utils/not';
 
 const inputLabels = [

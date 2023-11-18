@@ -1,5 +1,5 @@
 import { toValue, ref, watch } from 'vue';
-import useField from '@/composable/field';
+import useField from '~/composables/field';
 import type { FormFieldOptions, Values, Errors } from '@/types/form';
 
 /**

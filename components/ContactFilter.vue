@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import useScreenWidth from '~/composables/screenWidth.js';
 import { ContactCategory } from '~/types/contact';
 
 /** Варианты категорий */
