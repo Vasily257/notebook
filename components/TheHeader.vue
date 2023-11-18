@@ -42,6 +42,10 @@ const headerContentClassObject = computed(() => {
   padding: 0 12px;
   background-color: #282828;
 
+  @media screen and (min-width: 768px) {
+    padding: 0 32px;
+  }
+
   &__content {
     display: flex;
     justify-content: center;
@@ -55,6 +59,10 @@ const headerContentClassObject = computed(() => {
       column-gap: 4px;
       margin: 0;
       text-transform: uppercase;
+
+      @media screen and (min-width: 576px) {
+        column-gap: 8px;
+      }
     }
   }
 

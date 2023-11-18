@@ -8,6 +8,8 @@ const categoryOptions = [
   ContactCategory.Relatives,
   ContactCategory.Colleagues,
 ];
+
+const { isSmall } = useScreenWidth();
 </script>
 
 <template>
@@ -15,7 +17,7 @@ const categoryOptions = [
     <BaseDropdown class="contact-filter__dropdown" :options="categoryOptions" />
     <BaseButton class="contact-filter__button">
       <BaseIcon icon-name="plus" />
-      Добавить
+      {{ isSmall ? 'Добавить контакт' : 'Добавить' }}
     </BaseButton>
   </div>
 </template>
@@ -32,18 +34,28 @@ const categoryOptions = [
   border: 1px solid #eaf2fd;
   background: #f9fcff;
 
+  @media screen and (min-width: 768px) {
+    padding: 0 31px;
+  }
+
   &__dropdown {
-    width: 219px;
+    max-width: 219px;
     height: 32px;
     text-transform: inherit;
+    font-size: 14px;
+
+    @media screen and (min-width: 576px) {
+      max-width: 235px;
+    }
   }
 
   &__button {
     color: #2f80ed;
     border-color: #2f80ed;
     border-radius: 16px;
+    font-size: 12px;
 
-    @media screen and (min-width: 900px) {
+    @media screen and (min-width: 992px) {
       border-radius: 20px;
     }
 
