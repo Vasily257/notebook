@@ -39,7 +39,7 @@ const props = withDefaults(defineProps<Props>(), {
   background-color: #ffffff;
   font: inherit;
   font-size: inherit;
-  font-weight: 700;
+  font-weight: inherit;
   line-height: inherit;
 
   &:hover {
