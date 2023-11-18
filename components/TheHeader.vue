@@ -49,7 +49,7 @@ const headerText = computed(() => {
         :class="mainIconClassObject"
         :icon-name="mainIconName"
       />
-      <span v-else class="header__first-letter-of-contact">{{ headerText[0] }}</span>
+      <span v-else class="header__first-letter">{{ headerText[0] }}</span>
       <span class="header__text">{{ headerText }}</span>
     </div>
     <BaseButton v-if="not(isHomePage)" class="header__close-button">
@@ -102,7 +102,7 @@ const headerText = computed(() => {
     }
   }
 
-  &__first-letter-of-contact {
+  &__first-letter {
     width: 20px;
     height: 20px;
     text-align: center;
