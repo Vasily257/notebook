@@ -44,6 +44,9 @@ const { isSmall } = useScreenWidth();
 
   @media screen and (min-width: 992px) {
     justify-content: center;
+  }
+
+  @media screen and (min-width: 1054px) {
     column-gap: 580px;
   }
 
@@ -54,19 +57,29 @@ const { isSmall } = useScreenWidth();
     font-size: 14px;
 
     @media screen and (min-width: 576px) {
-      max-width: 235px;
+      min-width: 235px;
     }
 
     @media screen and (min-width: 992px) {
       min-height: 40px;
+      margin-right: auto;
+    }
+
+    @media screen and (min-width: 1054px) {
+      margin-right: 0;
     }
   }
 
   &__button {
+    min-width: 117px;
     color: #2f80ed;
     border-color: #2f80ed;
     border-radius: 16px;
     font-size: 12px;
+
+    @media screen and (min-width: 576px) {
+      min-width: 175px;
+    }
 
     @media screen and (min-width: 992px) {
       border-radius: 20px;
