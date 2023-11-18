@@ -10,12 +10,7 @@
     </li>
     <li>
       <BaseButton class="edit-contact-buttons__remove-button">
-        <BaseIcon
-          class="edit-contact-buttons__remove-icon"
-          icon-name="remove"
-          :width="12"
-          :height="12"
-        />
+        <BaseIcon class="edit-contact-buttons__remove-icon" icon-name="remove" />
         Удалить контакт
       </BaseButton>
     </li>
@@ -56,6 +51,8 @@
   }
 
   &__remove-icon {
+    width: 12px;
+    height: 12px;
     fill: #2f80ed;
   }
 }

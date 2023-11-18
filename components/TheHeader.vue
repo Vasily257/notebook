@@ -1,33 +1,59 @@
 <script setup lang="ts">
-import useHeader from '@/composables/header';
-
+import usePage from '@/composables/page';
 import not from '~/utils/not.jsx';
 
-const { isHomePage, mainIcon, headerText } = useHeader();
+const { isHomePage, isEditContactPage, isNewContact } = usePage();
 
-/** CSS-классы для контента в шапке сайта */
-const headerContentClassObject = computed(() => {
+/** CSS-классы для контента */
+const contentClassObject = computed(() => {
   return {
     'header__content': true,
     'header__content--home-page': isHomePage.value,
   };
 });
+
+/** CSS-классы для главной иконки */
+const mainIconClassObject = computed(() => {
+  return {
+    'header__main-icon': true,
+    'header__main-icon--home-page': isHomePage.value,
+  };
+});
+
+/** Название главной иконки */
+const mainIconName = computed(() => {
+  return isNewContact.value ? 'new-user' : 'contacts';
+});
+
+/** Текст в шапке сайта */
+const headerText = computed(() => {
+  let headerText = 'Книга контактов';
+
+  if (isEditContactPage.value) {
+    headerText = 'Двери Вадим';
+  }
+
+  if (isNewContact.value) {
+    headerText = 'Добавить контакт';
+  }
+
+  return headerText;
+});
 </script>
 
 <template>
   <header class="header">
-    <div :class="headerContentClassObject">
+    <div :class="contentClassObject">
       <BaseIcon
-        v-if="mainIcon.isVisible"
-        :icon-name="mainIcon.name"
-        :width="mainIcon.width"
-        :height="mainIcon.height"
+        v-if="not(isEditContactPage)"
+        :class="mainIconClassObject"
+        :icon-name="mainIconName"
       />
       <span v-else class="header__first-letter-of-contact">{{ headerText[0] }}</span>
       <span class="header__text">{{ headerText }}</span>
     </div>
     <BaseButton v-if="not(isHomePage)" class="header__close-button">
-      <BaseIcon icon-name="close" :width="24" :height="24" />
+      <BaseIcon class="header__close-icon" icon-name="close" />
     </BaseButton>
   </header>
 </template>
@@ -66,6 +92,16 @@ const headerContentClassObject = computed(() => {
     }
   }
 
+  &__main-icon {
+    width: 16px;
+    height: 16px;
+
+    &--home-page {
+      width: 31px;
+      height: 24px;
+    }
+  }
+
   &__first-letter-of-contact {
     width: 20px;
     height: 20px;
@@ -97,6 +133,11 @@ const headerContentClassObject = computed(() => {
     &:hover {
       background-color: transparent;
     }
+  }
+
+  &__close-icon {
+    width: 24px;
+    height: 24px;
   }
 }
 </style>

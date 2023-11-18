@@ -3,10 +3,6 @@
 interface Props {
   /** Название иконки */
   iconName?: string;
-  /** Ширина */
-  width?: number;
-  /** Высота */
-  height?: number;
   /** Должна ли вращаться иконка */
   isRotated?: boolean;
   /** Текст для скринридера */
@@ -16,13 +12,8 @@ interface Props {
 }
 
 /** Пропсы со значениями по умолчанию */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = withDefaults(defineProps<Props>(), {
   iconName: 'save',
-  width: 16,
-  height: 16,
-  isRotated: false,
-  ariaLabel: '',
   ariaHidden: true,
 });
 
@@ -30,23 +21,15 @@ const props = withDefaults(defineProps<Props>(), {
 const iconClassObject = computed(() => {
   return {
     'icon': true,
-    'icon--is-rotated': props.isRotated,
+    'icon--rotated': props.isRotated,
   };
 });
 </script>
 
 <template>
-  <span :class="iconClassObject">
-    <svg
-      :width="width"
-      :height="height"
-      :aria-label="ariaLabel"
-      :aria-hidden="ariaHidden"
-      role="img"
-    >
-      <use :xlink:href="`sprite.svg#${iconName}`" />
-    </svg>
-  </span>
+  <svg :class="iconClassObject" :aria-label="ariaLabel" :aria-hidden="ariaHidden" role="img">
+    <use :xlink:href="`sprite.svg#${iconName}`" />
+  </svg>
 </template>
 
 <style lang="scss" scoped>
@@ -57,10 +40,10 @@ const iconClassObject = computed(() => {
 }
 
 .icon {
-  display: flex;
-  align-items: center;
+  width: 16px;
+  height: 16px;
 
-  &--is-rotated {
+  &--rotated {
     animation: rotate 1s infinite ease-in-out;
   }
 }
