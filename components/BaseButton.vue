@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<Props>(), {
   gap: 4px;
   box-sizing: border-box;
   width: fit-content;
-  height: 32px;
+  min-height: 32px;
   padding: 0 15px;
   cursor: pointer;
   text-align: center;
@@ -44,11 +44,6 @@ const props = withDefaults(defineProps<Props>(), {
 
   &:hover {
     background-color: #ffffff;
-  }
-
-  @media screen and (min-width: 992px) {
-    height: 40px;
-    font-size: 14px;
   }
 }
 </style>
