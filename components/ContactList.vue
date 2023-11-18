@@ -64,6 +64,13 @@ const { isSmall, isMedium } = useScreenWidth();
     @media screen and (min-width: 768px) {
       grid-template-columns: 30fr 14fr 27fr 14fr;
     }
+
+    @media screen and (min-width: 992px) {
+      justify-content: space-between;
+      grid-template-columns: 296px 112px 208px 112px;
+      max-width: 990px;
+      margin: 0 auto;
+    }
   }
 
   &__title {
@@ -124,6 +131,13 @@ const { isSmall, isMedium } = useScreenWidth();
       grid-template-rows: min-content;
     }
 
+    @media screen and (min-width: 992px) {
+      justify-content: space-between;
+      grid-template-columns: 296px 112px 208px 112px;
+      max-width: 990px;
+      margin: 0 auto;
+    }
+
     &:first-child {
       min-height: 56px;
       border-top: none;
@@ -159,6 +173,11 @@ const { isSmall, isMedium } = useScreenWidth();
 
       @media screen and (min-width: 768px) {
         grid-row: 1 / 2;
+        max-width: 100%;
+      }
+
+      @media screen and (min-width: 992px) {
+        font-size: 14px;
       }
     }
 
@@ -194,6 +213,11 @@ const { isSmall, isMedium } = useScreenWidth();
       @media screen and (min-width: 768px) {
         grid-column: 4 / 5;
         grid-row: 1 / 2;
+        font-size: 12px;
+      }
+
+      @media screen and (min-width: 992px) {
+        font-size: 14px;
       }
     }
   }

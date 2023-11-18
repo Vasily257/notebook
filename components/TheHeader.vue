@@ -72,6 +72,14 @@ const headerText = computed(() => {
     padding: 0 32px;
   }
 
+  @media screen and (min-width: 992px) {
+    height: 48px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    padding: 0 48px;
+  }
+
   &__content {
     display: flex;
     justify-content: center;
@@ -89,6 +97,10 @@ const headerText = computed(() => {
       @media screen and (min-width: 576px) {
         column-gap: 8px;
       }
+
+      @media screen and (min-width: 992px) {
+        column-gap: 16px;
+      }
     }
   }
 
@@ -99,6 +111,11 @@ const headerText = computed(() => {
     &--home-page {
       width: 31px;
       height: 24px;
+    }
+
+    @media screen and (min-width: 992px) {
+      width: 42px;
+      height: 32px;
     }
   }
 
@@ -119,6 +136,10 @@ const headerText = computed(() => {
     font-size: 14px;
     font-weight: 700;
     line-height: 1;
+
+    @media screen and (min-width: 992px) {
+      font-size: 18px;
+    }
   }
 
   &__close-button {

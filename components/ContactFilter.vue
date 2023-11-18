@@ -28,7 +28,7 @@ const { isSmall } = useScreenWidth();
   justify-content: space-between;
   align-items: center;
   flex-flow: row nowrap;
-  height: 48px;
+  min-height: 48px;
   padding: 0 11px;
   text-transform: uppercase;
   border: 1px solid #eaf2fd;
@@ -36,6 +36,15 @@ const { isSmall } = useScreenWidth();
 
   @media screen and (min-width: 768px) {
     padding: 0 31px;
+  }
+
+  @media screen and (min-width: 992px) {
+    min-height: 56px;
+  }
+
+  @media screen and (min-width: 992px) {
+    justify-content: center;
+    column-gap: 580px;
   }
 
   &__dropdown {
@@ -47,6 +56,10 @@ const { isSmall } = useScreenWidth();
     @media screen and (min-width: 576px) {
       max-width: 235px;
     }
+
+    @media screen and (min-width: 992px) {
+      min-height: 40px;
+    }
   }
 
   &__button {
@@ -57,6 +70,7 @@ const { isSmall } = useScreenWidth();
 
     @media screen and (min-width: 992px) {
       border-radius: 20px;
+      font-size: 12px;
     }
 
     &:hover {
