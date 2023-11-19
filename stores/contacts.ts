@@ -8,28 +8,28 @@ export const useContactsStore = defineStore('contacts', () => {
   const contacts = ref({
     [nanoid()]: {
       name: 'Айтишник Данила',
-      tel: '9876547809',
+      tel: '79876547809',
       email: 'nelfeelingood@gmail.com',
       category: ContactCategory.Colleagues,
       created: '22.09.23',
     },
     [nanoid()]: {
       name: 'Арендодатель Виктория',
-      tel: '9876547810',
+      tel: '79876547810',
       email: 'nelfeelingood1@gmail.com',
       category: ContactCategory.Colleagues,
       created: '22.09.23',
     },
     [nanoid()]: {
       name: 'Двери Вадим',
-      tel: '9876547811',
+      tel: '79876547811',
       email: 'nelfeelingood2@gmail.com',
       category: ContactCategory.Colleagues,
       created: '23.09.23',
     },
     [nanoid()]: {
       name: 'Доставка Андрей Стоянов',
-      tel: '9876547812',
+      tel: '79876547812',
       email: 'nelfeelingood3@gmail.com',
       category: ContactCategory.Colleagues,
       created: '24.09.23',
