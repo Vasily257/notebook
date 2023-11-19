@@ -24,7 +24,7 @@ interface Props {
 const props = defineProps<Props>();
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const emits = defineEmits(['update:modelValue']);
+const emits = defineEmits(['update:modelValue', 'inFocus', 'outFocus']);
 </script>
 
 <template>
@@ -39,6 +39,8 @@ const emits = defineEmits(['update:modelValue']);
     :required="isRequired"
     class="input"
     @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+    @focusin="$emit('inFocus', $event as Event)"
+    @focusout="$emit('outFocus', $event as Event)"
   />
 </template>
 
