@@ -53,33 +53,8 @@ const fieldOptions = [
   },
 ];
 
-/** CSS-классы поля ввода */
-const inputClasses = {
-  base: 'new-contact__input',
-  phone: 'new-contact__input--phone',
-  intensePlaceholder: 'new-contact__input--intense-placeholder',
-};
-
 /** Варианты категорий */
 const categoryOptions = ['Не выбрано', 'Родственники', 'Коллеги'];
-
-/** Получить CSS-классы для поля ввода */
-const getInputClass = (index: number) => {
-  const { base, phone } = inputClasses;
-
-  return index === 1 ? `${base} ${phone}` : base;
-};
-
-/** Переключить интенсивность цвета у заполнителя поля  */
-const togglePlaceholderIntense = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-
-  const { phone, intensePlaceholder } = inputClasses;
-
-  if (target.classList.contains(phone)) {
-    target.classList.toggle(intensePlaceholder);
-  }
-};
 
 /** Информация полей формы */
 const form = reactive(useForm(fieldOptions));
@@ -99,9 +74,7 @@ const form = reactive(useForm(fieldOptions));
           v-model="form.values[input.name]"
           :placeholder="input.placeholder"
           :label-text="input.labelText"
-          :class="getInputClass(index)"
-          @in-focus="togglePlaceholderIntense"
-          @out-focus="togglePlaceholderIntense"
+          class="new-contact__input"
         />
         <BaseDropdown
           v-if="index === 3"
@@ -168,18 +141,7 @@ const form = reactive(useForm(fieldOptions));
   }
 
   &__input {
-    position: relative;
-    color: #545454;
-    font-size: 12px;
     line-height: 1.6;
-
-    &::placeholder {
-      color: #a9a9a9;
-    }
-
-    &--intense-placeholder::placeholder {
-      color: #545454;
-    }
   }
 
   &__dropdown {

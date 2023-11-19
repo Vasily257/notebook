@@ -24,7 +24,16 @@ interface Props {
 const props = defineProps<Props>();
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const emits = defineEmits(['update:modelValue', 'inFocus', 'outFocus']);
+const emits = defineEmits(['update:modelValue']);
+
+/** Переключить интенсивность цвета у заполнителя поля телефона  */
+const togglePhonePlaceholderIntense = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+
+  if (target.type === 'tel') {
+    target.classList.toggle('input--intense-placeholder');
+  }
+};
 </script>
 
 <template>
@@ -39,8 +48,8 @@ const emits = defineEmits(['update:modelValue', 'inFocus', 'outFocus']);
     :required="isRequired"
     class="input"
     @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-    @focusin="$emit('inFocus', $event as Event)"
-    @focusout="$emit('outFocus', $event as Event)"
+    @focusin="togglePhonePlaceholderIntense"
+    @focusout="togglePhonePlaceholderIntense"
   />
 </template>
 
@@ -69,6 +78,14 @@ const emits = defineEmits(['update:modelValue', 'inFocus', 'outFocus']);
   &:focus-visible {
     border-color: #2f80ed;
     caret-color: #2f80ed;
+  }
+
+  &::placeholder {
+    color: #a9a9a9;
+  }
+
+  &--intense-placeholder::placeholder {
+    color: #545454;
   }
 }
 </style>
