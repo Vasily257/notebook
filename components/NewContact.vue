@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import useForm from '~/composables/form';
 import not from '@/utils/not';
+import { ContactCategory } from '~/types/contact';
 
 /** Поля ввода */
 const inputs = [
@@ -54,7 +55,11 @@ const fieldOptions = [
 ];
 
 /** Варианты категорий */
-const categoryOptions = ['Не выбрано', 'Родственники', 'Коллеги'];
+const categoryOptions = [
+  ContactCategory.NoSelected,
+  ContactCategory.Relatives,
+  ContactCategory.Colleagues,
+];
 
 /** Информация полей формы */
 const form = reactive(useForm(fieldOptions));
