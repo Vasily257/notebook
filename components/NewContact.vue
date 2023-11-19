@@ -2,12 +2,21 @@
 import useForm from '~/composables/form';
 import not from '@/utils/not';
 
-/** Список лейблов */
-const inputLabels = [
-  { name: 'name', text: 'Имя', placeholder: 'Например «Андрей»...' },
-  { name: 'tel', text: 'Телефон', placeholder: '+7(___)___-__-__' },
-  { name: 'email', text: 'E-mail', placeholder: 'Например «pochta@domain.ru»...' },
-  { name: 'category', text: 'Категория' },
+/** Поля ввода */
+const inputs = [
+  {
+    name: 'name',
+    labelText: 'Имя',
+    placeholder: 'Например «Андрей»...',
+  },
+  { name: 'tel', type: 'tel', labelText: 'Телефон', placeholder: '+7(___)___-__-__' },
+  {
+    name: 'email',
+    type: 'email',
+    labelText: 'E-mail',
+    placeholder: 'Например «pochta@domain.ru»...',
+  },
+  { name: 'category', labelText: 'Категория' },
 ];
 
 /** Начальные значения и правила валидации для полей формы */
@@ -80,23 +89,24 @@ const form = reactive(useForm(fieldOptions));
   <div class="new-contact">
     <h2 class="new-contact__title">Новый контакт</h2>
     <ul class="new-contact__control-list">
-      <li v-for="(label, index) in inputLabels" :key="label.name" class="new-contact__item">
-        <label :for="label.name" class="new-contact__label">{{ label.text }}</label>
+      <li v-for="(input, index) in inputs" :key="input.name" class="new-contact__item">
+        <label :for="input.name" class="new-contact__label">{{ input.labelText }}</label>
         <BaseInput
           v-if="index < 3"
-          :id="label.name"
-          :name="label.name"
-          v-model="form.values[label.name]"
-          :placeholder="label.placeholder"
-          :label-text="label.text"
+          :id="input.name"
+          :name="input.name"
+          :type="input.type"
+          v-model="form.values[input.name]"
+          :placeholder="input.placeholder"
+          :label-text="input.labelText"
           :class="getInputClass(index)"
           @in-focus="togglePlaceholderIntense"
           @out-focus="togglePlaceholderIntense"
         />
         <BaseDropdown
           v-if="index === 3"
-          :id="label.name"
-          :name="label.name"
+          :id="input.name"
+          :name="input.name"
           :options="categoryOptions"
           class="new-contact__dropdown"
         />
