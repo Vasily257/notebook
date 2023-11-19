@@ -19,11 +19,9 @@ interface Props {
   isRequired?: boolean;
 }
 
-/** Пропсы со значениями по умолчанию */
+/** Пропсы */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const props = withDefaults(defineProps<Props>(), {
-  type: 'text',
-});
+const props = defineProps<Props>();
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const emits = defineEmits(['update:modelValue']);
