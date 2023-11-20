@@ -9,6 +9,7 @@ const contentClassObject = computed(() => {
   return {
     'header__content': true,
     'header__content--home-page': isHomePage.value,
+    'header__content--new-page': isNewContact.value,
   };
 });
 
@@ -23,6 +24,15 @@ const mainIconClassObject = computed(() => {
 /** Название главной иконки */
 const mainIconName = computed(() => {
   return isNewContact.value ? 'new-user' : 'contacts';
+});
+
+/** CSS-классы для текста */
+const textClass = computed(() => {
+  return {
+    'header__text': true,
+    'header__text--home-page': isHomePage.value,
+    'header__text--new-page': isNewContact.value,
+  };
 });
 
 /** Текст в шапке сайта */
@@ -50,7 +60,7 @@ const headerText = computed(() => {
         :icon-name="mainIconName"
       />
       <span v-else class="header__first-letter">{{ headerText[0] }}</span>
-      <span class="header__text">{{ headerText }}</span>
+      <span :class="textClass">{{ headerText }}</span>
     </div>
     <BaseButton v-if="not(isHomePage)" class="header__close-button">
       <BaseIcon class="header__close-icon" icon-name="close" />
@@ -102,20 +112,35 @@ const headerText = computed(() => {
         column-gap: 16px;
       }
     }
+
+    &--new-page {
+      @media screen and (min-width: 768px) {
+        column-gap: 4px;
+      }
+
+      @media screen and (min-width: 992px) {
+        column-gap: 8px;
+      }
+    }
   }
 
   &__main-icon {
     width: 16px;
     height: 16px;
 
-    &--home-page {
-      width: 31px;
+    @media screen and (min-width: 992px) {
+      width: 24px;
       height: 24px;
     }
 
-    @media screen and (min-width: 992px) {
-      width: 42px;
-      height: 32px;
+    &--home-page {
+      width: 31px;
+      height: 24px;
+
+      @media screen and (min-width: 992px) {
+        width: 42px;
+        height: 32px;
+      }
     }
   }
 
@@ -137,8 +162,16 @@ const headerText = computed(() => {
     font-weight: 700;
     line-height: 1;
 
-    @media screen and (min-width: 992px) {
-      font-size: 18px;
+    &--home-page {
+      @media screen and (min-width: 992px) {
+        font-size: 18px;
+      }
+    }
+
+    &--new-page {
+      @media screen and (min-width: 992px) {
+        font-size: 20px;
+      }
     }
   }
 
@@ -151,6 +184,10 @@ const headerText = computed(() => {
     border: none;
     background-color: transparent;
 
+    @media screen and (min-width: 768px) {
+      right: 32px;
+    }
+
     &:hover {
       background-color: transparent;
     }
@@ -159,6 +196,11 @@ const headerText = computed(() => {
   &__close-icon {
     width: 24px;
     height: 24px;
+
+    @media screen and (min-width: 992px) {
+      width: 32px;
+      height: 32px;
+    }
   }
 }
 </style>

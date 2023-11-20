@@ -29,6 +29,10 @@ const mainClassObject = computed(() => ({
   &--edit-or-new {
     padding: 24px 12px;
     background-color: #f9fcff;
+
+    @media screen and (min-width: 768px) {
+      padding: 24px 32px;
+    }
   }
 }
 </style>

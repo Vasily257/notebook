@@ -98,13 +98,18 @@ const form = reactive(useForm(fieldOptions));
 
 <style lang="scss" scoped>
 .new-contact {
-  width: 100%;
+  max-width: 704px;
+  margin: 0 auto;
   padding: 35px 20px 48px;
   background-color: #ffffff;
   box-shadow: 0 0 6px 0 rgba(148, 181, 225, 0.35);
 
   @media screen and (min-width: 576px) {
     padding: 35px 48px 48px;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding: 51px 64px 64px;
   }
 
   &__title {
@@ -114,6 +119,10 @@ const form = reactive(useForm(fieldOptions));
     font-size: 24px;
     font-weight: 700;
     line-height: 1;
+
+    @media screen and (min-width: 992px) {
+      font-size: 32px;
+    }
   }
 
   &__control-list {
@@ -124,6 +133,10 @@ const form = reactive(useForm(fieldOptions));
     margin-top: 26px;
     padding: 0;
     list-style-type: none;
+
+    @media screen and (min-width: 992px) {
+      margin-top: 28px;
+    }
   }
 
   &__item {
@@ -150,15 +163,27 @@ const form = reactive(useForm(fieldOptions));
     @media screen and (min-width: 576px) {
       width: 136px;
     }
+
+    @media screen and (min-width: 992px) {
+      font-size: 14px;
+    }
   }
 
   &__input {
     line-height: 1.6;
+
+    @media screen and (min-width: 992px) {
+      font-size: 14px;
+    }
   }
 
   &__dropdown {
     font-size: 12px;
     font-weight: 400;
+
+    @media screen and (min-width: 992px) {
+      font-size: 14px;
+    }
   }
 
   &__save-button {
@@ -171,6 +196,12 @@ const form = reactive(useForm(fieldOptions));
 
     @media screen and (min-width: 576px) {
       margin-left: 168px;
+    }
+
+    @media screen and (min-width: 992px) {
+      font-size: 14px;
+      height: 40px;
+      width: 136px;
     }
 
     &:hover {
