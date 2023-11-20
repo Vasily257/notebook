@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { handleTelInput, handleTelFocusOut, handleTelFocusIn } from '~/utils/phoneMask';
+
 /** Пропсы компонента */
 interface Props {
   /** ID поля */
@@ -26,13 +28,33 @@ const props = defineProps<Props>();
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const emits = defineEmits(['update:modelValue']);
 
-/** Переключить интенсивность цвета у заполнителя поля телефона  */
-const togglePhonePlaceholderIntense = (event: Event) => {
+/** Обработать фокусировку */
+const handleFocusOut = (event: Event) => {
   const target = event.target as HTMLInputElement;
 
   if (target.type === 'tel') {
-    target.classList.toggle('input--intense-placeholder');
+    handleTelFocusOut(event);
   }
+};
+
+/** Обработать потерю фокуса */
+const handleFocusIn = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+
+  if (target.type === 'tel') {
+    handleTelFocusIn(event);
+  }
+};
+
+/** Обработать ввод */
+const handleInput = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+
+  if (target.type === 'tel') {
+    handleTelInput(event);
+  }
+
+  emits('update:modelValue', target.value);
 };
 </script>
 
@@ -47,9 +69,9 @@ const togglePhonePlaceholderIntense = (event: Event) => {
     :pattern="pattern"
     :required="isRequired"
     class="input"
-    @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-    @focusin="togglePhonePlaceholderIntense"
-    @focusout="togglePhonePlaceholderIntense"
+    @input="handleInput"
+    @focusin="handleFocusIn"
+    @focusout="handleFocusOut"
   />
 </template>
 
@@ -82,10 +104,6 @@ const togglePhonePlaceholderIntense = (event: Event) => {
 
   &::placeholder {
     color: #a9a9a9;
-  }
-
-  &--intense-placeholder::placeholder {
-    color: #545454;
   }
 }
 </style>
