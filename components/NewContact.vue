@@ -103,6 +103,10 @@ const form = reactive(useForm(fieldOptions));
   background-color: #ffffff;
   box-shadow: 0 0 6px 0 rgba(148, 181, 225, 0.35);
 
+  @media screen and (min-width: 576px) {
+    padding: 35px 48px 48px;
+  }
+
   &__title {
     margin: 0;
     padding: 0;
@@ -125,15 +129,19 @@ const form = reactive(useForm(fieldOptions));
   &__item {
     display: flex;
     align-items: center;
+    column-gap: 12px;
     flex-flow: row nowrap;
     height: 40px;
     margin: 0;
     padding: 0;
+
+    @media screen and (min-width: 576px) {
+      column-gap: 32px;
+    }
   }
 
   &__label {
     width: 72px;
-    margin-right: 12px;
     color: #545454;
     font-size: 12px;
     font-weight: 700;
@@ -154,10 +162,16 @@ const form = reactive(useForm(fieldOptions));
   }
 
   &__save-button {
+    width: 124px;
     margin-top: 32px;
     margin-left: 84px;
     background-color: #ffc700;
+    font-size: 12px;
     font-weight: 700;
+
+    @media screen and (min-width: 576px) {
+      margin-left: 168px;
+    }
 
     &:hover {
       background-color: #ffd84c;
