@@ -78,7 +78,6 @@ const form = reactive(useForm(fieldOptions));
           :type="input.type"
           v-model="form.values[input.name]"
           :placeholder="input.placeholder"
-          :label-text="input.labelText"
           class="new-contact__input"
         />
         <BaseDropdown
