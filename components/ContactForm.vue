@@ -13,8 +13,8 @@ const props = withDefaults(defineProps<Props>(), {
   page: '',
 });
 
-/** Поля ввода */
-const INPUTS = [
+/** Поля формы */
+const FIELDS = [
   {
     name: 'name',
     labelText: 'Имя',
@@ -81,6 +81,11 @@ const isNewPage = props.page === 'new';
 /** Используется ли компонент на странице "Редактировать контакт" */
 const isEditPage = props.page === 'edit';
 
+/** Отображаемые поля формы */
+const displayedFields = computed(() => {
+  return isNewPage ? FIELDS.slice(0, 4) : FIELDS;
+});
+
 /** Заголовок формы */
 const title = computed(() => {
   let title = '';
@@ -96,21 +101,22 @@ const title = computed(() => {
   <form class="contact-form">
     <h2 class="contact-form__title">{{ title }}</h2>
     <ul class="contact-form__control-list">
-      <li v-for="(input, index) in INPUTS" :key="input.name" class="contact-form__item">
-        <label :for="input.name" class="contact-form__label">{{ input.labelText }}</label>
+      <li v-for="(field, index) in displayedFields" :key="field.name" class="contact-form__item">
+        <label :for="field.name" class="contact-form__label">{{ field.labelText }}</label>
         <BaseInput
-          v-if="index < 3"
-          :id="input.name"
-          :name="input.name"
-          :type="input.type"
-          v-model="form.values[input.name]"
-          :placeholder="input.placeholder"
+          v-if="index <= 2"
+          :id="field.name"
+          :name="field.name"
+          :type="field.type"
+          v-model="form.values[field.name]"
+          :error-text="form.errors[field.name]"
+          :placeholder="field.placeholder"
           class="contact-form__input"
         />
         <BaseDropdown
           v-if="index === 3"
-          :id="input.name"
-          :name="input.name"
+          :id="field.name"
+          :name="field.name"
           :options="CATEGORY_OPTIONS"
           class="contact-form__dropdown"
         />
