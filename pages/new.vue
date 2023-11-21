@@ -1,4 +1,4 @@
 <template>
   <h1 class="hidden-visually">Редактировать контакт</h1>
-  <NewContact />
+  <ContactForm page="new" />
 </template>
