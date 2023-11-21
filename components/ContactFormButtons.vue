@@ -55,9 +55,11 @@ const contactFormButtonsClass = computed(() => {
 
   &--with-remove {
     justify-content: center;
+    margin-left: 0;
 
     @media screen and (min-width: 576px) {
       justify-content: flex-start;
+      margin-left: 168px;
     }
   }
 
@@ -82,7 +84,12 @@ const contactFormButtonsClass = computed(() => {
     column-gap: 2px;
     padding: 0;
     color: #2f80ed;
+    font-size: 12px;
     font-weight: 400;
+
+    @media screen and (min-width: 992px) {
+      height: 40px;
+    }
 
     &:hover {
       color: #529cff;

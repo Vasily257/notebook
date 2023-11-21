@@ -154,6 +154,13 @@ const headerText = computed(() => {
     font-size: 10px;
     font-weight: 700;
     line-height: 20px;
+
+    @media screen and (min-width: 992px) {
+      width: 24px;
+      height: 24px;
+      font-size: 12px;
+      line-height: 24px;
+    }
   }
 
   &__text {
@@ -162,15 +169,13 @@ const headerText = computed(() => {
     font-weight: 700;
     line-height: 1;
 
+    @media screen and (min-width: 992px) {
+      font-size: 20px;
+    }
+
     &--home-page {
       @media screen and (min-width: 992px) {
         font-size: 18px;
-      }
-    }
-
-    &--new-page {
-      @media screen and (min-width: 992px) {
-        font-size: 20px;
       }
     }
   }

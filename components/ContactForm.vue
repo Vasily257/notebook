@@ -28,6 +28,7 @@ const INPUTS = [
     placeholder: 'Например «pochta@domain.ru»...',
   },
   { name: 'category', labelText: 'Категория' },
+  { name: 'created', labelText: 'Создан' },
 ];
 
 /** Правила валидации для полей ввода */
@@ -171,43 +172,34 @@ const title = computed(() => {
     height: 40px;
     margin: 0;
     padding: 0;
+    color: #545454;
+    font-size: 12px;
 
     @media screen and (min-width: 576px) {
       column-gap: 32px;
+    }
+
+    @media screen and (min-width: 992px) {
+      font-size: 14px;
     }
   }
 
   &__label {
     width: 72px;
-    color: #545454;
-    font-size: 12px;
     font-weight: 700;
     line-height: 1;
 
     @media screen and (min-width: 576px) {
       width: 136px;
     }
-
-    @media screen and (min-width: 992px) {
-      font-size: 14px;
-    }
-  }
-
-  &__input {
-    line-height: 1.6;
-
-    @media screen and (min-width: 992px) {
-      font-size: 14px;
-    }
   }
 
   &__dropdown {
-    font-size: 12px;
     font-weight: 400;
+  }
 
-    @media screen and (min-width: 992px) {
-      font-size: 14px;
-    }
+  &__plain-text {
+    padding: 8px;
   }
 
   &__save-button {
@@ -223,9 +215,9 @@ const title = computed(() => {
     }
 
     @media screen and (min-width: 992px) {
-      font-size: 14px;
-      height: 40px;
       width: 136px;
+      height: 40px;
+      font-size: 14px;
     }
 
     &:hover {
