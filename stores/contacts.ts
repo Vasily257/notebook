@@ -6,28 +6,28 @@ import type { Contact } from '~/types/contact';
 export const useContactsStore = defineStore('contacts', () => {
   /** Список контактов, индексированные по id */
   const contacts = ref({
-    [nanoid()]: {
+    [nanoid(6)]: {
       name: 'Айтишник Данила',
       tel: '79876547809',
       email: 'nelfeelingood@gmail.com',
       category: ContactCategory.Colleagues,
       created: '22.09.23',
     },
-    [nanoid()]: {
+    [nanoid(6)]: {
       name: 'Арендодатель Виктория',
       tel: '79876547810',
       email: 'nelfeelingood1@gmail.com',
       category: ContactCategory.Colleagues,
       created: '22.09.23',
     },
-    [nanoid()]: {
+    [nanoid(6)]: {
       name: 'Двери Вадим',
       tel: '79876547811',
       email: 'nelfeelingood2@gmail.com',
       category: ContactCategory.Colleagues,
       created: '23.09.23',
     },
-    [nanoid()]: {
+    [nanoid(6)]: {
       name: 'Доставка Андрей Стоянов',
       tel: '79876547812',
       email: 'nelfeelingood3@gmail.com',
@@ -41,7 +41,7 @@ export const useContactsStore = defineStore('contacts', () => {
    * @param addedContact добавляемый контакт
    */
   const addContact = (addedContact: Contact) => {
-    const newContactID = nanoid();
+    const newContactID = nanoid(6);
     contacts.value[newContactID] = addedContact;
   };
 
