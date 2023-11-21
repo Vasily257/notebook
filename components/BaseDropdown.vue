@@ -5,6 +5,8 @@ import useDropdown from '~/composables/dropdown';
 interface Props {
   /** Значения внутри выпадающего меню */
   options: string[];
+  /** Текст ошибки */
+  errorText?: string;
 }
 
 /** Пропсы со значениями по умолчанию */
@@ -14,12 +16,23 @@ const props = withDefaults(defineProps<Props>(), {
 
 const { isMenuOpened, currentOption, toggleMenu, chooseOption } = useDropdown(props.options);
 
+/** Указаны ли ошибочные значения */
+const isError = computed(() => {
+  return Boolean(props.errorText);
+});
+
 /** CSS-классы для основной кнопки меню */
-const mainButtonClassObject = computed(() => {
+const mainButtonClass = computed(() => {
   return {
     'dropdown__main-button': true,
     'dropdown__main-button--opened': isMenuOpened.value,
+    'dropdown__main-button--error': isError,
   };
+});
+
+/** Название иконки главной кнопки */
+const mainButtonIconName = computed(() => {
+  return isError ? 'error-info' : 'triangle-down';
 });
 
 /** Получить класс кнопки меню */
@@ -40,13 +53,13 @@ const isCurrentOption = (option: string) => {
 <template>
   <div class="dropdown">
     <BaseButton
-      :class="mainButtonClassObject"
+      :class="mainButtonClass"
       :aria-haspopup="true"
       :aria-expanded="isMenuOpened"
       @click="toggleMenu"
     >
       {{ currentOption }}
-      <BaseIcon icon-name="triangle-down" />
+      <BaseIcon :icon-name="mainButtonIconName" />
     </BaseButton>
     <ul v-if="isMenuOpened" class="dropdown__menu" role="menu">
       <li v-for="(option, index) in options" :key="index" class="dropdown__menu-item">
@@ -81,6 +94,19 @@ const isCurrentOption = (option: string) => {
 
     &--opened {
       border-color: #2f80ed;
+    }
+
+    &--error {
+      color: #eb5757;
+      border-color: #eb5757;
+
+      &:hover {
+        border-color: #eb5757;
+      }
+
+      &:focus-visible {
+        border-color: #eb5757;
+      }
     }
   }
 
