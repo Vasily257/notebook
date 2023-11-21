@@ -4,6 +4,16 @@ import not from '~/utils/not.jsx';
 
 const { isHomePage, isEditContactPage, isNewContact } = usePage();
 
+/** Целевая страница для ссылки (кнопки) закрытия */
+const targetPageOfCloseLink = computed(() => {
+  let target = '';
+
+  if (isEditContactPage) target = '/';
+  if (isNewContact) target = '/';
+
+  return target;
+});
+
 /** CSS-классы для контента */
 const contentClassObject = computed(() => {
   return {
@@ -62,9 +72,9 @@ const headerText = computed(() => {
       <span v-else class="header__first-letter">{{ headerText[0] }}</span>
       <span :class="textClass">{{ headerText }}</span>
     </div>
-    <BaseButton v-if="not(isHomePage)" class="header__close-button">
-      <BaseIcon class="header__close-icon" icon-name="close" />
-    </BaseButton>
+    <NuxtLink v-if="not(isHomePage)" :to="targetPageOfCloseLink" class="header__close-link">
+      <BaseIcon icon-name="close" class="header__close-icon" />
+    </NuxtLink>
   </header>
 </template>
 
@@ -180,21 +190,18 @@ const headerText = computed(() => {
     }
   }
 
-  &__close-button {
+  &__close-link {
     position: absolute;
     top: 50%;
     right: 12px;
-    padding: 0;
     transform: translateY(-50%);
-    border: none;
-    background-color: transparent;
 
     @media screen and (min-width: 768px) {
       right: 32px;
     }
 
     &:hover {
-      background-color: transparent;
+      opacity: 0.7;
     }
   }
 
