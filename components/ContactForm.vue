@@ -120,7 +120,7 @@ const title = computed(() => {
           :options="CATEGORY_OPTIONS"
           class="contact-form__dropdown"
         />
-        <span v-if="index === 4 && isEditPage" class="contact-form__plain-text">23.09.23</span>
+        <span v-if="index === 4 && isEditPage" class="contact-form__text">23.09.23</span>
       </li>
     </ul>
     <ContactFormButtons :has-remove-button="isEditPage" />
@@ -204,31 +204,8 @@ const title = computed(() => {
     font-weight: 400;
   }
 
-  &__plain-text {
+  &__text {
     padding: 8px;
-  }
-
-  &__save-button {
-    width: 124px;
-    margin-top: 32px;
-    margin-left: 84px;
-    background-color: #ffc700;
-    font-size: 12px;
-    font-weight: 700;
-
-    @media screen and (min-width: 576px) {
-      margin-left: 168px;
-    }
-
-    @media screen and (min-width: 992px) {
-      width: 136px;
-      height: 40px;
-      font-size: 14px;
-    }
-
-    &:hover {
-      background-color: #ffd84c;
-    }
   }
 }
 </style>
