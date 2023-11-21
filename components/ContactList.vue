@@ -25,16 +25,20 @@ const { isSmall, isMedium } = useScreenWidth();
       <span class="contacts__title contacts__title--created">Создан</span>
     </div>
     <ul class="contacts__list">
-      <li v-for="(contact, contactId) in contacts" :key="contactId" class="contacts__list-item">
-        <span class="contacts__item-text contacts__item-text--name">
-          <span v-if="isSmall" class="contacts__item-icon">{{ contact.name[0] }}</span>
-          {{ contact.name }}</span
-        >
-        <span class="contacts__item-text contacts__item-text--tel">{{
-          formatTel(contact.tel)
-        }}</span>
-        <span class="contacts__item-text contacts__item-text--email">{{ contact.email }}</span>
-        <span class="contacts__item-text contacts__item-text--created">{{ contact.created }}</span>
+      <li v-for="(contact, contactId) in contacts" :key="contactId" class="contacts__item">
+        <NuxtLink :to="`/edit?contactId=${contactId}`" class="contacts__item-inner">
+          <span class="contacts__item-text contacts__item-text--name">
+            <span v-if="isSmall" class="contacts__item-icon">{{ contact.name[0] }}</span>
+            {{ contact.name }}</span
+          >
+          <span class="contacts__item-text contacts__item-text--tel">{{
+            formatTel(contact.tel)
+          }}</span>
+          <span class="contacts__item-text contacts__item-text--email">{{ contact.email }}</span>
+          <span class="contacts__item-text contacts__item-text--created">{{
+            contact.created
+          }}</span>
+        </NuxtLink>
       </li>
     </ul>
   </div>
@@ -112,14 +116,25 @@ const { isSmall, isMedium } = useScreenWidth();
     list-style-type: none;
   }
 
-  &__list-item {
+  &__item {
+    max-width: 990px;
+    margin: 0 auto;
+    border-top: 1px solid #eaf2fd;
+
+    &:first-child {
+      border-top: none;
+    }
+  }
+
+  &__item-inner {
     display: grid;
     align-content: center;
     column-gap: 4px;
     grid-template-columns: 1fr 1fr 0.4fr;
     grid-template-rows: repeat(2, min-content);
+    height: 100%;
     min-height: 57px;
-    border-top: 1px solid #eaf2fd;
+    text-decoration: none;
 
     @media screen and (min-width: 576px) {
       grid-template-columns: 23fr 30fr 14fr;
@@ -134,13 +149,10 @@ const { isSmall, isMedium } = useScreenWidth();
     @media screen and (min-width: 992px) {
       justify-content: space-between;
       grid-template-columns: 296px 112px 208px 112px;
-      max-width: 990px;
-      margin: 0 auto;
     }
 
     &:first-child {
       min-height: 56px;
-      border-top: none;
 
       @media screen and (min-width: 576px) {
         min-height: 48px;
