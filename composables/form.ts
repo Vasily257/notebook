@@ -1,15 +1,13 @@
-import { toValue, ref, watch } from 'vue';
-import useField from '~/composables/field';
+import { ref, watch } from 'vue';
+import getValidationSchema from '@/utils/getValidationSchema';
 import type { FormFieldOptions, Values, Errors } from '@/types/form';
+import { ValidationError } from 'yup';
 
 /**
  * Хук для управления формой
  * @param fieldOptions настройки полей формы
  */
 export default function useForm(fieldOptions: FormFieldOptions[] = []) {
-  /** Нереактивное значение настроек формы */
-  const normalizedFieldOptions = toValue(fieldOptions);
-
   /** Значения полей формы */
   const values = ref<Values>({});
 
@@ -17,17 +15,45 @@ export default function useForm(fieldOptions: FormFieldOptions[] = []) {
   const errors = ref<Errors>({});
 
   /** Валидна ли форма */
-  const isValid = ref(true);
+  const isValid = ref(false);
 
-  // Обновить значение и текст ошибок для каждого поля
-  for (const fieldOption of normalizedFieldOptions) {
-    const { fieldValue, fieldError } = useField(fieldOption);
-
-    Object.assign(values.value, { [fieldOption.name]: fieldValue });
-    Object.assign(errors.value, { [fieldOption.name]: fieldError });
+  // Присовить начальные значения
+  for (const fieldOption of fieldOptions) {
+    Object.assign(values.value, { [fieldOption.name]: fieldOption.value });
+    Object.assign(errors.value, { [fieldOption.name]: '' });
   }
 
-  // Определить валидность формы
+  // Если значения полей поменялись, то провалидировать их
+  watch(
+    values,
+    () => {
+      for (const fieldOption of fieldOptions) {
+        if (fieldOption?.rules) {
+          const schema = getValidationSchema({
+            name: fieldOption.name,
+            rules: fieldOption.rules,
+          });
+
+          try {
+            const resultValue = schema.validateSync(values.value[fieldOption.name], {
+              abortEarly: false,
+            });
+
+            if (resultValue) {
+              errors.value[fieldOption.name] = '';
+            }
+          } catch (err) {
+            if (err instanceof ValidationError) {
+              errors.value[fieldOption.name] = err.errors[0];
+            }
+          }
+        }
+      }
+    },
+    { deep: true, immediate: true },
+  );
+
+  // Если текста ошибок поменялись, то проверить валидность формы
   watch(
     errors,
     () => {

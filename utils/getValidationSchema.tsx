@@ -1,25 +1,29 @@
 import * as Yup from 'yup';
-import type { FormFieldOptions } from '@/types/form';
+import type { FormFieldOptionsRules } from '@/types/form';
 
 /**
  * Получить схему валидации поля
  * @param fieldOptions параметры поля
  */
-export default function getValidationSchema(fieldOptions: FormFieldOptions) {
+export default function getValidationSchema({
+  name,
+  rules,
+}: {
+  name: string;
+  rules: FormFieldOptionsRules;
+}) {
   let schema = Yup.string();
 
-  const rules = fieldOptions?.rules || {};
-
-  if (rules?.minLength && fieldOptions.name === 'name') {
+  if (rules?.minLength && name === 'name') {
     schema = schema?.min(rules.minLength, 'Слишком короткое имя');
   }
 
-  if (fieldOptions.name === 'email') {
+  if (name === 'email') {
     schema = schema?.email('Некорректный e-mail');
   }
 
-  if (rules?.length && fieldOptions.name === 'tel') {
-    schema = schema?.length(10, 'Некорректный номер');
+  if (rules?.length && name === 'tel') {
+    schema = schema?.length(rules.length, 'Некорректный номер');
   }
 
   if (rules?.required) {

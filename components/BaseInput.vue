@@ -39,7 +39,7 @@ const isError = computed(() => {
 const fieldClass = computed(() => {
   return {
     'input__field': true,
-    'input__field--error': isError,
+    'input__field--error': isError.value,
   };
 });
 

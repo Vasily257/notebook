@@ -54,7 +54,7 @@ const inputValidationOptions = [
     name: 'tel',
     value: props.contact?.tel || '',
     rules: {
-      equalLength: 10,
+      length: 16,
       required: true,
     },
   },
