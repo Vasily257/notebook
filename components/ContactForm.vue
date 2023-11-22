@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import useForm from '~/composables/form';
+import formatTel from '~/utils/formatTel';
 import { ContactCategory, type Contact } from '~/types/contact';
 
 /** Пропсы компонента */
@@ -40,6 +41,11 @@ const CATEGORY_OPTIONS = [
   ContactCategory.Colleagues,
 ];
 
+/** Отформатированный номер телефона */
+const formattedTel = computed(() => {
+  return props.contact?.tel ? formatTel(props.contact?.tel) : '';
+});
+
 /** Правила валидации для полей ввода */
 const inputValidationOptions = [
   {
@@ -52,7 +58,7 @@ const inputValidationOptions = [
   },
   {
     name: 'tel',
-    value: props.contact?.tel || '',
+    value: formattedTel.value || '',
     rules: {
       length: 16,
       required: true,
