@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useContactsStore } from '~/stores/contacts';
 import useForm from '~/composables/form';
 import formatTel from '~/utils/formatTel';
 import { ContactCategory, type Contact } from '~/types/contact';
@@ -9,6 +10,8 @@ interface Props {
   isNewPage?: boolean;
   /** Используется ли компонент на странице редактирования контакта */
   isEditPage?: boolean;
+  /** ID текущего контакта */
+  contactId?: string;
   /** Информация по текущему контакту */
   contact?: Contact;
 }
@@ -17,6 +20,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   isNewPage: false,
   isEditPage: false,
+  contactId: '',
 });
 
 /** Поля формы */
@@ -83,6 +87,8 @@ const inputValidationOptions = [
   },
 ];
 
+const { addContact, updateContact, removeContact } = useContactsStore();
+
 /** Информация полей формы */
 const form = reactive(useForm(inputValidationOptions));
 
@@ -101,14 +107,26 @@ const title = computed(() => {
   return title;
 });
 
-/** Информация по контакту */
-const contactInfo = computed(() => ({
-  name: form.values.name,
-  tel: form.values.tel,
-  email: form.values.email,
-  category: form.values.category as ContactCategory,
-  created: form.values.created,
-}));
+/** CSS-классы для кнопопк */
+const buttonsClass = computed(() => {
+  return {
+    'contact-form__buttons': true,
+    'contact-form__buttons--with-remove': props.isEditPage,
+  };
+});
+
+/** Обработать клик по кнопке сохранения */
+const handleSaveButtonClick = () => {
+  if (props.contact) {
+    props.isNewPage && addContact(props.contact);
+    props.isEditPage && updateContact(props.contactId, props.contact);
+  }
+};
+
+/** Обработать клик по кнопке удаления */
+const handleRemoveButtonClick = () => {
+  removeContact(props.contactId);
+};
 </script>
 
 <template>
@@ -139,11 +157,24 @@ const contactInfo = computed(() => ({
         }}</span>
       </li>
     </ul>
-    <ContactFormButtons
-      :is-edit-page="isEditPage"
-      :is-new-page="isNewPage"
-      :contact="contactInfo"
-    />
+    <ul :class="buttonsClass">
+      <li>
+        <BaseButton
+          type="submit"
+          class="contact-form__save-button"
+          @button-click="handleSaveButtonClick"
+        >
+          <BaseIcon icon-name="save" />
+          СОХРАНИТЬ
+        </BaseButton>
+      </li>
+      <li v-if="isEditPage">
+        <BaseButton class="contact-form__remove-button" @button-click="handleRemoveButtonClick">
+          <BaseIcon class="contact-form__remove-icon" icon-name="remove" />
+          Удалить контакт
+        </BaseButton>
+      </li>
+    </ul>
   </form>
 </template>
 
@@ -226,6 +257,75 @@ const contactInfo = computed(() => ({
 
   &__text {
     padding: 8px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: flex-start;
+    column-gap: 23px;
+    flex-flow: row nowrap;
+    margin: 0;
+    margin-top: 32px;
+    margin-left: 84px;
+    padding: 0;
+    list-style-type: none;
+
+    @media screen and (min-width: 576px) {
+      margin-left: 168px;
+    }
+
+    &--with-remove {
+      justify-content: center;
+      margin-left: 0;
+
+      @media screen and (min-width: 576px) {
+        justify-content: flex-start;
+        margin-left: 168px;
+      }
+    }
+  }
+
+  &__save-button {
+    width: 124px;
+    background-color: #ffc700;
+    font-size: 12px;
+    font-weight: 700;
+
+    @media screen and (min-width: 992px) {
+      width: 136px;
+      height: 40px;
+      font-size: 14px;
+    }
+
+    &:hover {
+      background-color: #ffd84c;
+    }
+  }
+
+  &__remove-button {
+    column-gap: 2px;
+    padding: 0;
+    color: #2f80ed;
+    font-size: 12px;
+    font-weight: 400;
+
+    @media screen and (min-width: 992px) {
+      height: 40px;
+    }
+
+    &:hover {
+      color: #529cff;
+
+      .contact-form__remove-icon {
+        fill: #529cff;
+      }
+    }
+  }
+
+  &__remove-icon {
+    width: 12px;
+    height: 12px;
+    fill: #2f80ed;
   }
 }
 </style>

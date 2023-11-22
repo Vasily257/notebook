@@ -11,5 +11,10 @@ const currentContact = getContact(queryContactId);
 
 <template>
   <h1 class="hidden-visually">Создать новый контакт</h1>
-  <ContactForm :is-edit-page="isEditPage" :is-new-page="isNewPage" :contact="currentContact" />
+  <ContactForm
+    :is-edit-page="isEditPage"
+    :is-new-page="isNewPage"
+    :contact-id:="queryContactId"
+    :contact="currentContact"
+  />
 </template>
