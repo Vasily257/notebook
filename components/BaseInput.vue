@@ -13,6 +13,8 @@ interface Props {
   modelValue: string;
   /** Текст ошибки */
   errorText?: string;
+  /** Показать ли ошибки */
+  isErrorShown?: boolean;
   /** Замещающий текст */
   placeholder?: string;
   /** Тип автозаполнения */
@@ -28,20 +30,20 @@ interface Props {
 const props = defineProps<Props>();
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const emits = defineEmits(['update:modelValue']);
-
-/** Указаны ли ошибочные значения */
-const isError = computed(() => {
-  return Boolean(props.errorText);
-});
+const emits = defineEmits(['update:modelValue', 'inputClick']);
 
 /** CSS-классы для поля ввода */
 const fieldClass = computed(() => {
   return {
     'input__field': true,
-    'input__field--error': isError.value,
+    'input__field--error': props.isErrorShown,
   };
 });
+
+/** Обработать клик */
+const handleInputClick = (event: Event) => {
+  emits('inputClick', event);
+};
 
 /** Обработать фокусировку */
 const handleFocusOut = (event: Event) => {
@@ -85,12 +87,13 @@ const handleInput = (event: Event) => {
       :pattern="pattern"
       :required="isRequired"
       :class="fieldClass"
+      @click="handleInputClick"
       @input="handleInput"
       @focusin="handleFocusIn"
       @focusout="handleFocusOut"
     />
-    <span class="input__error-text">{{ errorText }}</span>
-    <BaseIcon v-if="isError" icon-name="error-info" class="input__error-icon" />
+    <span v-if="props.isErrorShown" class="input__error-text">{{ errorText }}</span>
+    <BaseIcon v-if="props.isErrorShown" icon-name="error-info" class="input__error-icon" />
   </div>
 </template>
 

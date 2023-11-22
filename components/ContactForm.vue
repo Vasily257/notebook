@@ -3,6 +3,7 @@ import { useContactsStore } from '~/stores/contacts';
 import useForm from '~/composables/form';
 import formatTel from '~/utils/formatTel';
 import { ContactCategory, type Contact } from '~/types/contact';
+import not from '~/utils/not';
 
 /** Пропсы компонента */
 interface Props {
@@ -115,11 +116,28 @@ const buttonsClass = computed(() => {
   };
 });
 
+/** Обработать клик по полю ввода */
+const handleInputClick = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+
+  form.hideError(target.name);
+};
+
 /** Обработать клик по кнопке сохранения */
 const handleSaveButtonClick = () => {
-  if (props.contact) {
+  const isValidForm = form.checkValidity();
+
+  if (isValidForm && props.contact) {
     props.isNewPage && addContact(props.contact);
     props.isEditPage && updateContact(props.contactId, props.contact);
+  }
+
+  if (not(isValidForm)) {
+    for (const [key, value] of Object.entries(form.errors)) {
+      if (value !== '') {
+        form.errorDisplays[key] = true;
+      }
+    }
   }
 };
 
@@ -142,8 +160,10 @@ const handleRemoveButtonClick = () => {
           :type="field.type"
           v-model="form.values[field.name]"
           :error-text="form.errors[field.name]"
+          :is-error-shown="form.errorDisplays[field.name]"
           :placeholder="field.placeholder"
           class="contact-form__input"
+          @input-click="handleInputClick"
         />
         <BaseDropdown
           v-if="index === 3"

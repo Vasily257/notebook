@@ -1,6 +1,6 @@
 import { ref, watch } from 'vue';
 import getValidationSchema from '@/utils/getValidationSchema';
-import type { FormFieldOptions, Values, Errors } from '@/types/form';
+import type { FormFieldOptions } from '@/types/form';
 import { ValidationError } from 'yup';
 
 /**
@@ -9,18 +9,29 @@ import { ValidationError } from 'yup';
  */
 export default function useForm(fieldOptions: FormFieldOptions[] = []) {
   /** Значения полей формы */
-  const values = ref<Values>({});
+  const values = ref<Record<string, string>>({});
 
   /** Значения ошибок у полей формы */
-  const errors = ref<Errors>({});
+  const errors = ref<Record<string, string>>({});
+
+  /** Статусы отображения ошибок у полей формы */
+  const errorDisplays = ref<Record<string, boolean>>({});
 
   /** Валидна ли форма */
-  const isValid = ref(false);
+  const checkValidity = () => {
+    return Object.values(errors.value).every((error) => error === '');
+  };
 
-  // Присовить начальные значения
+  /** Скрыть ошибку */
+  const hideError = (inputName: string) => {
+    errorDisplays.value[inputName] = false;
+  };
+
+  // Присвоить начальные значения
   for (const fieldOption of fieldOptions) {
     Object.assign(values.value, { [fieldOption.name]: fieldOption.value });
     Object.assign(errors.value, { [fieldOption.name]: '' });
+    Object.assign(errorDisplays.value, { [fieldOption.name]: false });
   }
 
   // Если значения полей поменялись, то провалидировать их
@@ -53,18 +64,11 @@ export default function useForm(fieldOptions: FormFieldOptions[] = []) {
     { deep: true, immediate: true },
   );
 
-  // Если текста ошибок поменялись, то проверить валидность формы
-  watch(
-    errors,
-    () => {
-      isValid.value = Object.values(errors).every((error) => error === '');
-    },
-    { deep: true, immediate: true },
-  );
-
   return {
     values,
     errors,
-    isValid,
+    errorDisplays,
+    checkValidity,
+    hideError,
   };
 }
