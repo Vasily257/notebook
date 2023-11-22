@@ -2,12 +2,12 @@
 import { computed } from 'vue';
 import usePage from './composables/page';
 
-const { isEditContactPage, isNewContact } = usePage();
+const { isEditPage, isNewPage } = usePage();
 
 /** CSS-классы для тега main */
 const mainClassObject = computed(() => ({
   'main': true,
-  'main--edit-or-new': isEditContactPage.value || isNewContact.value,
+  'main--edit-or-new': isEditPage.value || isNewPage.value,
 }));
 </script>
 

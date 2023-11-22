@@ -2,16 +2,11 @@
 import usePage from '@/composables/page';
 import not from '~/utils/not.jsx';
 
-const { isHomePage, isEditContactPage, isNewContact } = usePage();
+const { isHomePage, isEditPage, isNewPage } = usePage();
 
 /** Целевая страница для ссылки (кнопки) закрытия */
 const targetPageOfCloseLink = computed(() => {
-  let target = '';
-
-  if (isEditContactPage) target = '/';
-  if (isNewContact) target = '/';
-
-  return target;
+  return isEditPage || isNewPage ? '/' : '';
 });
 
 /** CSS-классы для контента */
@@ -19,7 +14,7 @@ const contentClassObject = computed(() => {
   return {
     'header__content': true,
     'header__content--home-page': isHomePage.value,
-    'header__content--new-page': isNewContact.value,
+    'header__content--new-page': isNewPage.value,
   };
 });
 
@@ -33,7 +28,7 @@ const mainIconClassObject = computed(() => {
 
 /** Название главной иконки */
 const mainIconName = computed(() => {
-  return isNewContact.value ? 'new-user' : 'contacts';
+  return isNewPage.value ? 'new-user' : 'contacts';
 });
 
 /** CSS-классы для текста */
@@ -41,7 +36,7 @@ const textClass = computed(() => {
   return {
     'header__text': true,
     'header__text--home-page': isHomePage.value,
-    'header__text--new-page': isNewContact.value,
+    'header__text--new-page': isNewPage.value,
   };
 });
 
@@ -49,11 +44,11 @@ const textClass = computed(() => {
 const headerText = computed(() => {
   let headerText = 'Книга контактов';
 
-  if (isEditContactPage.value) {
+  if (isEditPage.value) {
     headerText = 'Двери Вадим';
   }
 
-  if (isNewContact.value) {
+  if (isNewPage.value) {
     headerText = 'Добавить контакт';
   }
 
@@ -64,11 +59,7 @@ const headerText = computed(() => {
 <template>
   <header class="header">
     <div :class="contentClassObject">
-      <BaseIcon
-        v-if="not(isEditContactPage)"
-        :class="mainIconClassObject"
-        :icon-name="mainIconName"
-      />
+      <BaseIcon v-if="not(isEditPage)" :class="mainIconClassObject" :icon-name="mainIconName" />
       <span v-else class="header__first-letter">{{ headerText[0] }}</span>
       <span :class="textClass">{{ headerText }}</span>
     </div>

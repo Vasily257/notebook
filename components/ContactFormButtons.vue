@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import usePage from '~/composables/page';
 import { useContactsStore } from '~/stores/contacts';
 import { type Contact } from '~/types/contact';
 
 /** Пропсы компонента */
 interface Props {
-  /** Есть ли кнопка удаления */
-  hasRemoveButton?: boolean;
+  /** Используется ли компонент на странице нового контакта */
+  isNewPage?: boolean;
+  /** Используется ли компонент на странице редактирования контакта */
+  isEditPage?: boolean;
   /** ID текущего контакта */
   contactId?: string;
   /** Информация по текущему контакту */
@@ -16,17 +17,16 @@ interface Props {
 /** Пропсы со значениями по умолчанию */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = withDefaults(defineProps<Props>(), {
-  hasRemoveButton: false,
+  isNewPage: false,
+  isEditPage: false,
   contactId: '',
 });
-
-const { isNewContact, isEditContactPage } = usePage();
 
 /** CSS-классы для текста */
 const contactFormButtonsClass = computed(() => {
   return {
     'contact-form-buttons': true,
-    'contact-form-buttons--with-remove': props.hasRemoveButton,
+    'contact-form-buttons--with-remove': props.isEditPage,
   };
 });
 
@@ -35,8 +35,8 @@ const { addContact, updateContact, removeContact } = useContactsStore();
 /** Обработать клик по кнопке сохранения */
 const handleSaveButtonClick = () => {
   if (props.contact) {
-    isNewContact && addContact(props.contact);
-    isEditContactPage && updateContact(props.contactId, props.contact);
+    props.isNewPage && addContact(props.contact);
+    props.isEditPage && updateContact(props.contactId, props.contact);
   }
 };
 
@@ -60,7 +60,7 @@ const handleRemoveButtonClick = () => {
         СОХРАНИТЬ
       </BaseButton>
     </li>
-    <li v-if="hasRemoveButton">
+    <li v-if="isEditPage">
       <BaseButton
         class="contact-form-buttons__remove-button"
         @button-click="handleRemoveButtonClick"

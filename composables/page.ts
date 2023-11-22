@@ -12,15 +12,15 @@ export default function usePage() {
   const isHomePage = computed(() => route.path === '/');
 
   /** Открыта ли страница редактирования контакта */
-  const isEditContactPage = computed(() => route.path === '/edit');
+  const isEditPage = computed(() => route.path === '/edit');
 
   /** Открыта ли страница добавления нового контакта */
-  const isNewContact = computed(() => route.path === '/new');
+  const isNewPage = computed(() => route.path === '/new');
 
   return {
     queryContactId,
     isHomePage,
-    isEditContactPage,
-    isNewContact,
+    isEditPage,
+    isNewPage,
   };
 }

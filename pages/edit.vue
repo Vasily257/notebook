@@ -2,7 +2,7 @@
 import usePage from '~/composables/page';
 import { useContactsStore } from '~/stores/contacts';
 
-const { queryContactId } = usePage();
+const { isEditPage, isNewPage, queryContactId } = usePage();
 const { getContact } = useContactsStore();
 
 /** Данные текущего контакта */
@@ -11,5 +11,5 @@ const currentContact = getContact(queryContactId);
 
 <template>
   <h1 class="hidden-visually">Создать новый контакт</h1>
-  <ContactForm page="new" :contact="currentContact" />
+  <ContactForm :is-edit-page="isEditPage" :is-new-page="isNewPage" :contact="currentContact" />
 </template>

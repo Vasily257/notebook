@@ -5,15 +5,18 @@ import { ContactCategory, type Contact } from '~/types/contact';
 
 /** Пропсы компонента */
 interface Props {
-  /** Страница, на которой используется форма */
-  page?: string;
+  /** Используется ли компонент на странице нового контакта */
+  isNewPage?: boolean;
+  /** Используется ли компонент на странице редактирования контакта */
+  isEditPage?: boolean;
   /** Информация по текущему контакту */
   contact?: Contact;
 }
 
 /** Пропсы со значениями по умолчанию */
 const props = withDefaults(defineProps<Props>(), {
-  page: '',
+  isNewPage: false,
+  isEditPage: false,
 });
 
 /** Поля формы */
@@ -83,26 +86,29 @@ const inputValidationOptions = [
 /** Информация полей формы */
 const form = reactive(useForm(inputValidationOptions));
 
-/** Используется ли компонент на странице "Новый контакт" */
-const isNewPage = props.page === 'new';
-
-/** Используется ли компонент на странице "Редактировать контакт" */
-const isEditPage = props.page === 'edit';
-
 /** Отображаемые поля формы */
 const displayedFields = computed(() => {
-  return isNewPage ? FIELDS.slice(0, 4) : FIELDS;
+  return props.isNewPage ? FIELDS.slice(0, 4) : FIELDS;
 });
 
 /** Заголовок формы */
 const title = computed(() => {
   let title = '';
 
-  if (isNewPage) title = 'Новый контакт';
-  if (isEditPage) title = 'Контакт';
+  if (props.isNewPage) title = 'Новый контакт';
+  if (props.isEditPage) title = 'Контакт';
 
   return title;
 });
+
+/** Информация по контакту */
+const contactInfo = computed(() => ({
+  name: form.values.name,
+  tel: form.values.tel,
+  email: form.values.email,
+  category: form.values.category as ContactCategory,
+  created: form.values.created,
+}));
 </script>
 
 <template>
@@ -134,14 +140,9 @@ const title = computed(() => {
       </li>
     </ul>
     <ContactFormButtons
-      :has-remove-button="isEditPage"
-      :contact="{
-        name: form.values.name,
-        tel: form.values.tel,
-        email: form.values.email,
-        category: form.values.category as ContactCategory,
-        created: form.values.created,
-      }"
+      :is-edit-page="isEditPage"
+      :is-new-page="isNewPage"
+      :contact="contactInfo"
     />
   </form>
 </template>
