@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { defineEmits } from 'vue';
+
 /** Пропсы компонента */
 interface Props {
   /** Тип кнопки */
@@ -10,10 +12,13 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   type: 'button',
 });
+
+/** Эмиты */
+const emits = defineEmits(['buttonClick']);
 </script>
 
 <template>
-  <button :type="type" class="button">
+  <button :type="type" class="button" @click.prevent="emits('buttonClick')">
     <slot>Нажать</slot>
   </button>
 </template>
