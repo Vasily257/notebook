@@ -6,6 +6,7 @@ import { ContactCategory, type Contact } from '~/types/contact';
 interface Props {
   /** Страница, на которой используется форма */
   page?: string;
+  /** Информация по текущему контакту */
   contact?: Contact;
 }
 
@@ -126,7 +127,16 @@ const title = computed(() => {
         }}</span>
       </li>
     </ul>
-    <ContactFormButtons :has-remove-button="isEditPage" />
+    <ContactFormButtons
+      :has-remove-button="isEditPage"
+      :contact="{
+        name: form.values.name,
+        tel: form.values.tel,
+        email: form.values.email,
+        category: form.values.category as ContactCategory,
+        created: form.values.created,
+      }"
+    />
   </form>
 </template>
 

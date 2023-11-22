@@ -1,15 +1,26 @@
 <script setup lang="ts">
+import usePage from '~/composables/page';
+import { useContactsStore } from '~/stores/contacts';
+import { type Contact } from '~/types/contact';
+
 /** Пропсы компонента */
 interface Props {
   /** Есть ли кнопка удаления */
   hasRemoveButton?: boolean;
+  /** ID текущего контакта */
+  contactId?: string;
+  /** Информация по текущему контакту */
+  contact?: Contact;
 }
 
 /** Пропсы со значениями по умолчанию */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = withDefaults(defineProps<Props>(), {
   hasRemoveButton: false,
+  contactId: '',
 });
+
+const { isNewContact, isEditContactPage } = usePage();
 
 /** CSS-классы для текста */
 const contactFormButtonsClass = computed(() => {
@@ -18,18 +29,42 @@ const contactFormButtonsClass = computed(() => {
     'contact-form-buttons--with-remove': props.hasRemoveButton,
   };
 });
+
+const { addContact, updateContact, removeContact } = useContactsStore();
+
+/** Обработать клик по кнопке сохранения */
+const handleSaveButtonClick = () => {
+  if (props.contact) {
+    isNewContact && addContact(props.contact);
+    isEditContactPage && updateContact(props.contactId, props.contact);
+  }
+};
+
+/** Обработать клик по кнопке удаления */
+const handleRemoveButtonClick = () => {
+  if (props.contactId) {
+    removeContact(props.contactId);
+  }
+};
 </script>
 
 <template>
   <ul :class="contactFormButtonsClass">
     <li>
-      <BaseButton type="submit" class="contact-form-buttons__save-button">
+      <BaseButton
+        type="submit"
+        class="contact-form-buttons__save-button"
+        @button-click="handleSaveButtonClick"
+      >
         <BaseIcon icon-name="save" />
         СОХРАНИТЬ
       </BaseButton>
     </li>
     <li v-if="hasRemoveButton">
-      <BaseButton class="contact-form-buttons__remove-button">
+      <BaseButton
+        class="contact-form-buttons__remove-button"
+        @button-click="handleRemoveButtonClick"
+      >
         <BaseIcon class="contact-form-buttons__remove-icon" icon-name="remove" />
         Удалить контакт
       </BaseButton>
