@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import useForm from '~/composables/form';
-import { ContactCategory } from '~/types/contact';
+import { ContactCategory, type Contact } from '~/types/contact';
 
 /** Пропсы компонента */
 interface Props {
   /** Страница, на которой используется форма */
   page?: string;
+  contact?: Contact;
 }
 
 /** Пропсы со значениями по умолчанию */
@@ -31,40 +32,6 @@ const FIELDS = [
   { name: 'created', labelText: 'Создан' },
 ];
 
-/** Правила валидации для полей ввода */
-const INPUT_VALIDATION_OPTIONS = [
-  {
-    name: 'name',
-    value: '',
-    rules: {
-      minLength: 3,
-      required: true,
-    },
-  },
-  {
-    name: 'tel',
-    value: '',
-    rules: {
-      equalLength: 10,
-      required: true,
-    },
-  },
-  {
-    name: 'email',
-    value: '',
-    rules: {
-      required: true,
-    },
-  },
-  {
-    name: 'category',
-    value: '',
-    rules: {
-      required: true,
-    },
-  },
-];
-
 /** Варианты категорий */
 const CATEGORY_OPTIONS = [
   ContactCategory.NoSelected,
@@ -72,8 +39,42 @@ const CATEGORY_OPTIONS = [
   ContactCategory.Colleagues,
 ];
 
+/** Правила валидации для полей ввода */
+const inputValidationOptions = [
+  {
+    name: 'name',
+    value: props.contact?.name || '',
+    rules: {
+      minLength: 3,
+      required: true,
+    },
+  },
+  {
+    name: 'tel',
+    value: props.contact?.tel || '',
+    rules: {
+      equalLength: 10,
+      required: true,
+    },
+  },
+  {
+    name: 'email',
+    value: props.contact?.email || '',
+    rules: {
+      required: true,
+    },
+  },
+  {
+    name: 'category',
+    value: props.contact?.category || ContactCategory.NoSelected,
+    rules: {
+      required: true,
+    },
+  },
+];
+
 /** Информация полей формы */
-const form = reactive(useForm(INPUT_VALIDATION_OPTIONS));
+const form = reactive(useForm(inputValidationOptions));
 
 /** Используется ли компонент на странице "Новый контакт" */
 const isNewPage = props.page === 'new';
@@ -120,7 +121,9 @@ const title = computed(() => {
           :options="CATEGORY_OPTIONS"
           class="contact-form__dropdown"
         />
-        <span v-if="index === 4 && isEditPage" class="contact-form__text">23.09.23</span>
+        <span v-if="index === 4 && isEditPage" class="contact-form__text">{{
+          props.contact?.created
+        }}</span>
       </li>
     </ul>
     <ContactFormButtons :has-remove-button="isEditPage" />

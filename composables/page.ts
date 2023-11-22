@@ -5,6 +5,9 @@ export default function usePage() {
   /** Настройки роутинга */
   const route = useRoute();
 
+  /** ID контакта из query-запроса */
+  const queryContactId = (route.query.contactId as string) || '';
+
   /** Открыта ли домашняя страница */
   const isHomePage = computed(() => route.path === '/');
 
@@ -13,9 +16,9 @@ export default function usePage() {
 
   /** Открыта ли страница добавления нового контакта */
   const isNewContact = computed(() => route.path === '/new');
-  
 
   return {
+    queryContactId,
     isHomePage,
     isEditContactPage,
     isNewContact,

@@ -37,6 +37,14 @@ export const useContactsStore = defineStore('contacts', () => {
   });
 
   /**
+   * Получить информацию по контакту
+   * @param contactID id контакта
+   */
+  const getContact = (contactID: string) => {
+    return contacts.value[contactID];
+  };
+
+  /**
    * Добавить новый контакт
    * @param addedContact добавляемый контакт
    */
@@ -62,5 +70,5 @@ export const useContactsStore = defineStore('contacts', () => {
     delete contacts.value[removedContactID];
   };
 
-  return { contacts, addContact, updateContact, removeContact };
+  return { contacts, getContact, addContact, updateContact, removeContact };
 });
