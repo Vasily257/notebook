@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { handleTelInput, handleTelFocusOut, handleTelFocusIn } from '~/utils/phoneMask';
+import { handleTelInput, handleTelFocusOut, handleTelFocusIn } from '~/services/input.jsx';
 
 /** Пропсы компонента */
 interface Props {

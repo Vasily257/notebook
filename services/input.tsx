@@ -43,7 +43,7 @@ export function handleTelFocusIn(event: Event) {
   const inputElement = event.target as HTMLInputElement;
 
   if (inputElement.value === '') {
-    inputElement.value = '+7(___)___-__-__';
+    inputElement.value = matrix;
 
     setTimeout(() => {
       inputElement.selectionStart = inputElement.selectionEnd = 3;
