@@ -49,8 +49,10 @@ export const useContactsStore = defineStore('contacts', () => {
    * @param addedContact добавляемый контакт
    */
   const addContact = (addedContact: Contact) => {
-    const newContactID = nanoid(6);
-    contacts.value[newContactID] = addedContact;
+    if (addedContact) {
+      const newContactID = nanoid(6);
+      contacts.value[newContactID] = addedContact;
+    }
   };
 
   /**
@@ -59,7 +61,9 @@ export const useContactsStore = defineStore('contacts', () => {
    * @param updatedContact контакт с обновленными данными
    */
   const updateContact = (id: string, updatedContact: Contact) => {
-    contacts.value[id] = updatedContact;
+    if (id && updatedContact) {
+      contacts.value[id] = updatedContact;
+    }
   };
 
   /**
@@ -67,7 +71,9 @@ export const useContactsStore = defineStore('contacts', () => {
    * @param removedContactID идентификатор удаляемоего контакта
    */
   const removeContact = (removedContactID: string) => {
-    delete contacts.value[removedContactID];
+    if (removedContactID) {
+      delete contacts.value[removedContactID];
+    }
   };
 
   return { contacts, getContact, addContact, updateContact, removeContact };
