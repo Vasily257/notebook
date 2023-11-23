@@ -2,7 +2,7 @@
 import { useContactsStore } from '~/stores/contacts';
 import useForm from '~/composables/form';
 import formatTel from '~/utils/formatTel';
-import { getNow } from '~/utils/formatDate';
+import { getNow, removeTime } from '~/utils/formatDate';
 import not from '~/utils/not';
 import { ContactCategory, type Contact } from '~/types/contact';
 
@@ -230,7 +230,7 @@ const handleRemoveButtonClick = () => {
           class="contact-form__dropdown"
         />
         <span v-if="index === 4 && isEditPage" class="contact-form__text">{{
-          props.contact?.created
+          removeTime(props.contact?.created)
         }}</span>
       </li>
     </ul>
