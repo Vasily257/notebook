@@ -62,7 +62,13 @@ export const useContactsStore = defineStore('contacts', () => {
    */
   const updateContact = (id: string, updatedContact: Contact) => {
     if (id && updatedContact) {
-      contacts.value[id] = updatedContact;
+      contacts.value[id] = {
+        ...contacts.value[id],
+        name: updatedContact.name,
+        tel: updatedContact.tel,
+        email: updatedContact.email,
+        category: updatedContact.category,
+      };
     }
   };
 
