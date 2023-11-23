@@ -226,7 +226,11 @@ const handleRemoveButtonClick = () => {
           v-if="index === 3"
           :id="field.name"
           :name="field.name"
+          v-model="form.values[field.name]"
+          :error-text="form.errors[field.name]"
+          :is-error-shown="form.errorDisplays[field.name]"
           :options="CATEGORY_OPTIONS"
+          :current-option="form.values[field.name]"
           class="contact-form__dropdown"
         />
         <span v-if="index === 4 && isEditPage" class="contact-form__text">{{

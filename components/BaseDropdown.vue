@@ -2,44 +2,54 @@
 import { ref } from 'vue';
 import not from '@/utils/not';
 
+// Важно: основная кнопка — это поле input с типом button.
+// Это сделано для того, чтобы было проще управлять значением поля.
+
 /** Пропсы компонента */
 interface Props {
-  /** Значения внутри выпадающего меню */
-  options: string[];
+  /** ID поля */
+  id?: string;
+  /** Имя поля */
+  name?: string;
+  /** Значение поля */
+  modelValue: string;
   /** Текст ошибки */
   errorText?: string;
+  /** Показать ли ошибки */
+  isErrorShown?: boolean;
+  /** Обязательно ли заполнять поле */
+  isRequired?: boolean;
+  /** Значения внутри выпадающего меню */
+  options: string[];
 }
 
 /** Пропсы со значениями по умолчанию */
 const props = withDefaults(defineProps<Props>(), {
-  options: () => [],
+  modelValue: '',
   errorText: '',
+  isErrorShown: false,
+  options: () => [],
 });
 
-/** Указаны ли ошибочные значения */
-const isError = computed(() => {
-  return Boolean(props.errorText);
-});
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const emits = defineEmits(['update:modelValue']);
+
+/** Открыто ли выпадающее меню */
+const isMenuOpened = ref(false);
 
 /** CSS-классы для основной кнопки меню */
 const mainButtonClass = computed(() => {
   return {
     'dropdown__main-button': true,
     'dropdown__main-button--opened': isMenuOpened.value,
-    'dropdown__main-button--error': isError,
+    'dropdown__main-button--error': props.isErrorShown,
   };
 });
 
 /** Название иконки главной кнопки */
 const mainButtonIconName = computed(() => {
-  return isError ? 'error-info' : 'triangle-down';
+  return props.isErrorShown ? 'error-info' : 'triangle-down';
 });
-
-/** Открыто ли выпадающее меню */
-const isMenuOpened = ref(false);
-
-/** Опция, выбранная в меню */
-const currentOption = ref(props.options.length > 0 ? props.options[0] : '');
 
 /** Переключить видимость выпадающего меню */
 const toggleMenu = () => {
@@ -57,7 +67,7 @@ const chooseOption = (event: Event) => {
   const buttonElement = eventTarget.closest('button');
 
   if (buttonElement?.textContent) {
-    currentOption.value = buttonElement.textContent.trim();
+    emits('update:modelValue', buttonElement.textContent.trim());
   }
 
   closeMenu();
@@ -74,21 +84,34 @@ const getItemButtonClassObject = (index: number) => {
 
 /** Является ли перебирамая опция выбранной */
 const isCurrentOption = (option: string) => {
-  return option === currentOption.value;
+  return option === props.modelValue;
 };
+
+onMounted(() => {
+  if (props.modelValue === '' && props?.options.length > 0) {
+    emits('update:modelValue', props?.options[0]);
+  }
+});
 </script>
 
 <template>
   <div class="dropdown">
-    <BaseButton
+    <!-- Основная кнопка -->
+    <input
+      :id="id"
+      :name="name"
+      :value="modelValue"
+      type="button"
+      :required="isRequired"
       :class="mainButtonClass"
       :aria-haspopup="true"
       :aria-expanded="isMenuOpened"
       @click="toggleMenu"
-    >
-      {{ currentOption }}
-      <BaseIcon :icon-name="mainButtonIconName" />
-    </BaseButton>
+    />
+    <span v-if="props.isErrorShown" class="dropdown__error-text">{{ errorText }}</span>
+    <BaseIcon :icon-name="mainButtonIconName" class="dropdown__error-icon" />
+
+    <!-- Скрытое выпадающее меню -->
     <ul v-if="isMenuOpened" class="dropdown__menu" role="menu">
       <li v-for="(option, index) in options" :key="index" class="dropdown__menu-item">
         <BaseButton :class="getItemButtonClassObject(index)" role="menuitem" @click="chooseOption">
@@ -108,20 +131,40 @@ const isCurrentOption = (option: string) => {
   flex-grow: 1;
   height: 100%;
   text-transform: inherit;
+  font-weight: inherit;
 
   &__main-button {
-    column-gap: 8px;
     width: 100%;
     height: 100%;
     padding: 0 8px;
+    text-align: left;
+    text-transform: inherit;
+    color: #545454;
+    border-width: 1px;
+    border-style: solid;
     border-color: #dddddd;
+    border-radius: 4px;
+    background-color: #ffffff;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 700;
+    line-height: 1;
 
     &:hover {
       border-color: #2f80ed;
     }
 
-    &--opened {
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
       border-color: #2f80ed;
+      caret-color: #2f80ed;
+    }
+
+    &::placeholder {
+      color: #a9a9a9;
     }
 
     &--error {
@@ -134,8 +177,28 @@ const isCurrentOption = (option: string) => {
 
       &:focus-visible {
         border-color: #eb5757;
+        caret-color: #eb5757;
       }
     }
+  }
+
+  &__error-text {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    color: #eb5757;
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  &__error-icon {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translate(0, -50%);
+    color: #eb5757;
+    font-size: 10px;
+    line-height: 1.6;
   }
 
   &__menu {

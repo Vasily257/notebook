@@ -2,19 +2,22 @@
 import useScreenWidth from '~/composables/screenWidth.js';
 import { ContactCategory } from '~/types/contact';
 
-/** Варианты категорий */
-const categoryOptions = [
-  ContactCategory.All,
-  ContactCategory.Relatives,
-  ContactCategory.Colleagues,
-];
+/** Варианты фильтров */
+const filterOptions = [ContactCategory.All, ContactCategory.Relatives, ContactCategory.Colleagues];
+
+/** Текущий фильтр */
+const currentFilter = ref(ContactCategory.All);
 
 const { isSmall } = useScreenWidth();
 </script>
 
 <template>
   <div class="contact-filter">
-    <BaseDropdown class="contact-filter__dropdown" :options="categoryOptions" />
+    <BaseDropdown
+      :options="filterOptions"
+      v-model="currentFilter"
+      class="contact-filter__dropdown"
+    />
     <BaseButton class="contact-filter__button">
       <BaseIcon icon-name="plus" />
       {{ isSmall ? 'Добавить контакт' : 'Добавить' }}
@@ -53,7 +56,8 @@ const { isSmall } = useScreenWidth();
   &__dropdown {
     max-width: 219px;
     height: 32px;
-    text-transform: inherit;
+    text-transform: uppercase;
+    font-weight: 400;
     font-size: 14px;
 
     @media screen and (min-width: 576px) {
