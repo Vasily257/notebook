@@ -96,7 +96,7 @@ const inputValidationOptions = [
 
 const { addContact, updateContact, removeContact } = useContactsStore();
 
-/** Информация полей формы */
+/** Данные формы */
 const form = reactive(useForm(inputValidationOptions));
 
 /** Отображаемые поля формы */
@@ -114,7 +114,7 @@ const title = computed(() => {
   return title;
 });
 
-/** CSS-классы для кнопопк */
+/** CSS-классы для кнопок */
 const buttonsClass = computed(() => {
   return {
     'contact-form__buttons': true,
@@ -133,11 +133,13 @@ const handleInputClick = (event: Event) => {
 const handleSaveButtonClick = () => {
   const isValidForm = form.checkValidity();
 
+  // Если формы валидна, то обработать введенные данные
   if (isValidForm && props.contact) {
     props.isNewPage && addContact(props.contact);
     props.isEditPage && updateContact(props.contactId, props.contact);
   }
 
+  // Если нет, то подсветить все невалидные поля
   if (not(isValidForm)) {
     for (const [inputName, errorText] of Object.entries(form.errors)) {
       if (errorText !== '') {
