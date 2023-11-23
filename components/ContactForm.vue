@@ -99,6 +99,12 @@ const { addContact, updateContact, removeContact } = useContactsStore();
 /** Данные формы */
 const form = reactive(useForm(inputValidationOptions));
 
+/** Отправляется ли запрос на сохранение/обновление контакта */
+const isSaving = ref(false);
+
+/** Отправляется ли запрос на удаление контакта */
+const isRemoving = ref(false);
+
 /** Отображаемые поля формы */
 const displayedFields = computed(() => {
   return props.isNewPage ? FIELDS.slice(0, 4) : FIELDS;
@@ -122,6 +128,16 @@ const buttonsClass = computed(() => {
   };
 });
 
+/** Название иконки для иконки сохранения */
+const saveIconName = computed(() => {
+  return isSaving.value ? 'waiting' : 'save';
+});
+
+/** Название иконки для иконки удаления */
+const removeIconName = computed(() => {
+  return isRemoving.value ? 'waiting' : 'remove';
+});
+
 /** Обработать клик по полю ввода */
 const handleInputClick = (event: Event) => {
   const target = event.target as HTMLInputElement;
@@ -135,8 +151,14 @@ const handleSaveButtonClick = () => {
 
   // Если формы валидна, то обработать введенные данные
   if (isValidForm && props.contact) {
+    isSaving.value = true;
+
     props.isNewPage && addContact(props.contact);
     props.isEditPage && updateContact(props.contactId, props.contact);
+
+    setTimeout(() => {
+      isSaving.value = false;
+    }, 1000);
   }
 
   // Если нет, то подсветить все невалидные поля
@@ -151,7 +173,13 @@ const handleSaveButtonClick = () => {
 
 /** Обработать клик по кнопке удаления */
 const handleRemoveButtonClick = () => {
+  isRemoving.value = true;
+
   removeContact(props.contactId);
+
+  setTimeout(() => {
+    isRemoving.value = false;
+  }, 1000);
 };
 </script>
 
@@ -192,13 +220,17 @@ const handleRemoveButtonClick = () => {
           class="contact-form__save-button"
           @button-click="handleSaveButtonClick"
         >
-          <BaseIcon icon-name="save" />
+          <BaseIcon :icon-name="saveIconName" />
           СОХРАНИТЬ
         </BaseButton>
       </li>
       <li v-if="isEditPage">
         <BaseButton class="contact-form__remove-button" @button-click="handleRemoveButtonClick">
-          <BaseIcon class="contact-form__remove-icon" icon-name="remove" />
+          <BaseIcon
+            class="contact-form__remove-icon"
+            :icon-name="removeIconName"
+            :is-rotated="isRemoving"
+          />
           Удалить контакт
         </BaseButton>
       </li>
