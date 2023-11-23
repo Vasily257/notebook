@@ -2,7 +2,7 @@
 import { useContactsStore } from '~/stores/contacts';
 import useForm from '~/composables/form';
 import formatTel from '~/utils/formatTel';
-import formatDate from '~/utils/formatDate';
+import { getNow } from '~/utils/formatDate';
 import not from '~/utils/not';
 import { ContactCategory, type Contact } from '~/types/contact';
 
@@ -148,7 +148,7 @@ const updatedContact = computed(() => ({
   tel: form.values.tel,
   email: form.values.email,
   category: form.values.category as ContactCategory,
-  created: isSaving ? formatDate(new Date().toString()) : '',
+  created: isSaving ? getNow() : '',
 }));
 
 /** Обработать клик по полю ввода */

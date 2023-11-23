@@ -2,6 +2,7 @@
 import useScreenWidth from '~/composables/screenWidth.js';
 import { useContactsStore } from '@/stores/contacts';
 import formatTel from '~/utils/formatTel';
+import { removeTime } from '~/utils/formatDate';
 
 /** Хранилище «Контакты» */
 const contactsStore = useContactsStore();
@@ -36,7 +37,7 @@ const { isSmall, isMedium } = useScreenWidth();
           }}</span>
           <span class="contacts__item-text contacts__item-text--email">{{ contact.email }}</span>
           <span class="contacts__item-text contacts__item-text--created">{{
-            contact.created
+            removeTime(contact.created)
           }}</span>
         </NuxtLink>
       </li>

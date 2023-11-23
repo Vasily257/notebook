@@ -11,28 +11,28 @@ export const useContactsStore = defineStore('contacts', () => {
       tel: '79876547809',
       email: 'nelfeelingood@gmail.com',
       category: ContactCategory.Colleagues,
-      created: '22.09.23',
+      created: '22.09.23 00:00:00',
     },
     [nanoid(6)]: {
       name: 'Арендодатель Виктория',
       tel: '79876547810',
       email: 'nelfeelingood1@gmail.com',
       category: ContactCategory.Colleagues,
-      created: '22.09.23',
+      created: '22.09.23 12:00:00',
     },
     [nanoid(6)]: {
       name: 'Двери Вадим',
       tel: '79876547811',
       email: 'nelfeelingood2@gmail.com',
       category: ContactCategory.Colleagues,
-      created: '23.09.23',
+      created: '23.09.23 00:00:00',
     },
     [nanoid(6)]: {
       name: 'Доставка Андрей Стоянов',
       tel: '79876547812',
       email: 'nelfeelingood3@gmail.com',
       category: ContactCategory.Colleagues,
-      created: '24.09.23',
+      created: '24.09.23 00:00:00',
     },
   });
 

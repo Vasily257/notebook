@@ -1,17 +1,28 @@
+import dayjs from 'dayjs';
+import 'dayjs/locale/ru';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
+
+/** Дата в полноценном формате */
+const FULL_DATE_FORMAT = 'DD.MM.YY HH:MM:SS';
+
+/** Дата в укороченном формате (без времени) */
+const SHORT_DATE_FORMAT = 'DD.MM.YY';
+
 /**
- * Получить отформатированную дату
- * @param dateString дата, полученая с помощью объекта Date
+ * Убрать время из даты
+ * @param input дата в формате ДД.ММ.ГГ ЧЧ:ММ:CC
  * @returns дата в формате ДД.ММ.ГГ
  */
-export default function formatTel(dateString: string): string {
-  const date = new Date(dateString);
+export function removeTime(input: dayjs.ConfigType): string {
+  return dayjs(input, FULL_DATE_FORMAT).locale('ru').format(SHORT_DATE_FORMAT);
+}
 
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear().toString().slice(-2);
-
-  const formattedDay = day < 10 ? '0' + day : day;
-  const formattedMonth = month < 10 ? '0' + month : month;
-
-  return `${formattedDay}.${formattedMonth}.${year}`;
+/**
+ * Получить текущую дату
+ * @returns дата в формате ДД.ММ.ГГ ЧЧ:ММ:CC
+ */
+export function getNow(): string {
+  return dayjs().locale('ru').format(FULL_DATE_FORMAT);
 }
