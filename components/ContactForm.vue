@@ -139,9 +139,9 @@ const handleSaveButtonClick = () => {
   }
 
   if (not(isValidForm)) {
-    for (const [key, value] of Object.entries(form.errors)) {
-      if (value !== '') {
-        form.errorDisplays[key] = true;
+    for (const [inputName, errorText] of Object.entries(form.errors)) {
+      if (errorText !== '') {
+        form.errorDisplays[inputName] = true;
       }
     }
   }
