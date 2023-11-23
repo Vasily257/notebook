@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import useDropdown from '~/composables/dropdown';
+import { ref } from 'vue';
+import not from '@/utils/not';
 
 /** Пропсы компонента */
 interface Props {
@@ -12,9 +13,8 @@ interface Props {
 /** Пропсы со значениями по умолчанию */
 const props = withDefaults(defineProps<Props>(), {
   options: () => [],
+  errorText: '',
 });
-
-const { isMenuOpened, currentOption, toggleMenu, chooseOption } = useDropdown(props.options);
 
 /** Указаны ли ошибочные значения */
 const isError = computed(() => {
@@ -34,6 +34,34 @@ const mainButtonClass = computed(() => {
 const mainButtonIconName = computed(() => {
   return isError ? 'error-info' : 'triangle-down';
 });
+
+/** Открыто ли выпадающее меню */
+const isMenuOpened = ref(false);
+
+/** Опция, выбранная в меню */
+const currentOption = ref(props.options.length > 0 ? props.options[0] : '');
+
+/** Переключить видимость выпадающего меню */
+const toggleMenu = () => {
+  isMenuOpened.value = not(isMenuOpened.value);
+};
+
+/** Закрыть выпадающее меню */
+const closeMenu = () => {
+  isMenuOpened.value = false;
+};
+
+/** Выбрать новую опцию */
+const chooseOption = (event: Event) => {
+  const eventTarget = event.target as HTMLElement;
+  const buttonElement = eventTarget.closest('button');
+
+  if (buttonElement?.textContent) {
+    currentOption.value = buttonElement.textContent.trim();
+  }
+
+  closeMenu();
+};
 
 /** Получить класс кнопки меню */
 const getItemButtonClassObject = (index: number) => {
