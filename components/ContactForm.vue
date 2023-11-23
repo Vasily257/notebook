@@ -2,8 +2,9 @@
 import { useContactsStore } from '~/stores/contacts';
 import useForm from '~/composables/form';
 import formatTel from '~/utils/formatTel';
-import { ContactCategory, type Contact } from '~/types/contact';
+import formatDate from '~/utils/formatDate';
 import not from '~/utils/not';
+import { ContactCategory, type Contact } from '~/types/contact';
 
 /** Пропсы компонента */
 interface Props {
@@ -99,8 +100,11 @@ const { addContact, updateContact, removeContact } = useContactsStore();
 /** Данные формы */
 const form = reactive(useForm(inputValidationOptions));
 
-/** Отправляется ли запрос на сохранение/обновление контакта */
+/** Отправляется ли запрос на сохранение контакта */
 const isSaving = ref(false);
+
+/** Отправляется ли запрос на обновление контакта */
+const isUpdating = ref(false);
 
 /** Отправляется ли запрос на удаление контакта */
 const isRemoving = ref(false);
@@ -130,13 +134,22 @@ const buttonsClass = computed(() => {
 
 /** Название иконки для иконки сохранения */
 const saveIconName = computed(() => {
-  return isSaving.value ? 'waiting' : 'save';
+  return isSaving.value || isUpdating.value ? 'waiting' : 'save';
 });
 
 /** Название иконки для иконки удаления */
 const removeIconName = computed(() => {
   return isRemoving.value ? 'waiting' : 'remove';
 });
+
+/** Обновляемые данные контакта */
+const updatedContact = computed(() => ({
+  name: form.values.name,
+  tel: form.values.tel,
+  email: form.values.email,
+  category: form.values.category as ContactCategory,
+  created: isSaving ? formatDate(new Date().toString()) : '',
+}));
 
 /** Обработать клик по полю ввода */
 const handleInputClick = (event: Event) => {
@@ -145,29 +158,37 @@ const handleInputClick = (event: Event) => {
   form.hideError(target.name);
 };
 
+/** Сохранить (обновить) контакт */
+const saveContact = () => {
+  isSaving.value = true;
+
+  props.isNewPage && addContact(updatedContact.value);
+  props.isEditPage && updateContact(props.contactId, updatedContact.value);
+
+  setTimeout(() => {
+    isSaving.value = false;
+  }, 1000);
+};
+
+/** Подсветить все невалидные поля */
+const highlightInvalidFields = () => {
+  for (const [inputName, errorText] of Object.entries(form.errors)) {
+    if (errorText !== '') {
+      form.errorDisplays[inputName] = true;
+    }
+  }
+};
+
 /** Обработать клик по кнопке сохранения */
 const handleSaveButtonClick = () => {
   const isValidForm = form.checkValidity();
 
-  // Если формы валидна, то обработать введенные данные
-  if (isValidForm && props.contact) {
-    isSaving.value = true;
-
-    props.isNewPage && addContact(props.contact);
-    props.isEditPage && updateContact(props.contactId, props.contact);
-
-    setTimeout(() => {
-      isSaving.value = false;
-    }, 1000);
+  if (isValidForm) {
+    saveContact();
   }
 
-  // Если нет, то подсветить все невалидные поля
   if (not(isValidForm)) {
-    for (const [inputName, errorText] of Object.entries(form.errors)) {
-      if (errorText !== '') {
-        form.errorDisplays[inputName] = true;
-      }
-    }
+    highlightInvalidFields();
   }
 };
 
