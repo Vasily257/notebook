@@ -24,6 +24,12 @@ const props = withDefaults(defineProps<Props>(), {
   contactId: '',
 });
 
+/** Заголовки формы */
+const TITLES = {
+  editPage: 'Контакт',
+  newPage: 'Новый контакт',
+};
+
 /** Поля формы */
 const FIELDS = [
   {
@@ -102,8 +108,8 @@ const displayedFields = computed(() => {
 const title = computed(() => {
   let title = '';
 
-  if (props.isNewPage) title = 'Новый контакт';
-  if (props.isEditPage) title = 'Контакт';
+  if (props.isEditPage) title = TITLES.editPage;
+  if (props.isNewPage) title = TITLES.newPage;
 
   return title;
 });
