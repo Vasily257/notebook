@@ -33,8 +33,8 @@ const props = withDefaults(defineProps<Props>(), {
   options: () => [],
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const emits = defineEmits(['update:modelValue']);
+/** Эмиты */
+const emits = defineEmits(['update:modelValue', 'dropdownClick']);
 
 /** Открыто ли выпадающее меню */
 const isMenuOpened = ref(false);
@@ -71,6 +71,14 @@ const toggleMenu = () => {
   isMenuOpened.value = not(isMenuOpened.value);
 };
 
+const handleDropdownClick = (event: Event) => {
+  toggleMenu();
+
+  if (props.isErrorShown) {
+    emits('dropdownClick', event);
+  }
+};
+
 /** Закрыть выпадающее меню */
 const closeMenu = () => {
   isMenuOpened.value = false;
@@ -101,12 +109,6 @@ const getItemButtonClassObject = (index: number) => {
 const isCurrentOption = (option: string) => {
   return option === props.modelValue;
 };
-
-onMounted(() => {
-  if (props.modelValue === '' && props?.options.length > 0) {
-    emits('update:modelValue', props?.options[0]);
-  }
-});
 </script>
 
 <template>
@@ -121,8 +123,9 @@ onMounted(() => {
       :class="mainButtonClass"
       :aria-haspopup="true"
       :aria-expanded="isMenuOpened"
-      @click="toggleMenu"
+      @click="handleDropdownClick"
     />
+    <BaseIcon :icon-name="mainButtonIconName" class="dropdown__main-button-icon" />
     <span v-if="props.isErrorShown" class="dropdown__error-text">{{ errorText }}</span>
     <span v-if="isPlaceholderShown" :class="placeholderClass">{{ placeholder }}</span>
 
@@ -146,12 +149,16 @@ onMounted(() => {
   flex-grow: 1;
   height: 100%;
   text-transform: inherit;
+  font-size: inherit;
   font-weight: inherit;
 
   &__main-button {
+    position: relative;
+    z-index: 1;
     width: 100%;
     height: 100%;
     padding: 0 8px;
+    cursor: pointer;
     text-align: left;
     text-transform: inherit;
     color: #545454;
@@ -159,7 +166,7 @@ onMounted(() => {
     border-style: solid;
     border-color: #dddddd;
     border-radius: 4px;
-    background-color: #ffffff;
+    background-color: transparent;
     font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
@@ -202,7 +209,7 @@ onMounted(() => {
     line-height: 1.6;
   }
 
-  &__error-icon {
+  &__main-button-icon {
     position: absolute;
     top: 50%;
     right: 8px;
@@ -268,4 +275,5 @@ onMounted(() => {
     }
   }
 }
+
 </style>

@@ -152,8 +152,8 @@ const updatedContact = computed(() => ({
   created: isSaving ? getNow() : '',
 }));
 
-/** Обработать клик по полю ввода */
-const handleInputClick = (event: Event) => {
+/** Скрыть ошибку */
+const hideError = (event: Event) => {
   const target = event.target as HTMLInputElement;
 
   form.hideError(target.name);
@@ -225,7 +225,7 @@ const handleRemoveButtonClick = () => {
           :is-error-shown="form.errorDisplays[field.name]"
           :placeholder="field.placeholder"
           class="contact-form__input"
-          @input-click="handleInputClick"
+          @input-click="hideError"
         />
         <BaseDropdown
           v-if="index === 3"
@@ -238,6 +238,7 @@ const handleRemoveButtonClick = () => {
           :options="CATEGORY_OPTIONS"
           :current-option="form.values[field.name]"
           class="contact-form__dropdown"
+          @dropdown-click="hideError"
         />
         <span v-if="index === 4 && isEditPage" class="contact-form__text">{{
           removeTime(props.contact?.created)
