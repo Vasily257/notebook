@@ -136,7 +136,6 @@ const handleInput = (event: Event) => {
     }
 
     &--error {
-      color: #eb5757;
       border-color: #eb5757;
 
       &:hover {
@@ -146,6 +145,10 @@ const handleInput = (event: Event) => {
       &:focus-visible {
         border-color: #eb5757;
         caret-color: #eb5757;
+      }
+
+      &::placeholder {
+        color: #eb5757;
       }
     }
   }
