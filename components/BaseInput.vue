@@ -113,7 +113,9 @@ const handleInput = (event: Event) => {
     border-color: #dddddd;
     border-radius: 4px;
     background-color: #ffffff;
-    font-size: 12px;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
     line-height: 1;
 
     &:hover {

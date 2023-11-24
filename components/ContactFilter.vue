@@ -57,7 +57,7 @@ const { isSmall } = useScreenWidth();
     max-width: 219px;
     height: 32px;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 700;
     font-size: 14px;
 
     @media screen and (min-width: 576px) {

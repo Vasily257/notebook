@@ -147,7 +147,7 @@ onMounted(() => {
     background-color: #ffffff;
     font-family: inherit;
     font-size: inherit;
-    font-weight: 700;
+    font-weight: inherit;
     line-height: 1;
 
     &:hover {
@@ -216,6 +216,7 @@ onMounted(() => {
     border-radius: 4px;
     background-color: #ffffff;
     box-shadow: 0 0 6px 0 rgba(148, 181, 225, 0.35);
+    font-weight: 400;
   }
 
   &__menu-item {
