@@ -29,7 +29,7 @@ interface Props {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<Props>();
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+/** Эмиты */
 const emits = defineEmits(['update:modelValue', 'inputClick']);
 
 /** CSS-классы для поля ввода */
