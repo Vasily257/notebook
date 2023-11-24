@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import useScreenWidth from '~/composables/screenWidth.js';
-import { useContactsStore } from '@/stores/contacts';
 import formatTel from '~/utils/formatTel';
 import { removeTime } from '~/utils/formatDate';
+import type { ContactList } from '~/types/contact';
 
-/** Хранилище «Контакты» */
-const contactsStore = useContactsStore();
+/** Пропсы компонента */
+interface Props {
+  /** Список контактов */
+  contactList?: ContactList;
+}
 
-const { contacts } = contactsStore;
+/** Пропсы со значениями по умолчанию */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const props = withDefaults(defineProps<Props>(), {
+  contactList: () => ({} as ContactList),
+});
 
 const { isSmall, isMedium } = useScreenWidth();
 </script>
@@ -26,7 +33,7 @@ const { isSmall, isMedium } = useScreenWidth();
       <span class="contacts__title contacts__title--created">Создан</span>
     </div>
     <ul class="contacts__list">
-      <li v-for="(contact, contactId) in contacts" :key="contactId" class="contacts__item">
+      <li v-for="(contact, contactId) in contactList" :key="contactId" class="contacts__item">
         <NuxtLink :to="`/edit?contactId=${contactId}`" class="contacts__item-inner">
           <span class="contacts__item-text contacts__item-text--name">
             <span v-if="isSmall" class="contacts__item-icon">{{ contact.name[0] }}</span>

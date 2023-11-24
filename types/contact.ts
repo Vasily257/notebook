@@ -14,3 +14,6 @@ export interface Contact {
   category: ContactCategory;
   created: string;
 }
+
+/** Список контактов */
+export type ContactList = Record<string, Contact>;
