@@ -2,6 +2,9 @@
 import useScreenWidth from '~/composables/screenWidth.js';
 import { ContactCategory } from '~/types/contact';
 
+/** Эмиты */
+const emits = defineEmits(['goToNewPage']);
+
 /** Варианты фильтров */
 const filterOptions = [ContactCategory.All, ContactCategory.Relatives, ContactCategory.Colleagues];
 
@@ -18,7 +21,7 @@ const { isSmall } = useScreenWidth();
       v-model="currentFilter"
       class="contact-filter__dropdown"
     />
-    <BaseButton class="contact-filter__button">
+    <BaseButton class="contact-filter__button" @button-click="emits('goToNewPage')">
       <BaseIcon icon-name="plus" />
       {{ isSmall ? 'Добавить контакт' : 'Добавить' }}
     </BaseButton>

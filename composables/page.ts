@@ -2,7 +2,7 @@ import { computed } from 'vue';
 
 /** Хук для управления страницами */
 export default function usePage() {
-  /** Настройки роутинга */
+  /** Настройки текущего маршрута */
   const route = useRoute();
 
   /** ID контакта из query-запроса */
@@ -17,10 +17,16 @@ export default function usePage() {
   /** Открыта ли страница добавления нового контакта */
   const isNewPage = computed(() => route.path === '/new');
 
+  /** Перейти на страницу создания нового контакта */
+  const goToNewPage = async () => {
+    await navigateTo('/new');
+  };
+
   return {
     queryContactId,
     isHomePage,
     isEditPage,
     isNewPage,
+    goToNewPage,
   };
 }
