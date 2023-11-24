@@ -3,7 +3,7 @@ import useScreenWidth from '~/composables/screenWidth.js';
 import { ContactCategory } from '~/types/contact';
 
 /** Эмиты */
-const emits = defineEmits(['goToNewPage']);
+const emits = defineEmits(['updatePageFilter', 'goToNewPage']);
 
 /** Варианты фильтров */
 const filterOptions = [ContactCategory.All, ContactCategory.Relatives, ContactCategory.Colleagues];
@@ -12,6 +12,15 @@ const filterOptions = [ContactCategory.All, ContactCategory.Relatives, ContactCa
 const currentFilter = ref(ContactCategory.All);
 
 const { isSmall } = useScreenWidth();
+
+// Обновить фильтр на странице, если поменялось значение внутри выпадающего меню
+watch(
+  currentFilter,
+  () => {
+    emits('updatePageFilter', currentFilter.value);
+  },
+  { immediate: true },
+);
 </script>
 
 <template>

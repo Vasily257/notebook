@@ -26,3 +26,22 @@ export function removeTime(input: dayjs.ConfigType): string {
 export function getNow(): string {
   return dayjs().locale('ru').format(FULL_DATE_FORMAT);
 }
+
+/**
+ * Сравнить две даты
+ * @returns число для коллбэка функции sort (0, -1 или 1)
+ */
+export function compareDates(dateA: dayjs.ConfigType, dateB: dayjs.ConfigType): number {
+  let result = 0;
+
+  const formattedDateA = dayjs(dateA, FULL_DATE_FORMAT);
+  const formattedDateB = dayjs(dateB, FULL_DATE_FORMAT);
+
+  if (formattedDateA.isAfter(formattedDateB)) {
+    result = 1;
+  } else if (formattedDateA.isBefore(formattedDateB)) {
+    result = -1;
+  }
+
+  return result;
+}

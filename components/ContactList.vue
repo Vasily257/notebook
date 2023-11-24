@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import useScreenWidth from '~/composables/screenWidth.js';
 import formatTel from '~/utils/formatTel';
-import { removeTime } from '~/utils/formatDate';
-import type { ContactList } from '~/types/contact';
+import { removeTime, compareDates } from '~/utils/formatDate';
+import { ContactCategory, type Contact, type ContactList } from '~/types/contact';
 
 /** Пропсы компонента */
 interface Props {
+  /** Текущий фильтр по категории */
+  categoryFilter?: ContactCategory;
   /** Список контактов */
   contactList?: ContactList;
 }
@@ -13,7 +15,29 @@ interface Props {
 /** Пропсы со значениями по умолчанию */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = withDefaults(defineProps<Props>(), {
+  pageFilter: ContactCategory.All,
   contactList: () => ({} as ContactList),
+});
+
+/** Отфильтрованные и отсортированные контакты в формате массива */
+const filtredAndSortedContacs = computed(() => {
+  /** Контакты в формате [contactId, contact] */
+  let contacts = [] as Array<[string, Contact]>;
+
+  contacts = Object.entries(props.contactList)
+    // Отфильтровать контакты по категории
+    .filter(([, contact]) => {
+      const isRequiredCategory = contact.category === props.categoryFilter;
+      const isCommonCategoryFilter = props.categoryFilter === ContactCategory.All;
+
+      return isRequiredCategory || isCommonCategoryFilter;
+    })
+    // Отсортировать контакты по дате создания (более новые — снизу)
+    .sort(([, contactA], [, contactB]) => {
+      return compareDates(contactA.created, contactB.created);
+    });
+
+  return contacts;
 });
 
 const { isSmall, isMedium } = useScreenWidth();
@@ -33,7 +57,11 @@ const { isSmall, isMedium } = useScreenWidth();
       <span class="contacts__title contacts__title--created">Создан</span>
     </div>
     <ul class="contacts__list">
-      <li v-for="(contact, contactId) in contactList" :key="contactId" class="contacts__item">
+      <li
+        v-for="[contactId, contact] in filtredAndSortedContacs"
+        :key="contactId"
+        class="contacts__item"
+      >
         <NuxtLink :to="`/edit?contactId=${contactId}`" class="contacts__item-inner">
           <span class="contacts__item-text contacts__item-text--name">
             <span v-if="isSmall" class="contacts__item-icon">{{ contact.name[0] }}</span>
