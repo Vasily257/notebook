@@ -139,12 +139,12 @@ const buttonsClass = computed(() => {
 
 /** Название иконки для иконки сохранения */
 const saveIconName = computed(() => {
-  return isSaving.value || isUpdating.value ? 'waiting' : 'save';
+  return isSaving.value || isUpdating.value ? 'wait' : 'save';
 });
 
 /** Название иконки для иконки удаления */
 const removeIconName = computed(() => {
-  return isRemoving.value ? 'waiting' : 'remove';
+  return isRemoving.value ? 'wait' : 'remove';
 });
 
 /** Обновляемые данные контакта */
@@ -252,16 +252,20 @@ const handleRemoveButtonClick = () => {
           class="contact-form__save-button"
           @button-click="handleSaveButtonClick"
         >
-          <BaseIcon :icon-name="saveIconName" />
+          <BaseIcon
+            :icon-name="saveIconName"
+            :is-rotated="isSaving || isUpdating"
+            class="contact-form__save-icon"
+          />
           СОХРАНИТЬ
         </BaseButton>
       </li>
       <li v-if="isEditPage">
         <BaseButton class="contact-form__remove-button" @button-click="handleRemoveButtonClick">
           <BaseIcon
-            class="contact-form__remove-icon"
             :icon-name="removeIconName"
             :is-rotated="isRemoving"
+            class="contact-form__remove-icon"
           />
           Удалить контакт
         </BaseButton>
@@ -392,6 +396,10 @@ const handleRemoveButtonClick = () => {
     &:hover {
       background-color: #ffd84c;
     }
+  }
+
+  &__save-icon {
+    fill: #545454;
   }
 
   &__remove-button {
