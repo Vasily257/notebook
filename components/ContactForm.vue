@@ -26,9 +26,9 @@ const props = withDefaults(defineProps<Props>(), {
 
 /** Эмиты */
 const emits = defineEmits([
-  'handle-contact-adding',
-  'handle-contact-updating',
-  'handle-contact-removing',
+  'handleContactAdding',
+  'handleContactUpdating',
+  'handleContactRemoving',
 ]);
 
 /** Заголовки формы */
@@ -166,8 +166,8 @@ const handleInputClick = (event: Event) => {
 const saveContact = () => {
   isSaving.value = true;
 
-  props.isNewPage && emits('handle-contact-adding', updatedContact.value);
-  props.isEditPage && emits('handle-contact-updating', props.contactId, updatedContact.value);
+  props.isNewPage && emits('handleContactAdding', updatedContact.value);
+  props.isEditPage && emits('handleContactUpdating', props.contactId, updatedContact.value);
 
   setTimeout(() => {
     isSaving.value = false;
@@ -200,7 +200,7 @@ const handleSaveButtonClick = () => {
 const handleRemoveButtonClick = () => {
   isRemoving.value = true;
 
-  emits('handle-contact-removing', props.contactId);
+  emits('handleContactRemoving', props.contactId);
 
   setTimeout(() => {
     isRemoving.value = false;
