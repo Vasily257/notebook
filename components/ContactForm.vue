@@ -172,6 +172,8 @@ const saveContact = () => {
 
   setTimeout(() => {
     isSaving.value = false;
+
+    emits('goToHomePage');
   }, 1000);
 };
 
