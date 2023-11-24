@@ -1,33 +1,33 @@
 import { defineStore } from 'pinia';
 import { nanoid } from 'nanoid';
-import { ContactCategory } from '~/types/contact';
-import type { Contact } from '~/types/contact';
+import { ContactCategory, type Contact } from '~/types/contact';
 
+/** Хранилище контактов */
 export const useContactsStore = defineStore('contacts', () => {
   /** Список контактов, индексированные по id */
-  const contacts = ref({
-    [nanoid(6)]: {
+  const contacts = ref<Record<string, Contact>>({
+    ['8FNHeW']: {
       name: 'Айтишник Данила',
       tel: '79876547809',
       email: 'nelfeelingood@gmail.com',
       category: ContactCategory.Colleagues,
       created: '22.09.23 00:00:00',
     },
-    [nanoid(6)]: {
+    ['QdyU95']: {
       name: 'Арендодатель Виктория',
       tel: '79876547810',
       email: 'nelfeelingood1@gmail.com',
       category: ContactCategory.Colleagues,
       created: '22.09.23 12:00:00',
     },
-    [nanoid(6)]: {
+    ['jcis8h']: {
       name: 'Двери Вадим',
       tel: '79876547811',
       email: 'nelfeelingood2@gmail.com',
       category: ContactCategory.Colleagues,
       created: '23.09.23 00:00:00',
     },
-    [nanoid(6)]: {
+    ['s0Tl68']: {
       name: 'Доставка Андрей Стоянов',
       tel: '79876547812',
       email: 'nelfeelingood3@gmail.com',
@@ -51,7 +51,13 @@ export const useContactsStore = defineStore('contacts', () => {
   const addContact = (addedContact: Contact) => {
     if (addedContact) {
       const newContactID = nanoid(6);
-      contacts.value[newContactID] = addedContact;
+      const existingIds = Object.keys(contacts.value);
+
+      if (existingIds.includes(newContactID)) {
+        addContact(addedContact);
+      } else {
+        contacts.value[newContactID] = addedContact;
+      }
     }
   };
 
