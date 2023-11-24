@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import usePage from '~/composables/page';
-import { useContactsStore } from '~/stores/contacts';
+import useContactsStore from '~/stores/contacts';
 
 const { isEditPage, isNewPage, queryContactId } = usePage();
 const { getContact, addContact, updateContact, removeContact } = useContactsStore();

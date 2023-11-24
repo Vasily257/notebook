@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import { ContactCategory, type Contact } from '~/types/contact';
 
 /** Хранилище контактов */
-export const useContactsStore = defineStore('contacts', () => {
+const useContactsStore = defineStore('contacts', () => {
   /** Список контактов, индексированные по id */
   const contacts = ref<Record<string, Contact>>({
     ['8FNHeW']: {
@@ -90,3 +90,5 @@ export const useContactsStore = defineStore('contacts', () => {
 
   return { contacts, getContact, addContact, updateContact, removeContact };
 });
+
+export default useContactsStore;
