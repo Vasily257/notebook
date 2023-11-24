@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import useForm from '~/composables/form';
-import formatTel from '~/utils/formatTel';
+import { getShortTel, getFullTel } from '~/utils/formatTel';
 import { getNow, removeTime } from '~/utils/formatDate';
 import not from '~/utils/not';
 import { ContactCategory, type Contact } from '~/types/contact';
@@ -65,7 +65,7 @@ const CATEGORY_OPTIONS = [
 
 /** Отформатированный номер телефона */
 const formattedTel = computed(() => {
-  return props.contact?.tel ? formatTel(props.contact?.tel) : '';
+  return props.contact?.tel ? getFullTel(props.contact?.tel) : '';
 });
 
 /** Правила валидации для полей ввода */
@@ -150,7 +150,7 @@ const removeIconName = computed(() => {
 /** Обновляемые данные контакта */
 const updatedContact = computed(() => ({
   name: form.values.name,
-  tel: form.values.tel,
+  tel: getShortTel(form.values.tel),
   email: form.values.email,
   category: form.values.category as ContactCategory,
   created: isSaving ? getNow() : '',

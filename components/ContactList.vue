@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import useScreenWidth from '~/composables/screenWidth.js';
-import formatTel from '~/utils/formatTel';
+import { getFullTel } from '~/utils/formatTel';
 import { removeTime, compareDates } from '~/utils/formatDate';
 import { ContactCategory, type Contact, type ContactList } from '~/types/contact';
 
@@ -68,7 +68,7 @@ const { isSmall, isMedium } = useScreenWidth();
             {{ contact.name }}</span
           >
           <span class="contacts__item-text contacts__item-text--tel">{{
-            formatTel(contact.tel)
+            getFullTel(contact.tel)
           }}</span>
           <span class="contacts__item-text contacts__item-text--email">{{ contact.email }}</span>
           <span class="contacts__item-text contacts__item-text--created">{{
