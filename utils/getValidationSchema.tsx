@@ -15,7 +15,7 @@ export default function getValidationSchema({
   let schema = Yup.string();
 
   if (rules?.minLength && name === 'name') {
-    schema = schema?.min(rules.minLength, 'Слишком короткое имя');
+    schema = schema?.trim().min(rules.minLength, 'Слишком короткое имя');
   }
 
   if (name === 'email') {
