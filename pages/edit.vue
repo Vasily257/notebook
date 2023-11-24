@@ -14,7 +14,7 @@ const currentContact = getContact(queryContactId);
   <ContactForm
     :is-edit-page="isEditPage"
     :is-new-page="isNewPage"
-    :contact-id:="queryContactId"
+    :contact-id="queryContactId"
     :contact="currentContact"
     @handle-contact-adding="addContact"
     @handle-contact-updating="updateContact"
