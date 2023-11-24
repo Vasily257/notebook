@@ -225,7 +225,7 @@ const handleRemoveButtonClick = () => {
           :is-error-shown="form.errorDisplays[field.name]"
           :placeholder="field.placeholder"
           class="contact-form__input"
-          @input-click="hideError"
+          @input-focus-in="hideError"
         />
         <BaseDropdown
           v-if="index === 3"
@@ -238,7 +238,7 @@ const handleRemoveButtonClick = () => {
           :options="CATEGORY_OPTIONS"
           :current-option="form.values[field.name]"
           class="contact-form__dropdown"
-          @dropdown-click="hideError"
+          @main-button-focus-in="hideError"
         />
         <span v-if="index === 4 && isEditPage" class="contact-form__text">{{
           removeTime(props.contact?.created)

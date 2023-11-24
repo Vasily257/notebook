@@ -30,7 +30,7 @@ interface Props {
 const props = defineProps<Props>();
 
 /** Эмиты */
-const emits = defineEmits(['update:modelValue', 'inputClick']);
+const emits = defineEmits(['update:modelValue', 'inputFocusIn']);
 
 /** CSS-классы для поля ввода */
 const fieldClass = computed(() => {
@@ -39,11 +39,6 @@ const fieldClass = computed(() => {
     'input__field--error': props.isErrorShown,
   };
 });
-
-/** Обработать клик */
-const handleInputClick = (event: Event) => {
-  emits('inputClick', event);
-};
 
 /** Обработать фокусировку */
 const handleFocusOut = (event: Event) => {
@@ -57,6 +52,10 @@ const handleFocusOut = (event: Event) => {
 /** Обработать потерю фокуса */
 const handleFocusIn = (event: Event) => {
   const target = event.target as HTMLInputElement;
+
+  if (props.isErrorShown) {
+    emits('inputFocusIn', event);
+  }
 
   if (target.type === 'tel') {
     handleTelFocusIn(event);
@@ -87,7 +86,6 @@ const handleInput = (event: Event) => {
       :pattern="pattern"
       :required="isRequired"
       :class="fieldClass"
-      @click="handleInputClick"
       @input="handleInput"
       @focusin="handleFocusIn"
       @focusout="handleFocusOut"

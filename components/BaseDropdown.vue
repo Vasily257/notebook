@@ -34,7 +34,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 /** Эмиты */
-const emits = defineEmits(['update:modelValue', 'dropdownClick']);
+const emits = defineEmits(['update:modelValue', 'mainButtonFocusIn']);
 
 /** Открыто ли выпадающее меню */
 const isMenuOpened = ref(false);
@@ -71,11 +71,13 @@ const toggleMenu = () => {
   isMenuOpened.value = not(isMenuOpened.value);
 };
 
-const handleDropdownClick = (event: Event) => {
+const handleMainButtonClick = () => {
   toggleMenu();
+};
 
+const handleMainButtonFocusIn = (event: Event) => {
   if (props.isErrorShown) {
-    emits('dropdownClick', event);
+    emits('mainButtonFocusIn', event);
   }
 };
 
@@ -123,7 +125,8 @@ const isCurrentOption = (option: string) => {
       :class="mainButtonClass"
       :aria-haspopup="true"
       :aria-expanded="isMenuOpened"
-      @click="handleDropdownClick"
+      @click="handleMainButtonClick"
+      @focusin="handleMainButtonFocusIn"
     />
     <BaseIcon :icon-name="mainButtonIconName" class="dropdown__main-button-icon" />
     <span v-if="props.isErrorShown" class="dropdown__error-text">{{ errorText }}</span>
@@ -275,5 +278,4 @@ const isCurrentOption = (option: string) => {
     }
   }
 }
-
 </style>
