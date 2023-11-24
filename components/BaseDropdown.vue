@@ -17,6 +17,8 @@ interface Props {
   errorText?: string;
   /** Показать ли ошибки */
   isErrorShown?: boolean;
+  /** Замещающий текст */
+  placeholder?: string;
   /** Обязательно ли заполнять поле */
   isRequired?: boolean;
   /** Значения внутри выпадающего меню */
@@ -43,6 +45,19 @@ const mainButtonClass = computed(() => {
     'dropdown__main-button': true,
     'dropdown__main-button--opened': isMenuOpened.value,
     'dropdown__main-button--error': props.isErrorShown,
+  };
+});
+
+/** Показывать ли заменитель текса */
+const isPlaceholderShown = computed(() => {
+  return props.modelValue === '';
+});
+
+/** CSS-классы для заменителя текса */
+const placeholderClass = computed(() => {
+  return {
+    'dropdown__placeholder': true,
+    'dropdown__placeholder--error': props.isErrorShown,
   };
 });
 
@@ -109,7 +124,7 @@ onMounted(() => {
       @click="toggleMenu"
     />
     <span v-if="props.isErrorShown" class="dropdown__error-text">{{ errorText }}</span>
-    <BaseIcon :icon-name="mainButtonIconName" class="dropdown__error-icon" />
+    <span v-if="isPlaceholderShown" :class="placeholderClass">{{ placeholder }}</span>
 
     <!-- Скрытое выпадающее меню -->
     <ul v-if="isMenuOpened" class="dropdown__menu" role="menu">
@@ -163,10 +178,6 @@ onMounted(() => {
       caret-color: #2f80ed;
     }
 
-    &::placeholder {
-      color: #a9a9a9;
-    }
-
     &--error {
       color: #eb5757;
       border-color: #eb5757;
@@ -196,9 +207,23 @@ onMounted(() => {
     top: 50%;
     right: 8px;
     transform: translate(0, -50%);
-    color: #eb5757;
-    font-size: 10px;
-    line-height: 1.6;
+  }
+
+  &__placeholder {
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translate(0, -50%);
+    color: #a9a9a9;
+    font-size: 12px;
+
+    @media screen and (min-width: 992px) {
+      font-size: 14px;
+    }
+
+    &--error {
+      color: #eb5757;
+    }
   }
 
   &__menu {

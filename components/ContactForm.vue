@@ -52,16 +52,12 @@ const FIELDS = [
     labelText: 'E-mail',
     placeholder: 'Например «pochta@domain.ru»...',
   },
-  { name: 'category', labelText: 'Категория' },
+  { name: 'category', labelText: 'Категория', placeholder: 'Не выбрано' },
   { name: 'created', labelText: 'Создан' },
 ];
 
 /** Варианты категорий */
-const CATEGORY_OPTIONS = [
-  ContactCategory.NoSelected,
-  ContactCategory.Relatives,
-  ContactCategory.Colleagues,
-];
+const CATEGORY_OPTIONS = [ContactCategory.Relatives, ContactCategory.Colleagues];
 
 /** Отформатированный номер телефона */
 const formattedTel = computed(() => {
@@ -95,7 +91,7 @@ const inputValidationOptions = [
   },
   {
     name: 'category',
-    value: props.contact?.category || ContactCategory.NoSelected,
+    value: props.contact?.category || '',
     rules: {
       required: true,
     },
@@ -238,6 +234,7 @@ const handleRemoveButtonClick = () => {
           v-model="form.values[field.name]"
           :error-text="form.errors[field.name]"
           :is-error-shown="form.errorDisplays[field.name]"
+          :placeholder="field.placeholder"
           :options="CATEGORY_OPTIONS"
           :current-option="form.values[field.name]"
           class="contact-form__dropdown"
