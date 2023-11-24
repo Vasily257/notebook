@@ -29,6 +29,7 @@ const emits = defineEmits([
   'handleContactAdding',
   'handleContactUpdating',
   'handleContactRemoving',
+  'goToHomePage',
 ]);
 
 /** Заголовки формы */
@@ -204,6 +205,8 @@ const handleRemoveButtonClick = () => {
 
   setTimeout(() => {
     isRemoving.value = false;
+
+    emits('goToHomePage');
   }, 1000);
 };
 </script>

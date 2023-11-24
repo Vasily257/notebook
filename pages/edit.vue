@@ -2,7 +2,7 @@
 import usePage from '~/composables/page';
 import useContactsStore from '~/stores/contacts';
 
-const { isEditPage, isNewPage, queryContactId } = usePage();
+const { isEditPage, isNewPage, queryContactId, goToHomePage } = usePage();
 const { getContact, addContact, updateContact, removeContact } = useContactsStore();
 
 /** Данные текущего контакта */
@@ -19,5 +19,6 @@ const currentContact = getContact(queryContactId);
     @handle-contact-adding="addContact"
     @handle-contact-updating="updateContact"
     @handle-contact-removing="removeContact"
+    @go-to-home-page="goToHomePage"
   />
 </template>

@@ -17,6 +17,11 @@ export default function usePage() {
   /** Открыта ли страница добавления нового контакта */
   const isNewPage = computed(() => route.path === '/new');
 
+  /** Перейти на домашнюю страницу */
+  const goToHomePage = async () => {
+    await navigateTo('/');
+  };
+
   /** Перейти на страницу создания нового контакта */
   const goToNewPage = async () => {
     await navigateTo('/new');
@@ -27,6 +32,7 @@ export default function usePage() {
     isHomePage,
     isEditPage,
     isNewPage,
+    goToHomePage,
     goToNewPage,
   };
 }
