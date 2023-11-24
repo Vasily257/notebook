@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useContactsStore } from '~/stores/contacts';
 import useForm from '~/composables/form';
 import formatTel from '~/utils/formatTel';
 import { getNow, removeTime } from '~/utils/formatDate';
@@ -24,6 +23,13 @@ const props = withDefaults(defineProps<Props>(), {
   isEditPage: false,
   contactId: '',
 });
+
+/** Эмиты */
+const emits = defineEmits([
+  'handle-contact-adding',
+  'handle-contact-updating',
+  'handle-contact-removing',
+]);
 
 /** Заголовки формы */
 const TITLES = {
@@ -95,8 +101,6 @@ const inputValidationOptions = [
   },
 ];
 
-const { addContact, updateContact, removeContact } = useContactsStore();
-
 /** Данные формы */
 const form = reactive(useForm(inputValidationOptions));
 
@@ -162,8 +166,8 @@ const handleInputClick = (event: Event) => {
 const saveContact = () => {
   isSaving.value = true;
 
-  props.isNewPage && addContact(updatedContact.value);
-  props.isEditPage && updateContact(props.contactId, updatedContact.value);
+  props.isNewPage && emits('handle-contact-adding', updatedContact.value);
+  props.isEditPage && emits('handle-contact-updating', props.contactId, updatedContact.value);
 
   setTimeout(() => {
     isSaving.value = false;
@@ -196,7 +200,7 @@ const handleSaveButtonClick = () => {
 const handleRemoveButtonClick = () => {
   isRemoving.value = true;
 
-  removeContact(props.contactId);
+  emits('handle-contact-removing', props.contactId);
 
   setTimeout(() => {
     isRemoving.value = false;
