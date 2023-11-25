@@ -4,8 +4,8 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 dayjs.extend(customParseFormat);
 
-/** Дата в полноценном формате */
-const FULL_DATE_FORMAT = 'DD.MM.YY HH:MM:SS';
+/** Дата в полном формате */
+const FULL_DATE_FORMAT = 'DD.MM.YY HH:mm:ss';
 
 /** Дата в укороченном формате (без времени) */
 const SHORT_DATE_FORMAT = 'DD.MM.YY';
@@ -29,7 +29,9 @@ export function getNow(): string {
 
 /**
  * Сравнить две даты
- * @returns число для коллбэка функции sort (0, -1 или 1)
+ * @param dateA первая сравнивания дата
+ * @param dateB вторая сравнивания дата
+ * @returns число для коллбэка функции sort() (0, -1 или 1)
  */
 export function compareDates(dateA: dayjs.ConfigType, dateB: dayjs.ConfigType): number {
   let result = 0;
