@@ -69,8 +69,8 @@ watch(
     max-width: 219px;
     height: 32px;
     text-transform: uppercase;
-    font-weight: 700;
     font-size: 14px;
+    font-weight: 700;
 
     @media screen and (min-width: 576px) {
       min-width: 235px;
@@ -92,6 +92,7 @@ watch(
     border-color: #2f80ed;
     border-radius: 16px;
     font-size: 12px;
+    font-weight: 700;
 
     @media screen and (min-width: 576px) {
       min-width: 175px;
