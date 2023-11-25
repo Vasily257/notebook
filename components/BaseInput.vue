@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { handleTelInput, handleTelFocusOut, handleTelFocusIn } from '~/services/input.jsx';
+import { removeExtraSpaces } from '~/utils/formatText';
 
 /** Пропсы компонента */
 interface Props {
@@ -70,7 +71,7 @@ const handleInput = (event: Event) => {
     handleTelInput(event);
   }
 
-  emits('update:modelValue', target.value);
+  emits('update:modelValue', removeExtraSpaces(target.value));
 };
 </script>
 
