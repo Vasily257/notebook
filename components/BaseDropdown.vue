@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import not from '@/utils/not';
 
-// Важно: основная кнопка — это поле input с типом button.
+// Важно: главная кнопка — это поле input с типом button.
 // Это сделано для того, чтобы было проще управлять значением поля.
 
 /** Пропсы компонента */
@@ -34,17 +33,26 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 /** Эмиты */
-const emits = defineEmits(['update:modelValue', 'mainButtonFocusIn']);
+const emits = defineEmits(['update:modelValue', 'principalButtonFocusIn']);
 
 /** Открыто ли выпадающее меню */
 const isMenuOpened = ref(false);
 
-/** CSS-классы для основной кнопки меню */
-const mainButtonClass = computed(() => {
+/** Элемент главной кнопки */
+const principalMenu = ref<HTMLButtonElement | null>(null);
+
+/** Элементы выпадающего меню */
+const menuItems = ref<HTMLUListElement[]>([]);
+
+/** Кнопки выпадающего меню */
+const menuItemButtons = ref<HTMLButtonElement[]>([]);
+
+/** CSS-классы для главной кнопки */
+const principalButtonClass = computed(() => {
   return {
-    'dropdown__main-button': true,
-    'dropdown__main-button--opened': isMenuOpened.value,
-    'dropdown__main-button--error': props.isErrorShown,
+    'dropdown__principal-button': true,
+    'dropdown__principal-button--opened': isMenuOpened.value,
+    'dropdown__principal-button--error': props.isErrorShown,
   };
 });
 
@@ -62,41 +70,9 @@ const placeholderClass = computed(() => {
 });
 
 /** Название иконки главной кнопки */
-const mainButtonIconName = computed(() => {
+const principalButtonIconName = computed(() => {
   return props.isErrorShown ? 'error-info' : 'triangle-down';
 });
-
-/** Переключить видимость выпадающего меню */
-const toggleMenu = () => {
-  isMenuOpened.value = not(isMenuOpened.value);
-};
-
-const handleMainButtonClick = () => {
-  toggleMenu();
-};
-
-const handleMainButtonFocusIn = (event: Event) => {
-  if (props.isErrorShown) {
-    emits('mainButtonFocusIn', event);
-  }
-};
-
-/** Закрыть выпадающее меню */
-const closeMenu = () => {
-  isMenuOpened.value = false;
-};
-
-/** Выбрать новую опцию */
-const chooseOption = (event: Event) => {
-  const eventTarget = event.target as HTMLElement;
-  const buttonElement = eventTarget.closest('button');
-
-  if (buttonElement?.textContent) {
-    emits('update:modelValue', buttonElement.textContent.trim());
-  }
-
-  closeMenu();
-};
 
 /** Получить класс кнопки меню */
 const getItemButtonClassObject = (index: number) => {
@@ -111,31 +87,182 @@ const getItemButtonClassObject = (index: number) => {
 const isCurrentOption = (option: string) => {
   return option === props.modelValue;
 };
+
+/** Обработать фокусировку на главной кнопке */
+const handlePrincipalButtonFocusIn = (event: Event) => {
+  if (props.isErrorShown) {
+    emits('principalButtonFocusIn', event);
+  }
+};
+
+/** Открыть выпадающее меню */
+const openMenu = () => {
+  isMenuOpened.value = true;
+
+  // Также фокус перемещается на первую кнопку меню (см. ниже watchEffect)
+};
+
+/** Закрыть выпадающее меню */
+const closeMenu = () => {
+  isMenuOpened.value = false;
+
+  document.removeEventListener('click', closeMenuOnOutsideClick);
+};
+
+/** Сфокусироваться на первой кнопке меню */
+const focusFirstMenuButton = () => {
+  menuItemButtons.value[0]?.focus();
+};
+
+/** Переключить видимость выпадающего меню */
+const handlePrincipalButtonClick = () => {
+  if (isMenuOpened.value) {
+    closeMenu();
+  } else {
+    openMenu();
+  }
+};
+
+/** Обработать клик по кнопке выпадающего меню */
+const handleMenuButtonClick = (event: Event) => {
+  if (event.target instanceof HTMLUListElement) {
+    const buttonElement = event.target.closest('button');
+
+    // Обновить значение выпадающего списка
+    if (buttonElement?.textContent) {
+      emits('update:modelValue', buttonElement.textContent.trim());
+    }
+  }
+
+  closeMenu();
+};
+
+/** Обработать нажатие клавиши на кнопке выпадающего меню */
+const handleMenuButtonKeyInput = (event: KeyboardEvent) => {
+  if (event.target instanceof HTMLButtonElement) {
+    const currentButton = event.target;
+    const currentButtonIndex = menuItemButtons.value.indexOf(currentButton);
+    const lastIndex = menuItemButtons.value.length - 1;
+
+    // При нажатии стрелки вверх
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+
+      if (currentButtonIndex > 0 && currentButtonIndex <= lastIndex) {
+        menuItemButtons.value[currentButtonIndex - 1].focus();
+      }
+
+      if (currentButtonIndex === 0) {
+        menuItemButtons.value[lastIndex].focus();
+      }
+    }
+
+    // При нажатии стрелки вниз
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+
+      if (currentButtonIndex >= 0 && currentButtonIndex < lastIndex) {
+        menuItemButtons.value[currentButtonIndex + 1].focus();
+      }
+
+      if (currentButtonIndex === lastIndex) {
+        menuItemButtons.value[0].focus();
+      }
+    }
+
+    // При нажатии клавиши Escape
+    if (event.key === 'Escape') {
+      closeMenu();
+
+      if (principalMenu.value) {
+        principalMenu.value.focus();
+      }
+    }
+
+    // При нажатии клавиши Tab
+    if (event.key === 'Tab') {
+      closeMenu();
+    }
+  }
+};
+
+watchEffect(() => {
+  if (isMenuOpened.value) {
+    // Очистить старый список кнопок
+    menuItemButtons.value = [];
+
+    // Получить новый список кнопок
+    menuItems.value.forEach((menuItem) => {
+      const menuItemButton = menuItem.querySelector('button');
+
+      if (menuItemButton) {
+        menuItemButtons.value.push(menuItemButton);
+      }
+    });
+
+    focusFirstMenuButton();
+
+    // Добавить обработчик с нулевой задержкой, чтобы он сразу не сработал
+    setTimeout(() => {
+      document.addEventListener('click', closeMenuOnOutsideClick);
+    });
+  }
+});
+
+// Добавление слушателя события клика на родительский элемент вашего меню или корневой элемент компонента
+const closeMenuOnOutsideClick = (event: Event) => {
+  const isMenuButton =
+    event.target instanceof HTMLButtonElement && menuItemButtons.value.includes(event.target);
+
+  if (!isMenuButton) {
+    closeMenu();
+  }
+};
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', closeMenuOnOutsideClick);
+});
 </script>
 
 <template>
   <div class="dropdown">
-    <!-- Основная кнопка -->
+    <!-- Главная кнопка -->
     <input
       :id="id"
+      ref="principalMenu"
       :name="name"
       :value="modelValue"
       type="button"
       :required="isRequired"
-      :class="mainButtonClass"
+      :class="principalButtonClass"
       :aria-haspopup="true"
       :aria-expanded="isMenuOpened"
-      @click="handleMainButtonClick"
-      @focusin="handleMainButtonFocusIn"
+      @focusin="handlePrincipalButtonFocusIn"
+      @click="handlePrincipalButtonClick"
+      @keyup.down="openMenu"
     />
-    <BaseIcon :icon-name="mainButtonIconName" class="dropdown__main-button-icon" />
+    <BaseIcon :icon-name="principalButtonIconName" class="dropdown__principal-button-icon" />
     <span v-if="props.isErrorShown" class="dropdown__error-text">{{ errorText }}</span>
     <span v-if="isPlaceholderShown" :class="placeholderClass">{{ placeholder }}</span>
 
     <!-- Скрытое выпадающее меню -->
     <ul v-if="isMenuOpened" class="dropdown__menu" role="menu">
-      <li v-for="(option, index) in options" :key="index" class="dropdown__menu-item">
-        <BaseButton :class="getItemButtonClassObject(index)" role="menuitem" @click="chooseOption">
+      <li
+        v-for="(option, index) in options"
+        :key="index"
+        ref="menuItems"
+        class="dropdown__menu-item"
+      >
+        <BaseButton
+          :class="getItemButtonClassObject(index)"
+          tabindex="-1"
+          @click="handleMenuButtonClick"
+          @keyup.up="handleMenuButtonKeyInput"
+          @keyup.down="handleMenuButtonKeyInput"
+          @keyup.esc="handleMenuButtonKeyInput"
+          @keydown.tab="handleMenuButtonKeyInput"
+          @mouseenter="$event.target.focus()"
+        >
           {{ option }}
           <BaseIcon v-if="isCurrentOption(option)" icon-name="check-mark" />
         </BaseButton>
@@ -155,7 +282,7 @@ const isCurrentOption = (option: string) => {
   font-size: inherit;
   font-weight: inherit;
 
-  &__main-button {
+  &__principal-button {
     position: relative;
     z-index: 1;
     width: 100%;
@@ -188,6 +315,10 @@ const isCurrentOption = (option: string) => {
       caret-color: #2f80ed;
     }
 
+    &--opened {
+      border-color: #2f80ed;
+    }
+
     &--error {
       color: #eb5757;
       border-color: #eb5757;
@@ -212,7 +343,7 @@ const isCurrentOption = (option: string) => {
     line-height: 1.6;
   }
 
-  &__main-button-icon {
+  &__principal-button-icon {
     position: absolute;
     top: 50%;
     right: 8px;
@@ -263,7 +394,9 @@ const isCurrentOption = (option: string) => {
     border: none;
     border-radius: 0;
 
-    &:hover {
+    &:focus {
+      border-color: transparent;
+      outline: none;
       background-color: #eaf2fd;
     }
 
