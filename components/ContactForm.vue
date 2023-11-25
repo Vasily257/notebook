@@ -225,7 +225,7 @@ const handleRemoveButtonClick = () => {
           :is-error-shown="form.errorDisplays[field.name]"
           :placeholder="field.placeholder"
           class="contact-form__input"
-          @input-focus-in="hideError"
+          @custom-focus-in="hideError"
         />
         <BaseDropdown
           v-if="index === 3"

@@ -31,7 +31,7 @@ interface Props {
 const props = defineProps<Props>();
 
 /** Эмиты */
-const emits = defineEmits(['update:modelValue', 'inputFocusIn']);
+const emits = defineEmits(['update:modelValue', 'customFocusIn']);
 
 /** CSS-классы для поля ввода */
 const fieldClass = computed(() => {
@@ -55,7 +55,7 @@ const handleFocusIn = (event: Event) => {
   const target = event.target as HTMLInputElement;
 
   if (props.isErrorShown) {
-    emits('inputFocusIn', event);
+    emits('customFocusIn', event);
   }
 
   if (target.type === 'tel') {
