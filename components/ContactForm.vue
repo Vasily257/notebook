@@ -25,12 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 /** Эмиты */
-const emits = defineEmits([
-  'handleContactAdding',
-  'handleContactUpdating',
-  'handleContactRemoving',
-  'goToHomePage',
-]);
+const emits = defineEmits(['addContact', 'updateContact', 'removeContact', 'goToHomePage']);
 
 /** Заголовки формы */
 const TITLES = {
@@ -143,8 +138,8 @@ const removeIconName = computed(() => {
   return isRemoving.value ? 'wait' : 'remove';
 });
 
-/** Обновляемые данные контакта */
-const updatedContact = computed(() => ({
+/** Контакт с новыми данными */
+const newContact = computed(() => ({
   name: form.values.name,
   tel: getShortTel(form.values.tel),
   email: form.values.email,
@@ -163,8 +158,13 @@ const hideError = (event: Event) => {
 const saveContact = () => {
   isSaving.value = true;
 
-  props.isNewPage && emits('handleContactAdding', updatedContact.value);
-  props.isEditPage && emits('handleContactUpdating', props.contactId, updatedContact.value);
+  if (props.isNewPage) {
+    emits('addContact', newContact.value);
+  }
+
+  if (props.isEditPage) {
+    emits('updateContact', props.contactId, newContact.value);
+  }
 
   setTimeout(() => {
     isSaving.value = false;
@@ -199,7 +199,7 @@ const handleSaveButtonClick = () => {
 const handleRemoveButtonClick = () => {
   isRemoving.value = true;
 
-  emits('handleContactRemoving', props.contactId);
+  emits('removeContact', props.contactId);
 
   setTimeout(() => {
     isRemoving.value = false;
