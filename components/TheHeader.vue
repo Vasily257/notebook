@@ -6,11 +6,6 @@ import not from '~/utils/not';
 const { queryContactId, isHomePage, isEditPage, isNewPage } = usePage();
 const { getContact } = useContactsStore();
 
-/** Целевая страница для ссылки (кнопки) закрытия */
-const targetPageOfCloseLink = computed(() => {
-  return isEditPage || isNewPage ? '/' : '';
-});
-
 /** CSS-классы для контента */
 const contentClass = computed(() => {
   return {
@@ -65,7 +60,7 @@ const headerText = computed(() => {
       <span v-else class="header__first-letter">{{ headerText[0] }}</span>
       <span :class="textClass">{{ headerText }}</span>
     </div>
-    <BaseLink v-if="not(isHomePage)" :to="targetPageOfCloseLink" class="header__close-link">
+    <BaseLink v-if="not(isHomePage)" to="/" class="header__close-link">
       <BaseIcon icon-name="close" class="header__close-icon" />
     </BaseLink>
   </header>
