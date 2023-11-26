@@ -161,16 +161,16 @@ const hideError = (event: FocusEvent) => {
 const saveContact = () => {
   isSaving.value = true;
 
-  if (props.isNewPage) {
-    emits('addContact', newContact.value);
-  }
-
-  if (props.isEditPage) {
-    emits('updateContact', props.contactId, newContact.value);
-  }
-
   setTimeout(() => {
     isSaving.value = false;
+
+    if (props.isNewPage) {
+      emits('addContact', newContact.value);
+    }
+
+    if (props.isEditPage) {
+      emits('updateContact', props.contactId, newContact.value);
+    }
 
     emits('goToHomePage');
   }, 1000);
@@ -202,11 +202,10 @@ const handleSaveButtonClick = () => {
 const handleRemoveButtonClick = () => {
   isRemoving.value = true;
 
-  emits('removeContact', props.contactId);
-
   setTimeout(() => {
     isRemoving.value = false;
 
+    emits('removeContact', props.contactId);
     emits('goToHomePage');
   }, 1000);
 };
