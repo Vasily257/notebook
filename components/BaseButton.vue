@@ -50,5 +50,14 @@ const emits = defineEmits(['buttonClick']);
   &:hover {
     background-color: #ffffff;
   }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #2f80ed;
+    outline-offset: 2px;
+  }
 }
 </style>
