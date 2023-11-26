@@ -263,7 +263,7 @@ onBeforeUnmount(() => {
     <span v-if="isPlaceholderShown" :class="placeholderClass">{{ placeholder }}</span>
 
     <!-- Скрытое выпадающее меню -->
-    <ul v-if="isMenuOpened" class="dropdown__menu" role="menu">
+    <ul v-if="isMenuOpened" role="menu" :aria-labelledby="id" class="dropdown__menu">
       <li
         v-for="(option, index) in options"
         :key="index"
@@ -273,6 +273,7 @@ onBeforeUnmount(() => {
         <BaseButton
           :class="getItemButtonClass(index)"
           tabindex="-1"
+          role="menuitem"
           @click="handleMenuButtonClick"
           @keyup.up="handleMenuButtonKeyInput"
           @keyup.down="handleMenuButtonKeyInput"

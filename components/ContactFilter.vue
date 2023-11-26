@@ -35,6 +35,7 @@ watch(
 <template>
   <div class="contact-filter">
     <BaseDropdown
+      id="contact-filter"
       :options="FILTER_OPTIONS"
       v-model="currentFilter"
       class="contact-filter__dropdown"
