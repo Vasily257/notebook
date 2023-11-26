@@ -70,7 +70,9 @@ const { isSmall, isMedium } = useScreenWidth();
           <span class="contact-list__item-text contact-list__item-text--tel">{{
             getFullTel(contact.tel)
           }}</span>
-          <span class="contact-list__item-text contact-list__item-text--email">{{ contact.email }}</span>
+          <span class="contact-list__item-text contact-list__item-text--email">{{
+            contact.email
+          }}</span>
           <span class="contact-list__item-text contact-list__item-text--created">{{
             removeTime(contact.created)
           }}</span>
@@ -83,7 +85,6 @@ const { isSmall, isMedium } = useScreenWidth();
 <style lang="scss" scoped>
 .contact-list {
   position: relative;
-  height: fit-content;
   padding: 12px;
 
   @media screen and (min-width: 768px) {
@@ -168,7 +169,6 @@ const { isSmall, isMedium } = useScreenWidth();
     column-gap: 4px;
     grid-template-columns: 1fr 1fr 0.4fr;
     grid-template-rows: repeat(2, min-content);
-    height: 100%;
     min-height: 57px;
 
     @media screen and (min-width: 576px) {

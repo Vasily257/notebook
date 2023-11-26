@@ -100,11 +100,11 @@ const handleInput = (event: Event) => {
 .input {
   position: relative;
   flex-grow: 1;
-  height: 100%;
+  min-height: inherit;
 
   &__field {
     width: 100%;
-    height: 100%;
+    min-height: inherit;
     padding: 0 8px;
     color: #545454;
     border-width: 1px;
@@ -171,4 +171,5 @@ const handleInput = (event: Event) => {
     line-height: 1.6;
   }
 }
+
 </style>

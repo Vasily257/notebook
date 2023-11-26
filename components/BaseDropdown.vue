@@ -275,7 +275,6 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   flex-grow: 1;
-  height: 100%;
   text-transform: inherit;
   font-size: inherit;
   font-weight: inherit;
@@ -284,7 +283,7 @@ onBeforeUnmount(() => {
     position: relative;
     z-index: 1;
     width: 100%;
-    height: 100%;
+    min-height: inherit;
     padding: 0 8px;
     cursor: pointer;
     text-align: left;

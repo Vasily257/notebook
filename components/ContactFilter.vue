@@ -67,7 +67,7 @@ watch(
 
   &__dropdown {
     max-width: 219px;
-    height: 32px;
+    min-height: 32px;
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 700;

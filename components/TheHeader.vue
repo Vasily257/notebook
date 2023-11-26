@@ -77,7 +77,7 @@ const headerText = computed(() => {
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
-  height: 40px;
+  min-height: 40px;
   padding: 0 12px;
   background-color: #282828;
 
@@ -86,7 +86,7 @@ const headerText = computed(() => {
   }
 
   @media screen and (min-width: 992px) {
-    height: 48px;
+    min-height: 48px;
   }
 
   @media screen and (min-width: 1200px) {

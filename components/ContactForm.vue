@@ -322,7 +322,7 @@ const handleRemoveButtonClick = () => {
     align-items: center;
     column-gap: 12px;
     flex-flow: row nowrap;
-    height: 40px;
+    min-height: 40px;
     margin: 0;
     padding: 0;
     color: #545454;
@@ -347,7 +347,12 @@ const handleRemoveButtonClick = () => {
     }
   }
 
+  &__input {
+    min-height: 40px;
+  }
+
   &__dropdown {
+    min-height: 40px;
     font-weight: 400;
   }
 
