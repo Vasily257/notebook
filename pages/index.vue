@@ -9,7 +9,10 @@ const { contacts } = useContactsStore();
 /** Текущий фильтр */
 const pageFilter = ref(ContactCategory.All);
 
-/** Обновить фильтр на странице */
+/**
+ * Обновить фильтр на странице
+ * @param newFilter новое значение фильтра
+ */
 const updatePageFilter = (newFilter: ContactCategory) => {
   if (newFilter) {
     pageFilter.value = newFilter;
