@@ -67,9 +67,9 @@ const filtredAndSortedContacs = computed(() => {
       >
         <BaseLink :to="`/edit?contactId=${contactId}`" class="contact-list__item-inner">
           <span class="contact-list__item-text contact-list__item-text--name">
-            <span v-if="isSmallPageWidth" class="contact-list__item-icon">{{
-              contact.name[0]
-            }}</span>
+            <span v-if="isSmallPageWidth" class="contact-list__item-icon">
+              {{ contact.name[0] }}</span
+            >
             {{ contact.name }}</span
           >
           <span class="contact-list__item-text contact-list__item-text--tel">{{
@@ -279,6 +279,7 @@ const filtredAndSortedContacs = computed(() => {
     min-width: 24px;
     min-height: 24px;
     text-align: center;
+    text-transform: uppercase;
     color: #545454;
     border-radius: 50%;
     background-color: #ffc700;
