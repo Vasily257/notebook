@@ -44,34 +44,34 @@ const { isSmall, isMedium } = useScreenWidth();
 </script>
 
 <template>
-  <div class="contacts">
-    <div class="contacts__title-box">
-      <span class="contacts__title contacts__title--name">Контакт</span>
+  <div class="contact-list">
+    <div class="contact-list__title-box">
+      <span class="contact-list__title contact-list__title--name">Контакт</span>
       <template v-if="isMedium">
-        <span class="contacts__title contacts__title--phone">Телефон</span>
-        <span class="contacts__title contacts__title--email">E-mail</span>
+        <span class="contact-list__title contact-list__title--phone">Телефон</span>
+        <span class="contact-list__title contact-list__title--email">E-mail</span>
       </template>
       <template v-else>
-        <span class="contacts__title contacts__title--phone-email">Телефон / e-mail</span>
+        <span class="contact-list__title contact-list__title--phone-email">Телефон / e-mail</span>
       </template>
-      <span class="contacts__title contacts__title--created">Создан</span>
+      <span class="contact-list__title contact-list__title--created">Создан</span>
     </div>
-    <ul class="contacts__list">
+    <ul class="contact-list__list">
       <li
         v-for="[contactId, contact] in filtredAndSortedContacs"
         :key="contactId"
-        class="contacts__item"
+        class="contact-list__item"
       >
-        <BaseLink :to="`/edit?contactId=${contactId}`" class="contacts__item-inner">
-          <span class="contacts__item-text contacts__item-text--name">
-            <span v-if="isSmall" class="contacts__item-icon">{{ contact.name[0] }}</span>
+        <BaseLink :to="`/edit?contactId=${contactId}`" class="contact-list__item-inner">
+          <span class="contact-list__item-text contact-list__item-text--name">
+            <span v-if="isSmall" class="contact-list__item-icon">{{ contact.name[0] }}</span>
             {{ contact.name }}</span
           >
-          <span class="contacts__item-text contacts__item-text--tel">{{
+          <span class="contact-list__item-text contact-list__item-text--tel">{{
             getFullTel(contact.tel)
           }}</span>
-          <span class="contacts__item-text contacts__item-text--email">{{ contact.email }}</span>
-          <span class="contacts__item-text contacts__item-text--created">{{
+          <span class="contact-list__item-text contact-list__item-text--email">{{ contact.email }}</span>
+          <span class="contact-list__item-text contact-list__item-text--created">{{
             removeTime(contact.created)
           }}</span>
         </BaseLink>
@@ -81,7 +81,7 @@ const { isSmall, isMedium } = useScreenWidth();
 </template>
 
 <style lang="scss" scoped>
-.contacts {
+.contact-list {
   position: relative;
   height: fit-content;
   padding: 12px;
