@@ -72,6 +72,14 @@ const principalButtonIconName = computed(() => {
   return props.isErrorShown ? 'error-info' : 'triangle-down';
 });
 
+/** CSS-классы иконки главной кнопки */
+const principalButtonIconClass = computed(() => {
+  return {
+    'dropdown__principal-button-icon': true,
+    'dropdown__principal-button-icon--rotated-by-half': isMenuOpened.value,
+  };
+});
+
 /**
  * Получить класс кнопки меню
  * @param index индекс кнопки (элемента меню)
@@ -258,7 +266,7 @@ onBeforeUnmount(() => {
       @click="handlePrincipalButtonClick"
       @keyup.down="openMenu"
     />
-    <BaseIcon :icon-name="principalButtonIconName" class="dropdown__principal-button-icon" />
+    <BaseIcon :icon-name="principalButtonIconName" :class="principalButtonIconClass" />
     <span v-if="props.isErrorShown" class="dropdown__error-text">{{ errorText }}</span>
     <span v-if="isPlaceholderShown" :class="placeholderClass">{{ placeholder }}</span>
 
@@ -365,6 +373,11 @@ onBeforeUnmount(() => {
     top: 50%;
     right: 8px;
     transform: translate(0, -50%);
+    transition: transform 0.5s;
+
+    &--rotated-by-half {
+      transform: translate(0, -50%) rotate(180deg);
+    }
   }
 
   &__placeholder {
