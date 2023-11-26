@@ -47,7 +47,7 @@ const headerText = computed(() => {
   let headerText = 'Книга контактов';
 
   if (isEditPage.value) {
-    headerText = getContact(queryContactId).name;
+    headerText = getContact(queryContactId.value).name;
   }
 
   if (isNewPage.value) {

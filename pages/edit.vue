@@ -6,7 +6,7 @@ const { isEditPage, isNewPage, queryContactId, goToHomePage } = usePage();
 const { getContact, updateContact, removeContact } = useContactsStore();
 
 /** Данные текущего контакта */
-const currentContact = getContact(queryContactId);
+const currentContact = getContact(queryContactId.value);
 </script>
 
 <template>

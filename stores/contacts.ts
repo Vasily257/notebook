@@ -41,7 +41,7 @@ const useContactsStore = defineStore('contacts', () => {
    * @param contactID id контакта
    */
   const getContact = (contactID: string) => {
-    return contacts.value[contactID] || '';
+    return contacts.value[contactID];
   };
 
   /**

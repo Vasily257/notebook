@@ -6,7 +6,9 @@ export default function usePage() {
   const route = useRoute();
 
   /** ID контакта из query-запроса */
-  const queryContactId = (route.query.contactId as string) || '';
+  const queryContactId = computed(() => {
+    return String(route.query.contactId) || '';
+  });
 
   /** Открыта ли домашняя страница */
   const isHomePage = computed(() => route.path === '/');
