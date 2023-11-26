@@ -1,6 +1,17 @@
 <script setup lang="ts">
-import useScreenWidth from '~/composables/screenWidth';
 import { ContactCategory } from '~/types/contact';
+
+/** Пропсы компонента */
+interface Props {
+  /** Отрисовывается ли компонент на странице с small шириной */
+  isSmallPageWidth?: boolean;
+}
+
+/** Пропсы со значениями по умолчанию */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const props = withDefaults(defineProps<Props>(), {
+  isSmallPageWidth: false,
+});
 
 /** Эмиты */
 const emits = defineEmits(['updatePageFilter', 'goToNewPage']);
@@ -10,8 +21,6 @@ const FILTER_OPTIONS = [ContactCategory.All, ContactCategory.Relatives, ContactC
 
 /** Текущий фильтр */
 const currentFilter = ref(ContactCategory.All);
-
-const { isSmall } = useScreenWidth();
 
 // Обновить фильтр на странице, если поменялось значение внутри выпадающего меню
 watch(
@@ -32,7 +41,7 @@ watch(
     />
     <BaseButton class="contact-filter__button" @button-click="emits('goToNewPage')">
       <BaseIcon icon-name="plus" />
-      {{ isSmall ? 'Добавить контакт' : 'Добавить' }}
+      {{ isSmallPageWidth ? 'Добавить контакт' : 'Добавить' }}
     </BaseButton>
   </div>
 </template>

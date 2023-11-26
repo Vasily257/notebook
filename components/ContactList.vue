@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import useScreenWidth from '~/composables/screenWidth';
 import { getFullTel } from '~/utils/formatTel';
 import { removeTime, compareDates } from '~/utils/formatDate';
 import { ContactCategory, type Contact, type ContactList } from '~/types/contact';
 
 /** Типы пропсов */
 interface Props {
+  /** Отрисовывается ли компонент на странице с small шириной */
+  isSmallPageWidth?: boolean;
+  /** Отрисовывается ли компонент на странице с medium шириной */
+  isMediumPageWidth?: boolean;
   /** Текущий фильтр по категории */
   categoryFilter?: ContactCategory;
   /** Список контактов */
@@ -38,8 +41,6 @@ const filtredAndSortedContacs = computed(() => {
 
   return contacts;
 });
-
-const { isSmall, isMedium } = useScreenWidth();
 </script>
 
 <template>
@@ -47,7 +48,7 @@ const { isSmall, isMedium } = useScreenWidth();
     <!-- Названия столбцов -->
     <div class="contact-list__title-box">
       <span class="contact-list__title contact-list__title--name">Контакт</span>
-      <template v-if="isMedium">
+      <template v-if="isMediumPageWidth">
         <span class="contact-list__title contact-list__title--phone">Телефон</span>
         <span class="contact-list__title contact-list__title--email">E-mail</span>
       </template>
@@ -66,7 +67,9 @@ const { isSmall, isMedium } = useScreenWidth();
       >
         <BaseLink :to="`/edit?contactId=${contactId}`" class="contact-list__item-inner">
           <span class="contact-list__item-text contact-list__item-text--name">
-            <span v-if="isSmall" class="contact-list__item-icon">{{ contact.name[0] }}</span>
+            <span v-if="isSmallPageWidth" class="contact-list__item-icon">{{
+              contact.name[0]
+            }}</span>
             {{ contact.name }}</span
           >
           <span class="contact-list__item-text contact-list__item-text--tel">{{
