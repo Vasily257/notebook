@@ -123,8 +123,8 @@ const handlePrincipalButtonClick = () => {
 
 /** Обработать клик по кнопке выпадающего меню */
 const handleMenuButtonClick = (event: Event) => {
-  if (event.target instanceof HTMLUListElement) {
-    const buttonElement = event.target.closest('button');
+  if (event.target instanceof HTMLButtonElement) {
+    const buttonElement = event.target;
 
     // Обновить значение выпадающего списка
     if (buttonElement?.textContent) {
