@@ -2,7 +2,7 @@
 import { handleTelInput, handleTelFocusOut, handleTelFocusIn } from '~/services/input';
 import { removeExtraSpaces } from '~/utils/formatText';
 
-/** Пропсы компонента */
+/** Типы пропсов */
 interface Props {
   /** ID поля */
   id: string;
@@ -26,9 +26,12 @@ interface Props {
   isRequired?: boolean;
 }
 
-/** Пропсы */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const props = defineProps<Props>();
+/** Пропсы со значениями по умолчанию */
+const props = withDefaults(defineProps<Props>(), {
+  modelValue: '',
+  errorText: '',
+  isErrorShown: false,
+});
 
 /** Эмиты */
 const emits = defineEmits(['update:modelValue', 'customFocusIn']);
@@ -41,15 +44,21 @@ const fieldClass = computed(() => {
   };
 });
 
-/** Обработать фокусировку */
-const handleFocusOut = (event: Event) => {
+/**
+ * Обработать фокусировку
+ * @param event событие фокуса
+ */
+const handleFocusOut = (event: FocusEvent) => {
   if (event.target instanceof HTMLInputElement && event.target.type === 'tel') {
     handleTelFocusOut(event);
   }
 };
 
-/** Обработать потерю фокуса */
-const handleFocusIn = (event: Event) => {
+/**
+ * Обработать фокусировку
+ * @param event событие фокуса
+ */
+const handleFocusIn = (event: FocusEvent) => {
   if (event.target instanceof HTMLInputElement) {
     if (props.isErrorShown) {
       emits('customFocusIn', event);
@@ -61,7 +70,10 @@ const handleFocusIn = (event: Event) => {
   }
 };
 
-/** Обработать ввод */
+/**
+ * Обработать ввод
+ * @param event событие ввода
+ */
 const handleInput = (event: Event) => {
   if (event.target instanceof HTMLInputElement) {
     if (event.target.type === 'tel') {

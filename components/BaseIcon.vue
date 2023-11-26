@@ -1,5 +1,5 @@
 <script setup lang="ts">
-/** Пропсы компонента */
+/** Типы пропсов */
 interface Props {
   /** Название иконки */
   iconName?: string;

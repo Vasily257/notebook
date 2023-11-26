@@ -147,8 +147,11 @@ const newContact = computed(() => ({
   created: isSaving ? getNow() : '',
 }));
 
-/** Скрыть ошибку */
-const hideError = (event: Event) => {
+/**
+ * Скрыть ошибку
+ * @param event событие фокуса
+ */
+const hideError = (event: FocusEvent) => {
   if (event.target instanceof HTMLInputElement) {
     form.hideError(event.target.name);
   }
@@ -212,6 +215,8 @@ const handleRemoveButtonClick = () => {
 <template>
   <form class="contact-form">
     <h2 class="contact-form__title">{{ title }}</h2>
+
+    <!-- Поля ввода -->
     <ul class="contact-form__control-list">
       <li v-for="(field, index) in displayedFields" :key="field.name" class="contact-form__item">
         <label :for="field.name" class="contact-form__label">{{ field.labelText }}</label>
@@ -245,6 +250,8 @@ const handleRemoveButtonClick = () => {
         }}</span>
       </li>
     </ul>
+
+    <!-- Кнопки управления -->
     <ul :class="buttonsClass">
       <li>
         <BaseButton

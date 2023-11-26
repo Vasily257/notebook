@@ -2,7 +2,7 @@
 // Важно: главная кнопка — это поле input с типом button.
 // Это сделано для того, чтобы было проще управлять значением поля.
 
-/** Пропсы компонента */
+/** Типы пропсов */
 interface Props {
   /** ID поля */
   id?: string;
@@ -54,12 +54,12 @@ const principalButtonClass = computed(() => {
   };
 });
 
-/** Показывать ли заменитель текса */
+/** Показывать ли заменитель текста */
 const isPlaceholderShown = computed(() => {
   return props.modelValue === '';
 });
 
-/** CSS-классы для заменителя текса */
+/** CSS-классы для заменителя текста */
 const placeholderClass = computed(() => {
   return {
     'dropdown__placeholder': true,
@@ -72,7 +72,10 @@ const principalButtonIconName = computed(() => {
   return props.isErrorShown ? 'error-info' : 'triangle-down';
 });
 
-/** Получить класс кнопки меню */
+/**
+ * Получить класс кнопки меню
+ * @param index индекс кнопки (элемента меню)
+ */
 const getItemButtonClass = (index: number) => {
   return {
     'dropdown__item-button': true,
@@ -81,13 +84,19 @@ const getItemButtonClass = (index: number) => {
   };
 };
 
-/** Является ли перебирамая опция выбранной */
-const isCurrentOption = (option: string) => {
-  return option === props.modelValue;
+/**
+ * Является ли опция выбранной
+ * @param menuOption опция в меню
+ */
+const isSelectedOption = (menuOption: string) => {
+  return menuOption === props.modelValue;
 };
 
-/** Обработать фокусировку на главной кнопке */
-const handlePrincipalButtonFocusIn = (event: Event) => {
+/**
+ * Обработать фокусировку на главной кнопке
+ * @param event событие фокуса
+ */
+const handlePrincipalButtonFocusIn = (event: FocusEvent) => {
   if (props.isErrorShown) {
     emits('principalButtonFocusIn', event);
   }
@@ -97,13 +106,14 @@ const handlePrincipalButtonFocusIn = (event: Event) => {
 const openMenu = () => {
   isMenuOpened.value = true;
 
-  // Также фокус перемещается на первую кнопку меню (см. ниже watchEffect)
+  // При открытии меню фокус перемещается на первую кнопку меню (см. watchEffect)
 };
 
 /** Закрыть выпадающее меню */
 const closeMenu = () => {
   isMenuOpened.value = false;
 
+  // Очистить глобальный слушатель клика вне меню
   document.removeEventListener('click', closeMenuOnOutsideClick);
 };
 
@@ -112,7 +122,7 @@ const focusFirstMenuButton = () => {
   menuItemButtons.value[0]?.focus();
 };
 
-/** Переключить видимость выпадающего меню */
+/** Обработать нажатие по главной кнопке */
 const handlePrincipalButtonClick = () => {
   if (isMenuOpened.value) {
     closeMenu();
@@ -121,12 +131,15 @@ const handlePrincipalButtonClick = () => {
   }
 };
 
-/** Обработать клик по кнопке выпадающего меню */
-const handleMenuButtonClick = (event: Event) => {
+/**
+ * Обработать клик по кнопке меню
+ * @param event событие мыши
+ */
+const handleMenuButtonClick = (event: MouseEvent) => {
   if (event.target instanceof HTMLButtonElement) {
     const buttonElement = event.target;
 
-    // Обновить значение выпадающего списка
+    // Обновить значение внутри главной кнопки
     if (buttonElement?.textContent) {
       emits('update:modelValue', buttonElement.textContent.trim());
     }
@@ -135,15 +148,19 @@ const handleMenuButtonClick = (event: Event) => {
   closeMenu();
 };
 
-/** Обработать нажатие клавиши на кнопке выпадающего меню */
+/**
+ * Обработать нажатие клавиши на кнопке выпадающего меню
+ * @param event событие клавиатуры
+ */
 const handleMenuButtonKeyInput = (event: KeyboardEvent) => {
   if (event.target instanceof HTMLButtonElement) {
     const currentButton = event.target;
     const currentButtonIndex = menuItemButtons.value.indexOf(currentButton);
     const lastIndex = menuItemButtons.value.length - 1;
 
-    // При нажатии стрелки вверх
+    // Если нажата стрелка «Вверх»
     if (event.key === 'ArrowUp') {
+      // Отключить прокрутку страницы
       event.preventDefault();
 
       if (currentButtonIndex > 0 && currentButtonIndex <= lastIndex) {
@@ -155,8 +172,9 @@ const handleMenuButtonKeyInput = (event: KeyboardEvent) => {
       }
     }
 
-    // При нажатии стрелки вниз
+    // Если нажата стрелка «Вниз»
     if (event.key === 'ArrowDown') {
+      // Отключить прокрутку страницы
       event.preventDefault();
 
       if (currentButtonIndex >= 0 && currentButtonIndex < lastIndex) {
@@ -168,7 +186,7 @@ const handleMenuButtonKeyInput = (event: KeyboardEvent) => {
       }
     }
 
-    // При нажатии клавиши Escape
+    // Если нажата клавиша Escape
     if (event.key === 'Escape') {
       closeMenu();
 
@@ -177,13 +195,14 @@ const handleMenuButtonKeyInput = (event: KeyboardEvent) => {
       }
     }
 
-    // При нажатии клавиши Tab
+    // Если нажата клавиша Tab
     if (event.key === 'Tab') {
       closeMenu();
     }
   }
 };
 
+// Переместить фокус на первую кнопку, когда откроется меню
 watchEffect(() => {
   if (isMenuOpened.value) {
     // Очистить старый список кнопок
@@ -200,14 +219,14 @@ watchEffect(() => {
 
     focusFirstMenuButton();
 
-    // Добавить обработчик с нулевой задержкой, чтобы он сразу не сработал
+    // Добавить обработчик с нулевой задержкой, чтобы он не сразу сработал
     setTimeout(() => {
       document.addEventListener('click', closeMenuOnOutsideClick);
     });
   }
 });
 
-// Добавление слушателя события клика на родительский элемент вашего меню или корневой элемент компонента
+/** Закрыть меню при клике вне меню */
 const closeMenuOnOutsideClick = (event: Event) => {
   const isMenuButton =
     event.target instanceof HTMLButtonElement && menuItemButtons.value.includes(event.target);
@@ -262,7 +281,7 @@ onBeforeUnmount(() => {
           @mouseenter="$event.target.focus()"
         >
           {{ option }}
-          <BaseIcon v-if="isCurrentOption(option)" icon-name="check-mark" />
+          <BaseIcon v-if="isSelectedOption(option)" icon-name="check-mark" />
         </BaseButton>
       </li>
     </ul>

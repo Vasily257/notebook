@@ -4,7 +4,7 @@ import { getFullTel } from '~/utils/formatTel';
 import { removeTime, compareDates } from '~/utils/formatDate';
 import { ContactCategory, type Contact, type ContactList } from '~/types/contact';
 
-/** Пропсы компонента */
+/** Типы пропсов */
 interface Props {
   /** Текущий фильтр по категории */
   categoryFilter?: ContactCategory;
@@ -13,7 +13,6 @@ interface Props {
 }
 
 /** Пропсы со значениями по умолчанию */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = withDefaults(defineProps<Props>(), {
   pageFilter: ContactCategory.All,
   contactList: () => ({} as ContactList),
@@ -45,6 +44,7 @@ const { isSmall, isMedium } = useScreenWidth();
 
 <template>
   <div class="contact-list">
+    <!-- Названия столбцов -->
     <div class="contact-list__title-box">
       <span class="contact-list__title contact-list__title--name">Контакт</span>
       <template v-if="isMedium">
@@ -56,6 +56,8 @@ const { isSmall, isMedium } = useScreenWidth();
       </template>
       <span class="contact-list__title contact-list__title--created">Создан</span>
     </div>
+
+    <!-- Контакты -->
     <ul class="contact-list__list">
       <li
         v-for="[contactId, contact] in filtredAndSortedContacs"

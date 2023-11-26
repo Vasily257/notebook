@@ -1,5 +1,5 @@
 <script setup lang="ts">
-/** Пропсы компонента */
+/** Типы пропсов */
 interface Props {
   /** Тип кнопки */
   type?: 'submit' | 'button' | 'reset';
