@@ -65,9 +65,9 @@ const headerText = computed(() => {
       <span v-else class="header__first-letter">{{ headerText[0] }}</span>
       <span :class="textClass">{{ headerText }}</span>
     </div>
-    <NuxtLink v-if="not(isHomePage)" :to="targetPageOfCloseLink" class="header__close-link">
+    <BaseLink v-if="not(isHomePage)" :to="targetPageOfCloseLink" class="header__close-link">
       <BaseIcon icon-name="close" class="header__close-icon" />
-    </NuxtLink>
+    </BaseLink>
   </header>
 </template>
 

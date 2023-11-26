@@ -62,7 +62,7 @@ const { isSmall, isMedium } = useScreenWidth();
         :key="contactId"
         class="contacts__item"
       >
-        <NuxtLink :to="`/edit?contactId=${contactId}`" class="contacts__item-inner">
+        <BaseLink :to="`/edit?contactId=${contactId}`" class="contacts__item-inner">
           <span class="contacts__item-text contacts__item-text--name">
             <span v-if="isSmall" class="contacts__item-icon">{{ contact.name[0] }}</span>
             {{ contact.name }}</span
@@ -74,7 +74,7 @@ const { isSmall, isMedium } = useScreenWidth();
           <span class="contacts__item-text contacts__item-text--created">{{
             removeTime(contact.created)
           }}</span>
-        </NuxtLink>
+        </BaseLink>
       </li>
     </ul>
   </div>
@@ -170,7 +170,6 @@ const { isSmall, isMedium } = useScreenWidth();
     grid-template-rows: repeat(2, min-content);
     height: 100%;
     min-height: 57px;
-    text-decoration: none;
 
     @media screen and (min-width: 576px) {
       grid-template-columns: 23fr 30fr 14fr;
