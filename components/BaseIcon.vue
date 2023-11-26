@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 /** CSS-классы для иконки */
-const iconClassObject = computed(() => {
+const iconClass = computed(() => {
   return {
     'icon': true,
     'icon--rotated': props.isRotated,
@@ -27,7 +27,7 @@ const iconClassObject = computed(() => {
 </script>
 
 <template>
-  <svg :class="iconClassObject" :aria-label="ariaLabel" :aria-hidden="ariaHidden" role="img">
+  <svg :class="iconClass" :aria-label="ariaLabel" :aria-hidden="ariaHidden" role="img">
     <use :xlink:href="`sprite.svg#${iconName}`" />
   </svg>
 </template>

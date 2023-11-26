@@ -73,7 +73,7 @@ const principalButtonIconName = computed(() => {
 });
 
 /** Получить класс кнопки меню */
-const getItemButtonClassObject = (index: number) => {
+const getItemButtonClass = (index: number) => {
   return {
     'dropdown__item-button': true,
     'dropdown__item-button--first': index === 0,
@@ -252,7 +252,7 @@ onBeforeUnmount(() => {
         class="dropdown__menu-item"
       >
         <BaseButton
-          :class="getItemButtonClassObject(index)"
+          :class="getItemButtonClass(index)"
           tabindex="-1"
           @click="handleMenuButtonClick"
           @keyup.up="handleMenuButtonKeyInput"

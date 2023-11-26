@@ -12,7 +12,7 @@ const targetPageOfCloseLink = computed(() => {
 });
 
 /** CSS-классы для контента */
-const contentClassObject = computed(() => {
+const contentClass = computed(() => {
   return {
     'header__content': true,
     'header__content--home-page': isHomePage.value,
@@ -21,7 +21,7 @@ const contentClassObject = computed(() => {
 });
 
 /** CSS-классы для главной иконки */
-const mainIconClassObject = computed(() => {
+const mainIconClass = computed(() => {
   return {
     'header__main-icon': true,
     'header__main-icon--home-page': isHomePage.value,
@@ -60,8 +60,8 @@ const headerText = computed(() => {
 
 <template>
   <header class="header">
-    <div :class="contentClassObject">
-      <BaseIcon v-if="not(isEditPage)" :class="mainIconClassObject" :icon-name="mainIconName" />
+    <div :class="contentClass">
+      <BaseIcon v-if="not(isEditPage)" :class="mainIconClass" :icon-name="mainIconName" />
       <span v-else class="header__first-letter">{{ headerText[0] }}</span>
       <span :class="textClass">{{ headerText }}</span>
     </div>

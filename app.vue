@@ -4,7 +4,7 @@ import usePage from '~/composables/page';
 const { isEditPage, isNewPage } = usePage();
 
 /** CSS-классы для тега main */
-const mainClassObject = computed(() => ({
+const mainClass = computed(() => ({
   'main': true,
   'main--edit-or-new': isEditPage.value || isNewPage.value,
 }));
@@ -12,7 +12,7 @@ const mainClassObject = computed(() => ({
 
 <template>
   <TheHeader />
-  <main :class="mainClassObject">
+  <main :class="mainClass">
     <NuxtPage />
   </main>
 </template>
