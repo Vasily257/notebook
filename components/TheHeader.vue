@@ -188,6 +188,7 @@ const headerText = computed(() => {
     top: 50%;
     right: 12px;
     transform: translateY(-50%);
+    line-height: 0;
 
     @media screen and (min-width: 768px) {
       right: 32px;
