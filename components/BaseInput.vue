@@ -43,35 +43,33 @@ const fieldClass = computed(() => {
 
 /** Обработать фокусировку */
 const handleFocusOut = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-
-  if (target.type === 'tel') {
+  if (event.target instanceof HTMLInputElement && event.target.type === 'tel') {
     handleTelFocusOut(event);
   }
 };
 
 /** Обработать потерю фокуса */
 const handleFocusIn = (event: Event) => {
-  const target = event.target as HTMLInputElement;
+  if (event.target instanceof HTMLInputElement) {
+    if (props.isErrorShown) {
+      emits('customFocusIn', event);
+    }
 
-  if (props.isErrorShown) {
-    emits('customFocusIn', event);
-  }
-
-  if (target.type === 'tel') {
-    handleTelFocusIn(event);
+    if (event.target.type === 'tel') {
+      handleTelFocusIn(event);
+    }
   }
 };
 
 /** Обработать ввод */
 const handleInput = (event: Event) => {
-  const target = event.target as HTMLInputElement;
+  if (event.target instanceof HTMLInputElement) {
+    if (event.target.type === 'tel') {
+      handleTelInput(event);
+    }
 
-  if (target.type === 'tel') {
-    handleTelInput(event);
+    emits('update:modelValue', removeExtraSpaces(event.target.value));
   }
-
-  emits('update:modelValue', removeExtraSpaces(target.value));
 };
 </script>
 
@@ -171,5 +169,4 @@ const handleInput = (event: Event) => {
     line-height: 1.6;
   }
 }
-
 </style>

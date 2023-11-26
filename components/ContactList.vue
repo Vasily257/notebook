@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
 /** Отфильтрованные и отсортированные контакты в формате массива */
 const filtredAndSortedContacs = computed(() => {
   /** Контакты в формате [contactId, contact] */
-  let contacts = [] as Array<[string, Contact]>;
+  let contacts: Array<[string, Contact]> = [];
 
   contacts = Object.entries(props.contactList)
     // Отфильтровать контакты по категории

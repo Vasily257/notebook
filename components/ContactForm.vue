@@ -149,9 +149,9 @@ const newContact = computed(() => ({
 
 /** Скрыть ошибку */
 const hideError = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-
-  form.hideError(target.name);
+  if (event.target instanceof HTMLInputElement) {
+    form.hideError(event.target.name);
+  }
 };
 
 /** Сохранить (обновить) контакт */
