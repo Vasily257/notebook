@@ -1,5 +1,3 @@
-import { computed } from 'vue';
-
 /** Хук для управления страницами */
 export default function usePage() {
   /** Настройки текущего маршрута */

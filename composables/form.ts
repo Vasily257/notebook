@@ -1,7 +1,6 @@
-import { ref, watch } from 'vue';
-import getValidationSchema from '@/utils/getValidationSchema';
-import type { FormFieldOptions } from '@/types/form';
 import { ValidationError } from 'yup';
+import getValidationSchema from '~/utils/getValidationSchema';
+import type { FormFieldOptions } from '~/types/form';
 
 /**
  * Хук для управления формой

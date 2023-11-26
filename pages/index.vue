@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import usePage from '~/composables/page';
-import useContactsStore from '@/stores/contacts';
+import useContactsStore from '~/stores/contacts';
 import { ContactCategory } from '~/types/contact';
 
 const { goToNewPage } = usePage();

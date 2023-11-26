@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import type { FormFieldOptionsRules } from '@/types/form';
+import type { FormFieldOptionsRules } from '~/types/form';
 
 /**
  * Получить схему валидации поля

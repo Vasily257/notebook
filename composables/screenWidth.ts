@@ -1,4 +1,3 @@
-import { onMounted, onBeforeUnmount } from 'vue';
 import throttle from '~/utils/throttle';
 
 /** Хук для управления шириной экрана */

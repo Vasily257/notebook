@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import usePage from '@/composables/page';
-import useContactsStore from '@/stores/contacts';
-import not from '~/utils/not.jsx';
+import usePage from '~/composables/page';
+import useContactsStore from '~/stores/contacts';
+import not from '~/utils/not';
 
 const { queryContactId, isHomePage, isEditPage, isNewPage } = usePage();
 const { getContact } = useContactsStore();

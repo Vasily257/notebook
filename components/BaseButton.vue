@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { defineEmits } from 'vue';
-
 /** Пропсы компонента */
 interface Props {
   /** Тип кнопки */

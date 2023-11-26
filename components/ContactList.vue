@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import useScreenWidth from '~/composables/screenWidth.js';
+import useScreenWidth from '~/composables/screenWidth';
 import { getFullTel } from '~/utils/formatTel';
 import { removeTime, compareDates } from '~/utils/formatDate';
 import { ContactCategory, type Contact, type ContactList } from '~/types/contact';

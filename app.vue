@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import usePage from './composables/page';
+import usePage from '~/composables/page';
 
 const { isEditPage, isNewPage } = usePage();
 
