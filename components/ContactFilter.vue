@@ -6,7 +6,7 @@ import { ContactCategory } from '~/types/contact';
 const emits = defineEmits(['updatePageFilter', 'goToNewPage']);
 
 /** Варианты фильтров */
-const filterOptions = [ContactCategory.All, ContactCategory.Relatives, ContactCategory.Colleagues];
+const FILTER_OPTIONS = [ContactCategory.All, ContactCategory.Relatives, ContactCategory.Colleagues];
 
 /** Текущий фильтр */
 const currentFilter = ref(ContactCategory.All);
@@ -26,7 +26,7 @@ watch(
 <template>
   <div class="contact-filter">
     <BaseDropdown
-      :options="filterOptions"
+      :options="FILTER_OPTIONS"
       v-model="currentFilter"
       class="contact-filter__dropdown"
     />
