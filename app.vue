@@ -6,6 +6,16 @@ import { ModalTypes } from '~/types/modal';
 const { isEditPage, isNewPage } = usePage();
 const { modals, closeModal } = useModalsStore();
 
+useHead({
+  title: 'Notebook',
+  meta: [
+    {
+      name: 'description',
+      content: 'This project is a notebook where you can add, edit and delete contacts.',
+    },
+  ],
+});
+
 /** CSS-классы для тега main */
 const mainClass = computed(() => ({
   'main': true,
