@@ -154,6 +154,10 @@ const handleMenuButtonClick = (event: MouseEvent) => {
   }
 
   closeMenu();
+
+  if (principalMenu.value) {
+    principalMenu.value.focus();
+  }
 };
 
 /**
