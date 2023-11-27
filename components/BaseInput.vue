@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { handleTelInput, handleTelFocusOut, handleTelFocusIn } from '~/services/input';
 import { removeExtraSpaces } from '~/utils/formatText';
+import { getTelUsingMask } from '~/utils/formatTel';
 
 /** Типы пропсов */
 interface Props {
@@ -36,6 +36,9 @@ const props = withDefaults(defineProps<Props>(), {
 /** Эмиты */
 const emits = defineEmits(['update:modelValue', 'customFocusIn']);
 
+/** Маска телефонного номера */
+const TEL_MAXTRIX = '+7(___)___-__-__';
+
 /** CSS-классы для поля ввода */
 const fieldClass = computed(() => {
   return {
@@ -50,7 +53,11 @@ const fieldClass = computed(() => {
  */
 const handleFocusOut = (event: FocusEvent) => {
   if (event.target instanceof HTMLInputElement && event.target.type === 'tel') {
-    handleTelFocusOut(event);
+    const target = event.target;
+
+    if (target.value === TEL_MAXTRIX || target.value === '+7') {
+      target.value = '';
+    }
   }
 };
 
@@ -59,13 +66,20 @@ const handleFocusOut = (event: FocusEvent) => {
  * @param event событие фокуса
  */
 const handleFocusIn = (event: FocusEvent) => {
-  if (event.target instanceof HTMLInputElement) {
-    if (props.isErrorShown) {
-      emits('customFocusIn', event);
-    }
+  if (props.isErrorShown) {
+    emits('customFocusIn', event);
+  }
 
-    if (event.target.type === 'tel') {
-      handleTelFocusIn(event);
+  if (event.target instanceof HTMLInputElement) {
+    const target = event.target;
+
+    if (target.type === 'tel' && target.value === '') {
+      target.value = TEL_MAXTRIX;
+
+      // Перевести каретку на 3 символ
+      setTimeout(() => {
+        target.selectionStart = target.selectionEnd = 3;
+      });
     }
   }
 };
@@ -76,11 +90,13 @@ const handleFocusIn = (event: FocusEvent) => {
  */
 const handleInput = (event: Event) => {
   if (event.target instanceof HTMLInputElement) {
-    if (event.target.type === 'tel') {
-      handleTelInput(event);
+    const target = event.target;
+
+    if (target.type === 'tel') {
+      target.value = getTelUsingMask(target.value);
     }
 
-    emits('update:modelValue', removeExtraSpaces(event.target.value));
+    emits('update:modelValue', removeExtraSpaces(target.value));
   }
 };
 </script>
