@@ -201,7 +201,10 @@ const filtredAndSortedContacs = computed(() => {
   }
 
   &__item-text {
+    overflow: hidden;
     align-self: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     color: #545454;
     font-size: 12px;
     font-weight: 400;
@@ -218,6 +221,7 @@ const filtredAndSortedContacs = computed(() => {
       flex-flow: row nowrap;
       grid-column: 1 / 2;
       grid-row: 1 / 3;
+      white-space: wrap;
 
       @media screen and (min-width: 576px) {
         max-width: 85%;
