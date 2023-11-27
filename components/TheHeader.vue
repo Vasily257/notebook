@@ -123,6 +123,7 @@ const headerText = computed(() => {
   }
 
   &__main-icon {
+    flex-shrink: 0;
     width: 16px;
     height: 16px;
 
