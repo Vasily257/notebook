@@ -8,7 +8,6 @@ interface Props {
 }
 
 /** Пропсы со значениями по умолчанию */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = withDefaults(defineProps<Props>(), {
   isSmallPageWidth: false,
 });
