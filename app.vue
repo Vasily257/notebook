@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import usePage from '~/composables/page';
+import useModalsStore from '~/stores/modals';
+import { ModalTypes } from '~/types/modal';
 
 const { isEditPage, isNewPage } = usePage();
+const { modals, closeModal } = useModalsStore();
 
 /** CSS-классы для тега main */
 const mainClass = computed(() => ({
@@ -15,6 +18,14 @@ const mainClass = computed(() => ({
   <main :class="mainClass">
     <NuxtPage />
   </main>
+
+  <!-- Модальное окно контактов -->
+  <BaseModal
+    :isOpened="modals[ModalTypes.contact].isOpened"
+    :text="modals[ModalTypes.contact].text"
+    isSelfClosing
+    @close-modal="closeModal(ModalTypes.contact)"
+  />
 </template>
 
 <style lang="scss" scoped>

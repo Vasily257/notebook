@@ -4,6 +4,7 @@ import { getShortTel, getFullTel } from '~/utils/formatTel';
 import { getNow, removeTime } from '~/utils/formatDate';
 import not from '~/utils/not';
 import { ContactCategory, type Contact } from '~/types/contact';
+import { ModalTypes, type Modals } from '~/types/modal';
 
 /** Пропсы компонента */
 interface Props {
@@ -15,6 +16,8 @@ interface Props {
   contactId?: string;
   /** Информация по текущему контакту */
   contact?: Contact;
+  /** Список модальных окон */
+  modals?: Modals;
 }
 
 /** Пропсы со значениями по умолчанию */
@@ -25,7 +28,13 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 /** Эмиты */
-const emits = defineEmits(['addContact', 'updateContact', 'removeContact', 'goToHomePage']);
+const emits = defineEmits([
+  'addContact',
+  'updateContact',
+  'removeContact',
+  'showModal',
+  'goToHomePage',
+]);
 
 /** Заголовки формы */
 const TITLES = {
@@ -165,14 +174,14 @@ const saveContact = () => {
     isSaving.value = false;
 
     if (props.isNewPage) {
+      emits('showModal', { type: ModalTypes.contact, text: 'Контакт успешно создан' });
       emits('addContact', newContact.value);
     }
 
     if (props.isEditPage) {
+      emits('showModal', { type: ModalTypes.contact, text: 'Контакт успешно изменён' });
       emits('updateContact', props.contactId, newContact.value);
     }
-
-    emits('goToHomePage');
   }, 1000);
 };
 
@@ -205,6 +214,7 @@ const handleRemoveButtonClick = () => {
   setTimeout(() => {
     isRemoving.value = false;
 
+    emits('showModal', { type: ModalTypes.contact, text: 'Контакт удалён' });
     emits('removeContact', props.contactId);
     emits('goToHomePage');
   }, 1000);
@@ -244,9 +254,9 @@ const handleRemoveButtonClick = () => {
           class="contact-form__dropdown"
           @principal-button-focus-in="hideError"
         />
-        <span v-if="index === 4 && isEditPage" class="contact-form__text">{{
-          removeTime(props.contact?.created)
-        }}</span>
+        <span v-if="index === 4 && isEditPage" class="contact-form__text">
+          {{ removeTime(props.contact?.created) }}</span
+        >
       </li>
     </ul>
 
