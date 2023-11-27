@@ -20,17 +20,13 @@ const emits = defineEmits(['closeModal']);
 /** Время показа модального окна */
 const SHOW_TIME = 2000;
 
-watch(
-  props,
-  () => {
-    if (props.isOpened && props.isSelfClosing) {
-      setTimeout(() => {
-        emits('closeModal');
-      }, SHOW_TIME);
-    }
-  },
-  { deep: true },
-);
+watchEffect(() => {
+  if (props.isOpened && props.isSelfClosing) {
+    setTimeout(() => {
+      emits('closeModal');
+    }, SHOW_TIME);
+  }
+});
 </script>
 
 <template>
@@ -62,7 +58,7 @@ watch(
 
   @media screen and (min-width: 768px) {
     top: auto;
-    bottom: 64px;
+    bottom: 48px;
     left: 32px;
     padding: 12px 12px 12px 8px;
     transform: translate(0, 0);
