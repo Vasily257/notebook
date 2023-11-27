@@ -41,7 +41,9 @@ const iconClass = computed(() => {
 
 .icon {
   width: 16px;
+  min-width: 16px;
   height: 16px;
+  min-height: 16px;
 
   &--rotated {
     animation: rotate 1s infinite ease-in-out;
