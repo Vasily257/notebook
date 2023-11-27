@@ -68,6 +68,7 @@ watchEffect(() => {
   }
 
   &__text {
+    width: max-content;
     color: #ffffff;
     font-size: 12px;
     line-height: 16px;
