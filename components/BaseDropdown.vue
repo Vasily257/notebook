@@ -271,29 +271,31 @@ onBeforeUnmount(() => {
     <span v-if="isPlaceholderShown" :class="placeholderClass">{{ placeholder }}</span>
 
     <!-- Скрытое выпадающее меню -->
-    <ul v-if="isMenuOpened" role="menu" :aria-labelledby="id" class="dropdown__menu">
-      <li
-        v-for="(option, index) in options"
-        :key="index"
-        ref="menuItems"
-        class="dropdown__menu-item"
-      >
-        <BaseButton
-          :class="getItemButtonClass(index)"
-          tabindex="-1"
-          role="menuitem"
-          @click="handleMenuButtonClick"
-          @keyup.up="handleMenuButtonKeyInput"
-          @keyup.down="handleMenuButtonKeyInput"
-          @keyup.esc="handleMenuButtonKeyInput"
-          @keydown.tab="handleMenuButtonKeyInput"
-          @mouseenter="$event.target.focus()"
+    <Transition>
+      <ul v-if="isMenuOpened" role="menu" :aria-labelledby="id" class="dropdown__menu">
+        <li
+          v-for="(option, index) in options"
+          :key="index"
+          ref="menuItems"
+          class="dropdown__menu-item"
         >
-          {{ option }}
-          <BaseIcon v-if="isSelectedOption(option)" icon-name="check-mark" />
-        </BaseButton>
-      </li>
-    </ul>
+          <BaseButton
+            :class="getItemButtonClass(index)"
+            tabindex="-1"
+            role="menuitem"
+            @click="handleMenuButtonClick"
+            @keyup.up="handleMenuButtonKeyInput"
+            @keyup.down="handleMenuButtonKeyInput"
+            @keyup.esc="handleMenuButtonKeyInput"
+            @keydown.tab="handleMenuButtonKeyInput"
+            @mouseenter="$event.target.focus()"
+          >
+            {{ option }}
+            <BaseIcon v-if="isSelectedOption(option)" icon-name="check-mark" />
+          </BaseButton>
+        </li>
+      </ul>
+    </Transition>
   </div>
 </template>
 
@@ -373,7 +375,7 @@ onBeforeUnmount(() => {
     top: 50%;
     right: 8px;
     transform: translate(0, -50%);
-    transition: transform 0.5s;
+    transition: transform 0.25s;
 
     &--rotated-by-half {
       transform: translate(0, -50%) rotate(180deg);
@@ -440,5 +442,15 @@ onBeforeUnmount(() => {
       border-bottom-left-radius: 4px;
     }
   }
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
