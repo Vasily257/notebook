@@ -7,6 +7,7 @@ const { isEditPage, isNewPage } = usePage();
 const { modals, closeModal } = useModalsStore();
 
 useHead({
+  htmlAttrs: { lang: 'ru' },
   title: 'Notebook',
   meta: [
     {
