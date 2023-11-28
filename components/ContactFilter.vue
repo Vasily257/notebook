@@ -76,11 +76,15 @@ watch(
   }
 
   &__dropdown {
-    max-width: 219px;
+    max-width: 58%;
     min-height: 32px;
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 700;
+
+    @media screen and (min-width: 376px) {
+      max-width: 219px;
+    }
 
     @media screen and (min-width: 576px) {
       min-width: 235px;
