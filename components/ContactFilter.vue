@@ -33,6 +33,7 @@ watch(
 
 <template>
   <div class="contact-filter">
+    <label for="contact-filter" class="hidden-visually">Фильтр контактов</label>
     <BaseDropdown
       id="contact-filter"
       :options="FILTER_OPTIONS"
