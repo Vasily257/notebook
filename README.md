@@ -1,75 +1,39 @@
-# Nuxt 3 Minimal Starter
+# Notebook
+Этот проект — тестовое задание для вакансии «Верстальщик» компании ZemSoft [(ZEMS.PRO)](https://zems.pro//).
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Функциональность
+Проект является записной книжкой, где можно добавлять, удалять и редактировать контакты. В проекте есть 3 страницы:
+- `home` — страница со всеми контактами
+- `new` — страница добавления нового контакта
+- `edit` — страница редактирования контакта
 
-## Setup
+## Особенности
+У проекта есть несколько особенностей:
+1. Проект написан на Vue 3, используется `Composition API` и `script setup`.
+2. Код по возможности соотвествует [рекомендациям Vue](https://v3.ru.vuejs.org/ru/style-guide/).
+3. Обращения к сторам и композициям вынесено на уровень страниц, чтобы сохранить дочерние компоненты чистыми.
+4. Страница редактирования контакта использует query-параметр с ID контакта. 
+5. В проекте используется несколько библиотек:
+- `Pinia` — для хранения контактов
+- `nanoid` — для создания уникальных ID контактов
+- `Yup` — для валидации формы
+- `dayjs` — для работы с датами
 
-Make sure to install the dependencies:
 
-```bash
-# npm
-npm install
+## Технологический стек
+`Vue` `SCSS` `TypeScript` `Nuxt`
 
-# pnpm
-pnpm install
+## Ссылки
+Опубликованый сайт: https://master--notebook-zemsoft.netlify.app/  
+ТЗ: https://docs.google.com/document/d/1gj0POILT6ofnL24eVdmduc8FO20dTfGAaqH-ffgWDds/
+Макет: https://www.figma.com/file/ct6rzbxMtNxSYp4eTXEWv6/Frontend-test?type=design&node-id=0-1&mode=design&t=i9sNcEw7V0NMRwUE-0  
 
-# yarn
-yarn install
+## Использование
+Чтобы склонировать проект, надо открыть нужную директорию и использовать команды:  
+**HTTPS**: `git clone https://github.com/Vasily257/notebook.git`  
 
-# bun
-bun install
-```
+Чтобы запустить проект, нужно открыть папку с проектом через терминал и использовать команду `npm run dev`.    
+Потом надо перейти по ссылке http://localhost:3000 в браузере, чтобы увидеть результат.
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Статус
+Проект завершен, нет планов по доработке.
