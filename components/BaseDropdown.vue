@@ -24,7 +24,7 @@ interface Props {
 
 /** Пропсы со значениями по умолчанию */
 const props = withDefaults(defineProps<Props>(), {
-  modelValue: ' ',
+  modelValue: '',
   errorText: '',
   isErrorShown: false,
   isRequired: false,
@@ -51,20 +51,8 @@ const principalButtonClass = computed(() => {
   return {
     'dropdown__principal-button': true,
     'dropdown__principal-button--opened': isMenuOpened.value,
+    'dropdown__principal-button--placeholder': props.modelValue === props.placeholder,
     'dropdown__principal-button--error': props.isErrorShown,
-  };
-});
-
-/** Показывать ли заменитель текста */
-const isPlaceholderShown = computed(() => {
-  return props.modelValue === '';
-});
-
-/** CSS-классы для заменителя текста */
-const placeholderClass = computed(() => {
-  return {
-    'dropdown__placeholder': true,
-    'dropdown__placeholder--error': props.isErrorShown,
   };
 });
 
@@ -273,7 +261,6 @@ onBeforeUnmount(() => {
     />
     <BaseIcon :icon-name="principalButtonIconName" :class="principalButtonIconClass" />
     <span v-if="props.isErrorShown" class="dropdown__error-text">{{ errorText }}</span>
-    <span v-if="isPlaceholderShown" :class="placeholderClass">{{ placeholder }}</span>
 
     <!-- Скрытое выпадающее меню -->
     <Transition>
@@ -351,6 +338,10 @@ onBeforeUnmount(() => {
       border-color: #2f80ed;
     }
 
+    &--placeholder {
+      color: #a9a9a9;
+    }
+
     &--error {
       color: #eb5757;
       border-color: #eb5757;
@@ -384,23 +375,6 @@ onBeforeUnmount(() => {
 
     &--rotated-by-half {
       transform: translate(0, -50%) rotate(180deg);
-    }
-  }
-
-  &__placeholder {
-    position: absolute;
-    top: 50%;
-    left: 8px;
-    transform: translate(0, -50%);
-    color: #a9a9a9;
-    font-size: 12px;
-
-    @media screen and (min-width: 992px) {
-      font-size: 14px;
-    }
-
-    &--error {
-      color: #eb5757;
     }
   }
 

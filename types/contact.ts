@@ -1,5 +1,6 @@
 /** Категори контакт */
 export enum ContactCategory {
+  NotSelected = 'Не выбрано',
   All = 'Все',
   Relatives = 'Родственники',
   Colleagues = 'Коллеги',

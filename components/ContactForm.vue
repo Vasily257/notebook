@@ -59,7 +59,7 @@ const FIELDS = [
     labelText: 'E-mail',
     placeholder: 'Например «pochta@domain.ru»...',
   },
-  { name: 'category', labelText: 'Категория', placeholder: 'Не выбрано' },
+  { name: 'category', labelText: 'Категория', placeholder: ContactCategory.NotSelected },
   { name: 'created', labelText: 'Создан' },
 ];
 
@@ -98,7 +98,7 @@ const inputValidationOptions = [
   },
   {
     name: 'category',
-    value: props.contact?.category || '',
+    value: props.contact?.category || ContactCategory.NotSelected,
     rules: {
       required: true,
     },
