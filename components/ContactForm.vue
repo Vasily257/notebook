@@ -228,7 +228,9 @@ const handleRemoveButtonClick = () => {
     <!-- Поля ввода -->
     <ul class="contact-form__control-list">
       <li v-for="(field, index) in displayedFields" :key="field.name" class="contact-form__item">
-        <label :for="field.name" class="contact-form__label">{{ field.labelText }}</label>
+        <label v-if="index <= 3" :for="field.name" class="contact-form__label">
+          {{ field.labelText }}</label
+        >
         <BaseInput
           v-if="index <= 2"
           :id="field.name"
@@ -250,11 +252,13 @@ const handleRemoveButtonClick = () => {
           :is-error-shown="form.errorDisplays[field.name]"
           :placeholder="field.placeholder"
           :options="CATEGORY_OPTIONS"
-          :current-option="form.values[field.name]"
           class="contact-form__dropdown"
           @principal-button-focus-in="hideError"
         />
-        <span v-if="index === 4 && isEditPage" class="contact-form__text">
+        <span v-if="index === 4 && isEditPage" class="contact-form__label">
+          {{ field.labelText }}</span
+        >
+        <span v-if="index === 4 && isEditPage" :id="field.name" class="contact-form__text">
           {{ removeTime(props.contact?.created) }}</span
         >
       </li>

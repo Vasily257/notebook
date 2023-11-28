@@ -221,7 +221,7 @@ const filtredAndSortedContacs = computed(() => {
       flex-flow: row nowrap;
       grid-column: 1 / 2;
       grid-row: 1 / 3;
-      white-space: wrap;
+      white-space: normal;
 
       @media screen and (min-width: 576px) {
         max-width: 85%;

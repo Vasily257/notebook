@@ -24,7 +24,7 @@ interface Props {
 
 /** Пропсы со значениями по умолчанию */
 const props = withDefaults(defineProps<Props>(), {
-  modelValue: '',
+  modelValue: ' ',
   errorText: '',
   isErrorShown: false,
   options: () => [],
