@@ -7,7 +7,7 @@ interface Props {
   /** ID поля */
   id: string;
   /** Имя поля */
-  name: string;
+  name?: string;
   /** Тип поля */
   type?: string;
   /** Значение поля */
@@ -31,6 +31,7 @@ const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
   errorText: '',
   isErrorShown: false,
+  isRequired: false,
 });
 
 /** Эмиты */

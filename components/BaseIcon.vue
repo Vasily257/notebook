@@ -14,6 +14,7 @@ interface Props {
 /** Пропсы со значениями по умолчанию */
 const props = withDefaults(defineProps<Props>(), {
   iconName: 'save',
+  isRotated: false,
   ariaHidden: true,
 });
 

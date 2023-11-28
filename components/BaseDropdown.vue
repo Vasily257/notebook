@@ -5,7 +5,7 @@
 /** Типы пропсов */
 interface Props {
   /** ID поля */
-  id?: string;
+  id: string;
   /** Имя поля */
   name?: string;
   /** Значение поля */
@@ -27,6 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
   modelValue: ' ',
   errorText: '',
   isErrorShown: false,
+  isRequired: false,
   options: () => [],
 });
 

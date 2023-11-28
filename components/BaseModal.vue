@@ -11,7 +11,9 @@ interface Props {
 
 /** Пропсы со значениями по умолчанию */
 const props = withDefaults(defineProps<Props>(), {
+  isOpened: false,
   text: '',
+  isSelfClosing: false,
 });
 
 /** Эмиты */

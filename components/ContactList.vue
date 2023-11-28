@@ -17,7 +17,9 @@ interface Props {
 
 /** Пропсы со значениями по умолчанию */
 const props = withDefaults(defineProps<Props>(), {
-  pageFilter: ContactCategory.All,
+  isSmallPageWidth: true,
+  isMediumPageWidth: false,
+  categoryFilter: ContactCategory.All,
   contactList: () => ({} as ContactList),
 });
 

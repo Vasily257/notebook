@@ -25,6 +25,8 @@ const props = withDefaults(defineProps<Props>(), {
   isNewPage: false,
   isEditPage: false,
   contactId: '',
+  contact: () => ({} as Contact),
+  modals: () => ({} as Modals),
 });
 
 /** Эмиты */
