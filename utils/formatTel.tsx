@@ -1,5 +1,4 @@
-/** Маска телефонного номера */
-const matrix = '+7(___)___-__-__';
+import { PHONE_MASK } from '~/constants';
 
 /**
  * Получить номер телефона в полной форме
@@ -46,7 +45,7 @@ export function getTelUsingMask(value: string): string {
   let numberCounter = 0;
 
   /** Строка с минимальным разрешенным количеством чисел */
-  const minNumbers = matrix.replace(/\D/g, '');
+  const minNumbers = PHONE_MASK.replace(/\D/g, '');
 
   // Обработать вариант, когда пользователь ввел слишком короткий номер
   if (minNumbers.length >= numberValues.length) numberValues = minNumbers;
@@ -68,5 +67,5 @@ export function getTelUsingMask(value: string): string {
   };
 
   // Вернуть обработанный текст
-  return matrix.replace(/./g, replacer);
+  return PHONE_MASK.replace(/./g, replacer);
 }

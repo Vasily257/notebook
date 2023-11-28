@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { removeExtraSpaces } from '~/utils/formatText';
 import { getTelUsingMask } from '~/utils/formatTel';
+import { PHONE_MASK } from '~/constants';
 
 /** Типы пропсов */
 interface Props {
@@ -37,9 +38,6 @@ const props = withDefaults(defineProps<Props>(), {
 /** Эмиты */
 const emits = defineEmits(['update:modelValue', 'customFocusIn']);
 
-/** Маска телефонного номера */
-const TEL_MAXTRIX = '+7(___)___-__-__';
-
 /** CSS-классы для поля ввода */
 const fieldClass = computed(() => {
   return {
@@ -56,7 +54,7 @@ const handleFocusOut = (event: FocusEvent) => {
   if (event.target instanceof HTMLInputElement && event.target.type === 'tel') {
     const target = event.target;
 
-    if (target.value === TEL_MAXTRIX || target.value === '+7') {
+    if (target.value === PHONE_MASK || target.value === '+7') {
       target.value = '';
     }
   }
@@ -75,7 +73,7 @@ const handleFocusIn = (event: FocusEvent) => {
     const target = event.target;
 
     if (target.type === 'tel' && target.value === '') {
-      target.value = TEL_MAXTRIX;
+      target.value = PHONE_MASK;
 
       // Перевести каретку на 3 символ
       setTimeout(() => {

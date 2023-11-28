@@ -3,6 +3,7 @@ import useForm from '~/composables/form';
 import { getShortTel, getFullTel } from '~/utils/formatTel';
 import { getNow, removeTime } from '~/utils/formatDate';
 import not from '~/utils/not';
+import { PHONE_MASK } from '~/constants';
 import { ContactCategory, type Contact } from '~/types/contact';
 import { ModalTypes, type Modals } from '~/types/modal';
 
@@ -51,7 +52,7 @@ const FIELDS = [
     labelText: 'Имя',
     placeholder: 'Например «Андрей»...',
   },
-  { name: 'tel', type: 'tel', labelText: 'Телефон', placeholder: '+7(___)___-__-__' },
+  { name: 'tel', type: 'tel', labelText: 'Телефон', placeholder: PHONE_MASK },
   {
     name: 'email',
     type: 'email',
