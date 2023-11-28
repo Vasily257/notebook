@@ -38,6 +38,7 @@ watch(
       id="contact-filter"
       :options="FILTER_OPTIONS"
       v-model="currentFilter"
+      is-filter
       class="contact-filter__dropdown"
     />
     <BaseButton class="contact-filter__button" @button-click="emits('goToNewPage')">

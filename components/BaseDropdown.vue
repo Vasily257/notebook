@@ -20,6 +20,8 @@ interface Props {
   isRequired?: boolean;
   /** Значения внутри выпадающего меню */
   options: string[];
+  /** Яляется ли выпадающее меню фильтром */
+  isFilter: boolean;
 }
 
 /** Пропсы со значениями по умолчанию */
@@ -29,6 +31,7 @@ const props = withDefaults(defineProps<Props>(), {
   isErrorShown: false,
   isRequired: false,
   options: () => [],
+  isFilter: false,
 });
 
 /** Эмиты */
@@ -70,23 +73,24 @@ const principalButtonIconClass = computed(() => {
 });
 
 /**
- * Получить класс кнопки меню
- * @param index индекс кнопки (элемента меню)
- */
-const getItemButtonClass = (index: number) => {
-  return {
-    'dropdown__item-button': true,
-    'dropdown__item-button--first': index === 0,
-    'dropdown__item-button--last': index === props.options.length - 1,
-  };
-};
-
-/**
  * Является ли опция выбранной
  * @param menuOption опция в меню
  */
 const isSelectedOption = (menuOption: string) => {
   return menuOption === props.modelValue;
+};
+
+/**
+ * Получить класс кнопки меню
+ * @param index индекс кнопки (элемента меню)
+ */
+const getItemButtonClass = (index: number, option: string) => {
+  return {
+    'dropdown__item-button': true,
+    'dropdown__item-button--first': index === 0,
+    'dropdown__item-button--last': index === props.options.length - 1,
+    'dropdown__item-button--bold': props.isFilter && isSelectedOption(option),
+  };
 };
 
 /**
@@ -272,7 +276,7 @@ onBeforeUnmount(() => {
           class="dropdown__menu-item"
         >
           <BaseButton
-            :class="getItemButtonClass(index)"
+            :class="getItemButtonClass(index, option)"
             tabindex="-1"
             role="menuitem"
             @click="handleMenuButtonClick"
@@ -419,6 +423,10 @@ onBeforeUnmount(() => {
     &--last {
       border-bottom-right-radius: 4px;
       border-bottom-left-radius: 4px;
+    }
+
+    &--bold {
+      font-weight: 700;
     }
   }
 }
