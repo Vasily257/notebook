@@ -25,7 +25,7 @@
 `Vue` `SCSS` `TypeScript` `Nuxt`
 
 ## Ссылки
-Опубликованый сайт: https://notebook-test.netlify.app/
+Опубликованый сайт: https://notebook-test.netlify.app/  
 ТЗ: https://docs.google.com/document/d/1gj0POILT6ofnL24eVdmduc8FO20dTfGAaqH-ffgWDds/  
 Макет: https://www.figma.com/file/ct6rzbxMtNxSYp4eTXEWv6/Frontend-test?type=design&node-id=0-1&mode=design&t=i9sNcEw7V0NMRwUE-0  
 
